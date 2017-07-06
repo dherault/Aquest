@@ -1,0 +1,53 @@
+@prefix : <http://foo.com#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Person
+  a owl:Class ;
+  rdfs:subClassOf :Thing ;
+  rdfs:label "Person"@en ;
+  rdfs:comment "A human being regarded as an individual."@en ;
+  rdfs:seeAlso schema:Person .
+
+:firstName
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:label "Given name"@en ;
+  rdfs:comment "In the U.S., the first name of a Person."@en ;
+  rdfs:domain :Person ;
+  rdfs:range xsd:string ;
+  rdfs:seeAlso schema:givenName .
+
+:lastName
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:label "Family name"@en ;
+  rdfs:comment "In the U.S., the last name of a Person."@en ;
+  rdfs:domain :Person ;
+  rdfs:range xsd:string ;
+  rdfs:seeAlso schema:familyName .
+
+:intro
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:label "Introduction"@en ;
+  rdfs:domain :Person ;
+  rdfs:range xsd:string .
+
+:email
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:label "Email"@en ;
+  rdfs:comment "The email address of the Person."@en ;
+  rdfs:domain :Person ;
+  rdfs:range xsd:string ;
+  rdfs:seeAlso schema:email .
+
+:pictureUrl
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:domain :Person ;
+  rdfs:range xsd:string .
+
+:milestoneInstances
+  a owl:ObjectProperty ;
+  rdfs:domain :Person ;
+  rdfs:range :MilestoneInstance ;
+  owl:inverseOf :hasSourcePerson .

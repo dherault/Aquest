@@ -1,0 +1,9 @@
+@prefix : <http://foo.com#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Milestone
+  a owl:Class ;
+  rdfs:subClassOf owl:Thing ;
+  rdfs:label "Milestone"@en ;
+  rdfs:comment "A significant step in the application usage."@en .

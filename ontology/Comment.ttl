@@ -1,0 +1,32 @@
+@prefix : <http://foo.com#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Comment
+  a owl:Class ;
+  rdfs:subClassOf :Thing ;
+  rdfs:label "Comment"@en ;
+  rdfs:comment "A Comment on a thread."@en .
+
+:message
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:label "Message"@en ;
+  rdfs:comment "The content of a comment."@en ;
+  rdfs:domain :Comment ;
+  rdfs:range xsd:string .
+
+:thread
+  a owl:ObjectProperty, owl:FunctionalProperty ;
+  rdfs:label "Comments on"@en ;
+  rdfs:comment "The topic of the discussion the Comment belongs to."@en ;
+  rdfs:domain :Comment ;
+  rdfs:range :Thing ;
+  owl:inverseOf :comments .
+
+:repliesToComment
+  a owl:ObjectProperty, owl:FunctionalProperty ;
+  rdfs:label "Replies to comment"@en ;
+  rdfs:comment "The Comment this Comment replies to."@en ;
+  rdfs:domain :Comment ;
+  rdfs:range :Comment .

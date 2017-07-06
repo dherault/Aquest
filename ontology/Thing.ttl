@@ -1,0 +1,45 @@
+@prefix : <http://foo.com#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Thing
+  a owl:Class ;
+  rdfs:subClassOf owl:Thing ;
+  rdfs:comment "The unifiying class of all user-sourced data."@en .
+
+:createdAt
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:label "Date created"@en ;
+  rdfs:comment "Datetime at which the Thing was created."@en ;
+  rdfs:domain :Thing ;
+  rdfs:range xsd:dateTime .
+
+:modifiedAt
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:label "Date modified"@en ;
+  rdfs:comment "Datetime at which the Thing was modified."@en ;
+  rdfs:domain :Thing ;
+  rdfs:range xsd:dateTime .
+
+:sourcePerson
+  a owl:ObjectProperty, owl:FunctionalProperty ;
+  rdfs:label "Source person"@en ;
+  rdfs:comment "The Person (user) that originated the creation of the Thing."@en ;
+  rdfs:domain :Thing ;
+  rdfs:range :Person .
+
+:sourceIp
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:label "Source IP"@en ;
+  rdfs:comment "The IP address that created the Thing."@en ;
+  rdfs:domain :Thing ;
+  rdfs:range xsd:dateTime .
+
+:comments
+  a owl:ObjectProperty ;
+  rdfs:label "Has comments"@en ;
+  rdfs:comment "The Comments about that Thing."@en ;
+  rdfs:domain :Thing ;
+  rdfs:range :Comment ;
+  owl:inverseOf :thread .

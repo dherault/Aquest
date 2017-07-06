@@ -1,0 +1,16 @@
+@prefix : <http://foo.com#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:MilestoneInstance
+  a owl:Class ;
+  rdfs:subClassOf :Thing ;
+  rdfs:label "MilestoneInstance"@en ;
+  rdfs:comment "A proof that a Person has reached a Milestone in the application."@en .
+
+:milestone
+  a owl:FunctionalProperty, owl:ObjectProperty ;
+  rdfs:range :Milestone ;
+  rdfs:domain :MilestoneInstance .
+
+# No need for additionnal data like a value for now
