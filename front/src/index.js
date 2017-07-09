@@ -7,9 +7,8 @@ import { QueryRenderer, graphql } from 'react-relay';
 import environment from './relayEnvironment';
 
 import User from './User';
-// import Skills from './Skills'
+import SkillList from './SkillList';
 
-// Super ugly and impractical but will do for now
 const renderApp = ({ error, props }) => (
   <Router>
     <div>
@@ -22,7 +21,10 @@ const renderApp = ({ error, props }) => (
       {!!error && <pre>{JSON.stringify(error, null, 2)}</pre>}
 
       {props ? (
-        <Route exact path="/" render={p => <User {...p} user={props.user} />} />
+        <div>
+          <Route exact path="/" render={p => <User {...p} user={props.user} />} />
+          <Route exact path="/skills" render={p => <SkillList {...p} individuals={props.individuals} />} />
+        </div>
       ) : (
         <div>
           Loading...
@@ -36,6 +38,9 @@ const query = graphql`
   query srcQuery {
     user {
       ...User_user
+    }
+    individuals {
+      ...SkillList_individuals
     }
   }
 `;

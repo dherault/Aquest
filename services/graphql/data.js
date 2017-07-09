@@ -32,5 +32,10 @@ module.exports = [
     intro: 'And harder',
     comments: comments.map(c => c.id),
   },
+  {
+    id: 'b',
+    type: 'Skill',
+    label: 'Math',
+  },
   ...comments,
 ];

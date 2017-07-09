@@ -4,7 +4,7 @@ const data = require('../data');
 const _ = require('../graph');
 
 module.exports = mutationWithClientMutationId({
-  name: 'createSkill',
+  name: 'CreateSkill',
   inputFields: {
     label: {
       type: new GraphQLNonNull(GraphQLString),
