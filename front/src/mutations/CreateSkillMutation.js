@@ -30,7 +30,9 @@ function sharedUpdater(store, individuals, newEdge) {
   ConnectionHandler.insertEdgeAfter(conn, newEdge);
 }
 
-const createSkill = (input, individuals) => console.log('input:', input) || commitMutation(environment, {
+let tempId = 0;
+
+const createSkill = (input, individuals) => commitMutation(environment, {
   mutation,
   variables: { input },
   updater(store) {
@@ -38,14 +40,18 @@ const createSkill = (input, individuals) => console.log('input:', input) || comm
     console.log('neww': newEdge);
     sharedUpdater(store, individuals, newEdge);
   },
-  // optimisticResponse: () => ({
-  //   skill: variables,
-  // }),
-  // onCompleted?: ?(response: ?Object) => void,
-  // onError?: ?(error: Error) => void,
-  // optimisticResponse?: ?() => Object,
-  // optimisticUpdater?: ?(store: RecordSourceProxy) => void,
-  // updater?: ?(store: RecordSourceSelectorProxy) => void,
+  optimisticUpdater(store) {
+    const id = 'client:newSkill:' + tempId++;
+    const node = store.create(id, 'Skill');
+    node.setValue(input.label, 'label');
+    node.setValue(id, 'id');
+
+    const newEdge = store.create('client:newEdge:' + tempId++, 'SkillEdge');
+
+    newEdge.setLinkedRecord(node, 'node');
+
+    sharedUpdater(store, individuals, newEdge);
+  },
 });
 
 export default createSkill

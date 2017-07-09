@@ -30,6 +30,6 @@ module.exports = mutationWithClientMutationId({
 
     data.push(skill);
 
-    return { skill };
+    return new Promise(resolve => setTimeout(() => resolve({ skill }), 2000));
   },
 });
