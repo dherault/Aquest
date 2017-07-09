@@ -1,5 +1,5 @@
-const { GraphQLSchema, GraphQLObjectType, GraphQLList } = require('graphql');
-const { connectionArgs, connectionFromArray } = require('graphql-relay');
+const { GraphQLSchema, GraphQLObjectType } = require('graphql');
+const IndividualsType = require('./customTypes/IndividualsType');
 const data = require('./data');
 const _ = require('./graph');
 
@@ -14,19 +14,7 @@ module.exports = new GraphQLSchema({
         type: _.getObjectType('http://foo.com#Person'),
         resolve: () => data[0],
       },
-      individuals: {
-        type: new GraphQLObjectType({
-          name: 'Individuals',
-          fields: {
-            skills: {
-              type: _.getConnectionType('http://foo.com#Skill'),
-              args: connectionArgs,
-              resolve: (source, args) => connectionFromArray(data.filter(n => n.type === 'Skill'), args),
-            },
-          },
-        }),
-        resolve: () => ({}),
-      },
+      individuals: IndividualsType.field,
     },
   }),
   mutation: new GraphQLObjectType({

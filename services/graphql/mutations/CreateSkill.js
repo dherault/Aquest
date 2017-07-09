@@ -1,5 +1,6 @@
 const { GraphQLNonNull, GraphQLString } = require('graphql');
-const { mutationWithClientMutationId } = require('graphql-relay');
+const { mutationWithClientMutationId, cursorForObjectInConnection } = require('graphql-relay');
+const IndividualsType = require('../customTypes/IndividualsType');
 const data = require('../data');
 const _ = require('../graph');
 
@@ -11,10 +12,14 @@ module.exports = mutationWithClientMutationId({
     },
   },
   outputFields: {
-    skill: {
-      type: _.getObjectType('http://foo.com#Skill'),
-      resolve: payload => payload.skill,
+    skillEdge: {
+      type: _.getEdgeType('http://foo.com#Skill'),
+      resolve: ({ skill }) => ({
+        cursor: cursorForObjectInConnection(data.filter(x => x.type === 'Skill'), skill),
+        node: skill,
+      }),
     },
+    individuals: IndividualsType.field,
   },
   mutateAndGetPayload({ label }) {
     const skill = {

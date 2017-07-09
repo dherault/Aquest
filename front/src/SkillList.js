@@ -1,7 +1,7 @@
 // import './Skills.css';
 import React, { Component } from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
-import createSkill from './mutations/createSkill';
+import createSkill from './mutations/CreateSkillMutation';
 
 class SkillList extends Component {
   state = { label: '' }
@@ -20,7 +20,7 @@ class SkillList extends Component {
         <strong>{`${edges.length} skills`}</strong>
 
         <input type="text" value={label} onChange={e => this.setState({ label: e.target.value })} />
-        <button onClick={() => createSkill(this.state)}>Create</button>
+        <button onClick={() => createSkill(this.state, individuals)}>Create</button>
 
         <ol>
           {edges.map(s => <li key={s.node.id}>{s.node.label}</li>)}
@@ -32,6 +32,7 @@ class SkillList extends Component {
 
 export default createFragmentContainer(SkillList, graphql`
   fragment SkillList_individuals on Individuals {
+    id
     skills(
       first: 2147483647  # max GraphQLInt
     ) @connection(key: "SkillList_skills") {
