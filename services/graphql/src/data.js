@@ -30,7 +30,8 @@ module.exports = [
     firstName: 'Andy',
     lastName: 'Tryhard',
     intro: 'And harder',
-    comments: comments.map(c => c.id),
+    acquiredSkills: ['b'],
+    // comments: comments.map(c => c.id),
   },
   {
     id: 'b',

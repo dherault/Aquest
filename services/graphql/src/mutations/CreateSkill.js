@@ -1,6 +1,7 @@
 const { GraphQLNonNull, GraphQLString } = require('graphql');
 const { mutationWithClientMutationId, cursorForObjectInConnection } = require('graphql-relay');
 const IndividualsType = require('../customTypes/IndividualsType');
+const addCommonFields = require('../utils/addCommonFields');
 const data = require('../data');
 const _ = require('../graph');
 
@@ -21,15 +22,16 @@ module.exports = mutationWithClientMutationId({
     },
     individuals: IndividualsType.field,
   },
-  mutateAndGetPayload({ label }) {
-    const skill = {
+  mutateAndGetPayload({ label }, context) {
+    const skill = addCommonFields(context, {
       label,
       type: 'Skill',
       id: Math.random(),
-    };
+    });
 
     data.push(skill);
 
-    return new Promise(resolve => setTimeout(() => resolve({ skill }), 2000));
+    // return new Promise(resolve => setTimeout(() => resolve({ skill }), 2000));
+    return { skill };
   },
 });

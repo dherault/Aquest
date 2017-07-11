@@ -4,7 +4,7 @@ const SemanticGraph = require('semantic-graphql');
 
 const resolvers = require('./resolvers');
 
-const inputDir = path.join(__dirname, '../../ontology');
+const inputDir = path.join(__dirname, '../../../ontology');
 
 const _ = new SemanticGraph(resolvers, { relay: true });
 
@@ -13,6 +13,3 @@ fs.readdirSync(inputDir).forEach(name => name.endsWith('.ttl') && _.parseFile(pa
 console.log(`graph created: ${_}`);
 
 module.exports = _;
-// Register connections
-// This will add the proper mechanics around the field (ie the connectionArgs and the connectionResolver)
-// _['http://foo.com#hasComments'].isRelayConnection = true;

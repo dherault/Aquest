@@ -51,5 +51,6 @@ ReactDOM.render(
     render={renderApp}
     environment={environment}
   />,
-  document.getElementById('root')
+  document.getElementById('root'),
+  () => console.log('App rendered yo !')
 );

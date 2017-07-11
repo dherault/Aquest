@@ -1,8 +1,10 @@
 const graphqlHTTP = require('express-graphql');
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 const schema = require('./schema');
+const data = require('./data');
+
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 const formatError = isDevelopment ?
@@ -13,7 +15,7 @@ const server = express()
 .use(cors())
 .use(bodyParser.urlencoded({ extended: false }))
 .use(bodyParser.json())
-.use('/graphql', (req, res, next) => {
+.use('/graphql', (req, res) => {
 
   /* Log query */
 
@@ -35,6 +37,7 @@ const server = express()
     formatError,
     pretty: true,
     graphiql: isDevelopment,
+    context: { userId: data[0].id },
   })(req, res);
 })
 .listen(3001, err => console.log(err || 'GraphQL endpoint listening on port 3001\n'));

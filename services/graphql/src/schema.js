@@ -1,9 +1,12 @@
+require('./customFields');
+
 const { GraphQLSchema, GraphQLObjectType } = require('graphql');
 const IndividualsType = require('./customTypes/IndividualsType');
 const data = require('./data');
 const _ = require('./graph');
 
 const createSkill = require('./mutations/CreateSkill');
+const acquireSkill = require('./mutations/AcquireSkill');
 
 module.exports = new GraphQLSchema({
   query: new GraphQLObjectType({
@@ -21,6 +24,7 @@ module.exports = new GraphQLSchema({
     name: 'Mutation',
     fields: {
       createSkill,
+      acquireSkill,
     },
   }),
 });

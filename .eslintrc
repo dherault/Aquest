@@ -1,0 +1,11 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "no-console": "off",
+    "padded-blocks": "off",
+    "brace-style": ["error", "stroustrup"],
+    "max-len": "off",
+    "react/jsx-filename-extension": "off",
+    "react/prop-types": "off",
+  },
+}

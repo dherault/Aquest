@@ -37,7 +37,6 @@ const createSkill = (input, individuals) => commitMutation(environment, {
   variables: { input },
   updater(store) {
     const newEdge = store.getRootField('createSkill').getLinkedRecord('skillEdge');
-    console.log('neww': newEdge);
     sharedUpdater(store, individuals, newEdge);
   },
   optimisticUpdater(store) {
