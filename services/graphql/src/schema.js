@@ -24,7 +24,7 @@ module.exports = new GraphQLSchema({
     name: 'Mutation',
     fields: {
       createSkill,
-      toggleSkill,
+      toggleSkill ,
     },
   }),
 });

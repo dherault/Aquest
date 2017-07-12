@@ -26,7 +26,7 @@ module.exports = mutationWithClientMutationId({
     const skill = addCommonFields(context, {
       label,
       type: 'Skill',
-      id: Math.random(),
+      id: Math.random().toString().slice(2),
     });
 
     data.push(skill);

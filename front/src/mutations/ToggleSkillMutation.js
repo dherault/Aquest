@@ -40,7 +40,11 @@ const toggleSkill = (skillId, user) => commitMutation(environment, {
   mutation,
   variables: { input: { skillId: toClearId(skillId) } },
   updater(store) {
-    const skillEdge = store.getRootField('toggleSkill').getLinkedRecord('skillEdge');
+    const payload = store.getRootField('toggleSkill');
+
+    if (!payload) return console.log('No payload');
+
+    const skillEdge = payload.getLinkedRecord('skillEdge');
     sharedUpdater(store, user, skillEdge, skillId);
   },
   // optimisticUpdater(store) {

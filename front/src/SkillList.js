@@ -11,7 +11,7 @@ class SkillList extends Component {
     const { individuals, user } = this.props;
 
     if (!(individuals && individuals.skills)) return console.log('no Skills props') || null;
-    console.log('user', user);
+
     const { label } = this.state;
     const { edges } = individuals.skills;
 
@@ -19,23 +19,22 @@ class SkillList extends Component {
 
     return (
       <div className="Skills" style={{ textAlign: 'center' }}>
-        <h1>Skills</h1>
-        <strong>{`${edges.length} skills`}</strong>
+        <h1>{`${edges.length} Skills`}</h1>
 
         <input type="text" value={label} onChange={e => this.setState({ label: e.target.value })} />
         <button onClick={() => createSkill(this.state, individuals)}>Create</button>
 
-        <ul>
+        <div>
           {edges.map(({ node: { id, label } }) =>
-            <li
+            <div
               key={id}
               onClick={() => toggleSkill(id, user)}
               style={{ fontWeight: acquiredSkillIds.includes(id) ? 'bold' : 'normal' }}
             >
               {label}
-            </li>
+            </div>
           )}
-        </ul>
+        </div>
       </div>
     );
   }

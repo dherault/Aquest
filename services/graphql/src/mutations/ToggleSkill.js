@@ -31,6 +31,7 @@ module.exports = mutationWithClientMutationId({
     const user = data.find(x => x.id === userId);
     const skill = data.find(x => x.id === skillId);
 
+    console.log('data', data.filter(t => t.type === 'Skill').map(t => t.id));
     if (!skill) throw new Error('Skill not found');
     if (!user.acquiredSkills) user.acquiredSkills = [];
 
