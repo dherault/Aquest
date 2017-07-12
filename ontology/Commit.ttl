@@ -1,0 +1,23 @@
+@prefix : <http://foo.com#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Commit
+  a owl:Class ;
+  rdfs:subClassOf :Thing ;
+  rdfs:label "Commit"@en ;
+  rdfs:comment "A substancial improvment of a Skill."@en .
+
+:description
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:label "Description"@en ;
+  rdfs:comment "Description"@en ;
+  rdfs:domain :Commit ;
+  rdfs:range xsd:string .
+
+:skill
+  a owl:ObjectProperty, owl:FunctionalProperty ;
+  rdfs:domain :Commit ;
+  rdfs:range :Skill .

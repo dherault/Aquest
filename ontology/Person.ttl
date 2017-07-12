@@ -57,3 +57,10 @@
   a owl:ObjectProperty ;
   rdfs:domain :Person ;
   rdfs:range :Skill .
+
+:commits
+  rdfs:comment "The Commits the Person has."@en ;
+  a owl:ObjectProperty ;
+  rdfs:domain :Person ;
+  rdfs:range :Commit ;
+  owl:inverseOf :hasSourcePerson .
