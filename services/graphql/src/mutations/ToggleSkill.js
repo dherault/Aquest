@@ -1,16 +1,20 @@
-const { GraphQLNonNull, GraphQLString } = require('graphql');
+const { GraphQLNonNull, GraphQLID, GraphQLBoolean } = require('graphql');
 const { mutationWithClientMutationId, cursorForObjectInConnection } = require('graphql-relay');
 const data = require('../data');
 const _ = require('../graph');
 
 module.exports = mutationWithClientMutationId({
-  name: 'AquireSkill',
+  name: 'ToggleSkill',
   inputFields: {
-    label: {
-      type: new GraphQLNonNull(GraphQLString),
+    skillId: {
+      type: new GraphQLNonNull(GraphQLID),
     },
   },
   outputFields: {
+    toggled: {
+      type: GraphQLBoolean,
+      resolve: ({ toggled }) => toggled,
+    },
     skillEdge: {
       type: _.getEdgeType('http://foo.com#Skill'),
       resolve: ({ user, skill }) => ({
@@ -29,11 +33,16 @@ module.exports = mutationWithClientMutationId({
 
     if (!skill) throw new Error('Skill not found');
     if (!user.acquiredSkills) user.acquiredSkills = [];
-    if (!user.acquiredSkills.includes(skillId)) {
-      user.acquiredSkills.push(skillId);
-      user.updatedAt = new Date().toISOString();
-    }
 
-    return { user, skill };
+    const acquiredSkillIds = new Set(user.acquiredSkills);
+    const prevToggled = acquiredSkillIds.has(skillId);
+
+    if (prevToggled) acquiredSkillIds.delete(skillId);
+    else acquiredSkillIds.add(skillId);
+
+    user.acquiredSkills = [...acquiredSkillIds];
+    user.updatedAt = new Date().toISOString();
+
+    return { user, skill, toggled: !prevToggled };
   },
 });

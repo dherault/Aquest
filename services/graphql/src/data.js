@@ -25,18 +25,28 @@ const comments = [
 
 module.exports = [
   {
-    id: 'a',
+    id: 'Andy',
     type: 'Person',
     firstName: 'Andy',
     lastName: 'Tryhard',
     intro: 'And harder',
-    acquiredSkills: ['b'],
+    acquiredSkills: ['Math', 'Programming'],
     // comments: comments.map(c => c.id),
   },
   {
-    id: 'b',
+    id: 'Math',
     type: 'Skill',
     label: 'Math',
+  },
+  {
+    id: 'Programming',
+    type: 'Skill',
+    label: 'Programming',
+  },
+  {
+    id: 'Sport',
+    type: 'Skill',
+    label: 'Sport',
   },
   ...comments,
 ];

@@ -6,7 +6,7 @@ const data = require('./data');
 const _ = require('./graph');
 
 const createSkill = require('./mutations/CreateSkill');
-const acquireSkill = require('./mutations/AcquireSkill');
+const toggleSkill = require('./mutations/ToggleSkill');
 
 module.exports = new GraphQLSchema({
   query: new GraphQLObjectType({
@@ -24,7 +24,7 @@ module.exports = new GraphQLSchema({
     name: 'Mutation',
     fields: {
       createSkill,
-      acquireSkill,
+      toggleSkill,
     },
   }),
 });

@@ -23,7 +23,7 @@ const renderApp = ({ error, props }) => (
       {props ? (
         <div>
           <Route exact path="/" render={p => <User {...p} user={props.user} />} />
-          <Route exact path="/skills" render={p => <SkillList {...p} individuals={props.individuals} />} />
+          <Route exact path="/skills" render={p => <SkillList {...p} user={props.user} individuals={props.individuals} />} />
         </div>
       ) : (
         <div>
@@ -38,6 +38,7 @@ const query = graphql`
   query srcQuery {
     user {
       ...User_user
+      ...SkillList_user
     }
     individuals {
       ...SkillList_individuals
