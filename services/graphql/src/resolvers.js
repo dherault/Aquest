@@ -13,7 +13,7 @@ module.exports = {
   },
   resolveResource(id) {
     console.log('resolveResource', id);
-    console.log('typeof id:', typeof id);
+    // console.log('typeof id:', typeof id);
 
     return data.find(n => n.id === id);
   },

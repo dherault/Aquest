@@ -5,6 +5,7 @@ const IndividualsType = require('./customTypes/IndividualsType');
 const data = require('./data');
 const _ = require('./graph');
 
+const createCommit = require('./mutations/CreateCommit');
 const createSkill = require('./mutations/CreateSkill');
 const toggleSkill = require('./mutations/ToggleSkill');
 
@@ -23,8 +24,9 @@ module.exports = new GraphQLSchema({
   mutation: new GraphQLObjectType({
     name: 'Mutation',
     fields: {
+      createCommit,
       createSkill,
-      toggleSkill ,
+      toggleSkill,
     },
   }),
 });

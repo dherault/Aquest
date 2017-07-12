@@ -25,7 +25,7 @@ const mutation = graphql`
 function sharedUpdater(store, user, skillEdge, skillId) {
   // console.log('user', user);
   const userProxy = store.get(user.id);
-  const conn = ConnectionHandler.getConnection(userProxy, 'User_acquiredSkills');
+  const conn = ConnectionHandler.getConnection(userProxy, 'user_skills');
   const toggled = store.getRootField('toggleSkill').getValue('toggled');
 
   // console.log('toggled', toggled);
@@ -38,7 +38,12 @@ function sharedUpdater(store, user, skillEdge, skillId) {
 
 const toggleSkill = (skillId, user) => commitMutation(environment, {
   mutation,
-  variables: { input: { skillId: toClearId(skillId) } },
+  variables: {
+    input: {
+      skillId: toClearId(skillId),
+      clientMutationId: Math.random().toString().slice(2),
+    },
+  },
   updater(store) {
     const payload = store.getRootField('toggleSkill');
 

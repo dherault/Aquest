@@ -18,7 +18,7 @@ module.exports = mutationWithClientMutationId({
     skillEdge: {
       type: _.getEdgeType('http://foo.com#Skill'),
       resolve: ({ user, skill }) => ({
-        cursor: cursorForObjectInConnection(user.acquiredSkills.map(id => data.find(x => x.id === id)), skill),
+        cursor: cursorForObjectInConnection(user.skills.map(id => data.find(x => x.id === id)), skill),
         node: skill,
       }),
     },
@@ -33,15 +33,15 @@ module.exports = mutationWithClientMutationId({
 
     console.log('data', data.filter(t => t.type === 'Skill').map(t => t.id));
     if (!skill) throw new Error('Skill not found');
-    if (!user.acquiredSkills) user.acquiredSkills = [];
+    if (!user.skills) user.skills = [];
 
-    const acquiredSkillIds = new Set(user.acquiredSkills);
-    const prevToggled = acquiredSkillIds.has(skillId);
+    const userSkillIds = new Set(user.skills);
+    const prevToggled = userSkillIds.has(skillId);
 
-    if (prevToggled) acquiredSkillIds.delete(skillId);
-    else acquiredSkillIds.add(skillId);
+    if (prevToggled) userSkillIds.delete(skillId);
+    else userSkillIds.add(skillId);
 
-    user.acquiredSkills = [...acquiredSkillIds];
+    user.skills = [...userSkillIds];
     user.updatedAt = new Date().toISOString();
 
     return { user, skill, toggled: !prevToggled };

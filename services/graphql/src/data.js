@@ -30,7 +30,7 @@ module.exports = [
     firstName: 'Andy',
     lastName: 'Tryhard',
     intro: 'And harder',
-    acquiredSkills: ['Math', 'Programming'],
+    skills: ['Math', 'Programming'],
     // comments: comments.map(c => c.id),
   },
   {
@@ -47,6 +47,14 @@ module.exports = [
     id: 'Sport',
     type: 'Skill',
     label: 'Sport',
+  },
+  {
+    id: 'commit1',
+    type: 'Commit',
+    label: 'Fist commit',
+    skill: 'Math',
+    sourcePerson: 'Andy',
+    createdAt: '2017-07-12T13:58:16.314Z',
   },
   ...comments,
 ];

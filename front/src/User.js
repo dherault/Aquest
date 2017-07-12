@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
+import createCommit from './mutations/CreateCommitMutation';
 import './User.css';
 
 class User extends Component {
@@ -9,21 +10,27 @@ class User extends Component {
 
   submitCommit = e => {
     e.preventDefault();
+
+    const { user } = this.props;
+    const { commitSkillId, commitLabel } = this.state;
+
+    createCommit(commitSkillId, commitLabel, user);
   }
 
   componentWillMount() {
-    if (!this.props.user.acquiredSkills.edges.length) return;
+    if (!this.props.user.skills.edges.length) return;
 
     this.setState({
-      commitDescription: '',
-      commitSkillId: this.props.user.acquiredSkills.edges[0].node.id,
+      commitLabel: '',
+      commitSkillId: this.props.user.skills.edges[0].node.id,
     });
   }
 
   render() {
     const { user } = this.props;
-    const { commitDescription, commitSkillId } = this.state;
-    const acquiredSkillNodes = user.acquiredSkills.edges.map(e => e.node);
+    const { commitLabel, commitSkillId } = this.state;
+    const skills = user.skills.edges.map(e => e.node);
+    const commits = user.commits.edges.map(e => e.node);
 
     return (
       <div className="User">
@@ -39,17 +46,26 @@ class User extends Component {
 
         <section>
           <h2>Skill list</h2>
-          <ul>
-            {acquiredSkillNodes.map(n => n.label)}
-          </ul>
+          {skills.map(({ id, label }) => (
+            <div key={id}>
+              <h3>{label}</h3>
+              {commits.filter(c => c.skill.id === id).map(c => (
+                <div key={c.id}>
+                  <strong>{c.label}</strong>
+                  &nbsp;
+                  <span>{new Date(c.createdAt).toLocaleString()}</span>
+                </div>
+              ))}
+            </div>
+          ))}
         </section>
 
-        {!!acquiredSkillNodes.length && (
+        {!!skills.length && (
           <section>
             <form onSubmit={this.submitCommit}>
-              <input type="text" value={commitDescription} onChange={this.updateState('commitDescription')}/>
+              <input type="text" value={commitLabel} onChange={this.updateState('commitLabel')}/>
               <select value={commitSkillId} onChange={this.updateState('commitSkillId')}>
-                {acquiredSkillNodes.map(n => (
+                {skills.map(n => (
                   <option key={n.id} value={n.id}>
                     {n.label}
                   </option>
@@ -68,17 +84,30 @@ class User extends Component {
 
 export default createFragmentContainer(User, graphql`
   fragment User_user on Person {
+    id
     firstName
     lastName
     intro
     pictureUrl
-    acquiredSkills(
-      first: 2147483647  # max GraphQLInt
-    ) @connection(key: "User_acquiredSkills") {
+
+    skills(first: 2147483647) @connection(key: "user_skills") {
       edges {
         node {
           id
           label
+        }
+      }
+    }
+
+    commits(first: 2147483647) @connection(key: "user_commits") {
+      edges {
+        node {
+          id
+          label
+          createdAt
+          skill {
+            id
+          }
         }
       }
     }

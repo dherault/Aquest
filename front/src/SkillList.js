@@ -15,21 +15,21 @@ class SkillList extends Component {
     const { label } = this.state;
     const { edges } = individuals.skills;
 
-    const acquiredSkillIds = user.acquiredSkills.edges.map(({ node }) => node.id);
+    const userSkillIds = user.skills.edges.map(({ node }) => node.id);
 
     return (
       <div className="Skills" style={{ textAlign: 'center' }}>
         <h1>{`${edges.length} Skills`}</h1>
 
         <input type="text" value={label} onChange={e => this.setState({ label: e.target.value })} />
-        <button onClick={() => createSkill(this.state, individuals)}>Create</button>
+        <button onClick={() => createSkill(this.state.label, individuals)}>Create</button>
 
         <div>
           {edges.map(({ node: { id, label } }) =>
             <div
               key={id}
               onClick={() => toggleSkill(id, user)}
-              style={{ fontWeight: acquiredSkillIds.includes(id) ? 'bold' : 'normal' }}
+              style={{ fontWeight: userSkillIds.includes(id) ? 'bold' : 'normal' }}
             >
               {label}
             </div>
@@ -45,7 +45,7 @@ export default createFragmentContainer(SkillList, graphql`
     id
     skills(
       first: 2147483647  # max GraphQLInt
-    ) @connection(key: "SkillList_skills") {
+    ) @connection(key: "individuals_skills") {
       edges {
         node {
           id
@@ -56,9 +56,9 @@ export default createFragmentContainer(SkillList, graphql`
   }
   fragment SkillList_user on Person {
     id
-    acquiredSkills(
+    skills(
       first: 2147483647  # max GraphQLInt
-    ) @connection(key: "User_acquiredSkills") {
+    ) @connection(key: "user_skills") {
       edges {
         node {
           id
