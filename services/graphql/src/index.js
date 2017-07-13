@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const schema = require('./schema');
-const data = require('./data');
+const db = require('./db');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -32,13 +32,16 @@ const server = express()
 
   /* Fetch user data */
 
-  graphqlHTTP({
-    schema,
-    formatError,
-    pretty: true,
-    graphiql: isDevelopment,
-    context: { userId: data[0].id },
-  })(req, res);
+  db.get(db.firstUserKey, (err, userEntity) => {
+    graphqlHTTP({
+      schema,
+      formatError,
+      pretty: true,
+      graphiql: isDevelopment,
+      context: { user: userEntity },
+    })(req, res);
+  });
+
 })
 .listen(3001, err => console.log(err || 'GraphQL endpoint listening on port 3001\n'));
 

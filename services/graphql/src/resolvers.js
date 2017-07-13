@@ -1,5 +1,8 @@
 const { getLocalName } = require('semantic-toolkit');
-const data = require('./data');
+const db = require('./db');
+const { run } = require('./db/queries');
+
+const sortCreatedAt = (a, b) => a.createdAt > b.createdAt ? 1 : -1;
 
 module.exports = {
   resolveSourceId(source) {
@@ -12,22 +15,17 @@ module.exports = {
     return `http://foo.com#${source.type}`;
   },
   resolveResource(id) {
-    console.log('resolveResource', id);
-    // console.log('typeof id:', typeof id);
-
-    return data.find(n => n.id === id);
+    return db.readResourceById(id);
   },
   resolveResources(ids) {
-    console.log('resolveResources', ids);
-
-    return data.filter(n => ids.includes(n.id));
+    return db.readResourcesById(ids);
   },
   resolveResourcesByPredicate(types, iri, value) {
-    const typesLocalNames = types.map(getLocalName);
     const localName = getLocalName(iri);
+    const queries = types.map(type => run(db.createQuery(type).filter(localName, value)));
 
-    console.log('resolvePredicate', typesLocalNames, localName, value);
+    console.log('resolvePredicate', types.map(getLocalName), localName, value);
 
-    return data.filter(n => typesLocalNames.includes(n.type) && n[localName] === value);
+    return Promise.all(queries).then(payloads => payloads.reduce((a, b) => a.concat(b), []).sort(sortCreatedAt));
   },
 };

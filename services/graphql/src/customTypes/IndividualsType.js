@@ -1,6 +1,6 @@
 const { GraphQLObjectType } = require('graphql');
-const { globalIdField, connectionArgs, connectionFromArray } = require('graphql-relay');
-const data = require('../data');
+const { globalIdField, connectionArgs, connectionFromPromisedArray } = require('graphql-relay');
+const { run, skillsQuery } = require('../db/queries');
 const _ = require('../graph');
 
 const IndividualsType = new GraphQLObjectType({
@@ -11,7 +11,7 @@ const IndividualsType = new GraphQLObjectType({
     skills: {
       type: _.getConnectionType('http://foo.com#Skill'),
       args: connectionArgs,
-      resolve: (source, args) => connectionFromArray(data.filter(n => n.type === 'Skill'), args),
+      resolve: (source, args) => connectionFromPromisedArray(run(skillsQuery), args),
     },
   },
 });

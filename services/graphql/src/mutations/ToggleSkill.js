@@ -1,6 +1,6 @@
 const { GraphQLNonNull, GraphQLID, GraphQLBoolean } = require('graphql');
 const { mutationWithClientMutationId, cursorForObjectInConnection } = require('graphql-relay');
-const data = require('../data');
+const db = require('../db');
 const _ = require('../graph');
 
 module.exports = mutationWithClientMutationId({
@@ -17,24 +17,25 @@ module.exports = mutationWithClientMutationId({
     },
     skillEdge: {
       type: _.getEdgeType('http://foo.com#Skill'),
-      resolve: ({ user, skill }) => ({
-        cursor: cursorForObjectInConnection(user.skills.map(id => data.find(x => x.id === id)), skill),
-        node: skill,
-      }),
+      resolve: ({ skillId, toggled }, args, { user }) => {
+        if (!toggled) return null;
+
+        return db.readResourcesById(user.skills).then(skills => {
+          const skill = skills.find(s => s.id === skillId);
+
+          return {
+            cursor: cursorForObjectInConnection(skills, skill),
+            node: skill,
+          };
+        });
+      },
     },
     user: {
       type: _.getObjectType('http://foo.com#Person'),
-      resolve: ({ user }) => user,
+      resolve: (payload, args, { user }) => user,
     },
   },
-  mutateAndGetPayload({ skillId }, { userId }) {
-    const user = data.find(x => x.id === userId);
-    const skill = data.find(x => x.id === skillId);
-
-    console.log('data', data.filter(t => t.type === 'Skill').map(t => t.id));
-    if (!skill) throw new Error('Skill not found');
-    if (!user.skills) user.skills = [];
-
+  mutateAndGetPayload({ skillId }, { user }) {
     const userSkillIds = new Set(user.skills);
     const prevToggled = userSkillIds.has(skillId);
 
@@ -44,6 +45,6 @@ module.exports = mutationWithClientMutationId({
     user.skills = [...userSkillIds];
     user.updatedAt = new Date().toISOString();
 
-    return { user, skill, toggled: !prevToggled };
+    return db.upsertResource(user).then(() => ({ skillId, toggled: !prevToggled }));
   },
 });

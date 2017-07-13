@@ -1,8 +1,9 @@
 const { GraphQLNonNull, GraphQLString } = require('graphql');
 const { mutationWithClientMutationId, cursorForObjectInConnection } = require('graphql-relay');
 const IndividualsType = require('../customTypes/IndividualsType');
-const addCommonFields = require('../utils/addCommonFields');
-const data = require('../data');
+const createResource = require('../utils/createResource');
+const db = require('../db');
+const { run, skillsQuery } = require('../db/queries');
 const _ = require('../graph');
 
 module.exports = mutationWithClientMutationId({
@@ -15,23 +16,20 @@ module.exports = mutationWithClientMutationId({
   outputFields: {
     skillEdge: {
       type: _.getEdgeType('http://foo.com#Skill'),
-      resolve: ({ skill }) => ({
-        cursor: cursorForObjectInConnection(data.filter(x => x.type === 'Skill'), skill),
-        node: skill,
+      resolve: ({ skill: { id } }) => run(skillsQuery).then(skills => {
+        const skill = skills.find(s => s.id === id);
+
+        return {
+          cursor: cursorForObjectInConnection(skills, skill),
+          node: skill,
+        };
       }),
     },
     individuals: IndividualsType.field,
   },
   mutateAndGetPayload({ label }, context) {
-    const skill = addCommonFields(context, {
-      label,
-      type: 'Skill',
-      id: Math.random().toString().slice(2),
-    });
+    const skill = createResource('Skill', context, { label });
 
-    data.push(skill);
-
-    // return new Promise(resolve => setTimeout(() => resolve({ skill }), 2000));
-    return { skill };
+    return db.upsertResource(skill).then(() => ({ skill }));
   },
 });
