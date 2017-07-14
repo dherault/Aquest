@@ -11,6 +11,13 @@
   rdfs:comment "A human being regarded as an individual."@en ;
   rdfs:seeAlso schema:Person .
 
+:pseudo
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:label "Pseudo"@en ;
+  rdfs:comment "A user handle."@en ;
+  rdfs:domain :Person ;
+  rdfs:range xsd:string .
+
 :firstName
   a owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:label "Given name"@en ;

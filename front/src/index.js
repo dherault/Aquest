@@ -1,13 +1,50 @@
 import './index.css';
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { QueryRenderer, graphql } from 'react-relay';
+import PropTypes from 'prop-types';
 
 import environment from './relayEnvironment';
 
 import User from './User';
 import SkillList from './SkillList';
+import Login from './scenes/Login';
+
+class AuthBouncer extends Component {
+  componentWillMount() {
+    this.bounce(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.bounce(nextProps);
+  }
+
+  bounce(props) {
+    if (!this.isAuthenticated(props)) {
+      console.log('Not auth, redirecting...');
+      this.context.router.history.replace('/login');
+    }
+  }
+
+  isAuthenticated(props) {
+    return props.user || this.context.router.route.pathname.endsWith('/login');
+  }
+
+  render() {
+    if (!this.isAuthenticated(this.props)) return null;
+
+    return (
+      <div>
+        {this.props.children}
+      </div>
+    );
+  }
+}
+
+AuthBouncer.contextTypes = {
+  router: PropTypes.object.isRequired,
+};
 
 const renderApp = ({ error, props }) => (
   <Router>
@@ -16,15 +53,18 @@ const renderApp = ({ error, props }) => (
       <h1>Super Cool App</h1>
       <Link to="/">home</Link>
       &nbsp;~&nbsp;
+      <Link to="/login">login</Link>
+      &nbsp;~&nbsp;
       <Link to="/skills">skills</Link>
 
       {!!error && <pre>{JSON.stringify(error, null, 2)}</pre>}
 
       {props ? (
-        <div>
-          <Route exact path="/" render={p => <User {...p} user={props.user} />} />
-          <Route exact path="/skills" render={p => <SkillList {...p} user={props.user} individuals={props.individuals} />} />
-        </div>
+        <AuthBouncer {...props}>
+          <Route exact path="/" render={p => <User {...p} {...props} />} />
+          <Route exact path="/login" render={p => <Login {...p} {...props} />} />
+          <Route exact path="/skills" render={p => <SkillList {...p} {...props} />} />
+        </AuthBouncer>
       ) : (
         <div>
           Loading...
@@ -37,8 +77,10 @@ const renderApp = ({ error, props }) => (
 const query = graphql`
   query srcQuery {
     user {
+      id
       ...User_user
       ...SkillList_user
+      ...Login_user
     }
     individuals {
       ...SkillList_individuals

@@ -1,12 +1,15 @@
 import { Environment, Network, RecordSource, Store } from 'relay-runtime'
 
 // Define a function that fetches the results of an operation (query/mutation/etc)
-function fetchQuery(operation, variables, cacheConfig, uploadables) {
+function fetchQuery(operation, variables/* , cacheConfig, uploadables */) {
+  const headers = { 'Content-Type': 'application/json' };
+  const token = localStorage.getItem('token');
+
+  if (token) headers.authorization = `Bearer ${token}`;
+  
   return fetch('http://localhost:3001/graphql', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    }, // Add authentication and other headers here
+    headers, // Add authentication and other headers here
     body: JSON.stringify({
       query: operation.text, // GraphQL text from input
       variables,

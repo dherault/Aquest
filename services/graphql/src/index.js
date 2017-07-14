@@ -1,9 +1,11 @@
 const graphqlHTTP = require('express-graphql');
 const express = require('express');
+const jwt = require('express-jwt');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const schema = require('./schema');
 const db = require('./db');
+const { jwtSecret } = require('./auth');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -15,6 +17,11 @@ const server = express()
 .use(cors())
 .use(bodyParser.urlencoded({ extended: false }))
 .use(bodyParser.json())
+.use(jwt({
+  secret: jwtSecret,
+  requestProperty: 'auth',
+  credentialsRequired: false,
+}))
 .use('/graphql', (req, res) => {
 
   /* Log query */
@@ -30,6 +37,8 @@ const server = express()
     console.log('body:', req.body);
   }
 
+  console.log('req.auth:', req.auth);
+
   /* Fetch user data */
 
   db.get(db.firstUserKey, (err, userEntity) => {
@@ -38,7 +47,7 @@ const server = express()
       formatError,
       pretty: true,
       graphiql: isDevelopment,
-      context: { user: userEntity },
+      context: { user: null },
     })(req, res);
   });
 
