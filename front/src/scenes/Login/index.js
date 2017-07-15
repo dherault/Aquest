@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import loginUser from '../../mutations/LoginUserMutation';
+import PropTypes from 'prop-types';
 
 class LoginScene extends Component {
   state = { email: '', password: '' }
@@ -41,6 +42,10 @@ class LoginScene extends Component {
     );
   }
 }
+
+LoginScene.contextTypes = {
+  router: PropTypes.object.isRequired,
+};
 
 export default createFragmentContainer(LoginScene, graphql`
   fragment Login_user on Person {

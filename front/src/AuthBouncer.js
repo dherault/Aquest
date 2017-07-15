@@ -14,12 +14,14 @@ class AuthBouncer extends Component {
   bounce() {
     if (!this.isAuthenticated()) {
       console.log('Not auth, redirecting...');
-      this.context.router.history.replace('/login');
+
+      const redirection = encodeURIComponent(this.context.router.route.location.pathname);
+
+      this.context.router.history.replace(`/login?r=${redirection}`);
     }
   }
 
   isAuthenticated() {
-    console.log('Is auth ?', this.props.user);
     return this.props.user || this.context.router.route.location.pathname.endsWith('/login');
   }
 

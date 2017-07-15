@@ -1,6 +1,7 @@
 import { commitMutation, graphql } from 'react-relay';
 import environment from '../relayEnvironment';
-import store from '../relayStore';
+import queryString from 'query-string';
+// import store from '../relayStore';
 
 const mutation = graphql`
   mutation LoginUserMutation($input: LoginUserInput!) {
@@ -32,14 +33,21 @@ const loginUser = (email, password) => commitMutation(environment, {
   //   window.user = user;
   //
   // },
-  onCompleted(response) {
+  onCompleted(response, errors) {
+    console.log('errors:', errors);
+
     const { token } = response.loginUser;
 
     console.log('Got auth token!', token);
 
     localStorage.setItem('token', token);
 
-    window.location.href = '/'; // LOOOOOOL NOOOOOOOB
+    const parsed = queryString.parse(window.location.search);
+
+    window.location.href = parsed.r ? decodeURIComponent(parsed.r) : '/'; // LOOOOOOL NOOOOOOOB
+  },
+  onError(error) {
+    console.error('error:', error);
   },
   // optimisticUpdater(store) {
   //   const id = 'client:newCommit:' + tempId++;

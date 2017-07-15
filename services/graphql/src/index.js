@@ -22,6 +22,8 @@ const server = express()
   requestProperty: 'auth',
   credentialsRequired: false,
 }))
+// Swallow errors
+.use((err, req, res, next) => next())
 .use('/graphql', (req, res) => {
 
   /* Log query */

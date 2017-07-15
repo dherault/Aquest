@@ -1,6 +1,7 @@
 const { GraphQLNonNull, GraphQLString, GraphQLID } = require('graphql');
 const { mutationWithClientMutationId, cursorForObjectInConnection } = require('graphql-relay');
 const createResource = require('../utils/createResource');
+const ensureAuth = require('../utils/ensureAuth');
 const db = require('../db');
 const { run } = require('../db/queries');
 const _ = require('../graph');
@@ -34,7 +35,7 @@ module.exports = mutationWithClientMutationId({
       resolve: (payload, args, { user }) => user,
     },
   },
-  mutateAndGetPayload({ skillId, label }, context) {
+  mutateAndGetPayload: ensureAuth(({ skillId, label }, context) => {
     const commit = createResource('Commit', context, {
       skill: skillId,
       label,
@@ -45,5 +46,5 @@ module.exports = mutationWithClientMutationId({
 
     // return new Promise(resolve => setTimeout(() => resolve({ commit }), 2000));
     // return { commit, user };
-  },
+  }),
 });

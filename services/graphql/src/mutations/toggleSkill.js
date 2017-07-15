@@ -1,5 +1,6 @@
 const { GraphQLNonNull, GraphQLID, GraphQLBoolean } = require('graphql');
 const { mutationWithClientMutationId, cursorForObjectInConnection } = require('graphql-relay');
+const ensureAuth = require('../utils/ensureAuth');
 const db = require('../db');
 const _ = require('../graph');
 
@@ -35,7 +36,7 @@ module.exports = mutationWithClientMutationId({
       resolve: (payload, args, { user }) => user,
     },
   },
-  mutateAndGetPayload({ skillId }, { user }) {
+  mutateAndGetPayload: ensureAuth(({ skillId }, { user }) => {
     const userSkillIds = new Set(user.skills);
     const prevToggled = userSkillIds.has(skillId);
 
@@ -46,5 +47,5 @@ module.exports = mutationWithClientMutationId({
     user.updatedAt = new Date().toISOString();
 
     return db.upsertResource(user).then(() => ({ skillId, toggled: !prevToggled }));
-  },
+  }),
 });

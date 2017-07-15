@@ -52,6 +52,13 @@ const toggleSkill = (skillId, user) => commitMutation(environment, {
     const skillEdge = payload.getLinkedRecord('skillEdge');
     sharedUpdater(store, user, skillEdge, skillId);
   },
+  onCompleted(response, errors) {
+    console.log('response:', response);
+    console.log('errors:', errors);
+  },
+  onError(error) {
+    console.error('error:', error);
+  },
   // optimisticUpdater(store) {
   //   const id = 'client:newSkill:' + tempId++;
   //   const node = store.create(id, 'Skill');

@@ -41,7 +41,12 @@ const createSkill = (label, individuals) => commitMutation(environment, {
     },
   },
   updater(store) {
-    const newEdge = store.getRootField('createSkill').getLinkedRecord('skillEdge');
+    const payload = store.getRootField('createSkill');
+
+    if (!payload) return console.log('No payload');
+
+    const newEdge = payload.getLinkedRecord('skillEdge');
+
     sharedUpdater(store, individuals, newEdge);
   },
   optimisticUpdater(store) {
@@ -55,6 +60,13 @@ const createSkill = (label, individuals) => commitMutation(environment, {
     newEdge.setLinkedRecord(node, 'node');
 
     sharedUpdater(store, individuals, newEdge);
+  },
+  onCompleted(response, errors) {
+    console.log('response:', response);
+    console.log('errors:', errors);
+  },
+  onError(error) {
+    console.error('error:', error);
   },
 });
 

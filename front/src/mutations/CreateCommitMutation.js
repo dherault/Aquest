@@ -65,6 +65,13 @@ const createCommit = (skillId, label, user) => commitMutation(environment, {
   //
   //   sharedUpdater(store, user, newEdge);
   // },
+  onCompleted(response, errors) {
+    console.log('response:', response);
+    console.log('errors:', errors);
+  },
+  onError(error) {
+    console.error('error:', error);
+  },
 });
 
 export default createCommit;
