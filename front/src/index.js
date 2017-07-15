@@ -1,50 +1,15 @@
 import './index.css';
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { QueryRenderer, graphql } from 'react-relay';
-import PropTypes from 'prop-types';
 
 import environment from './relayEnvironment';
 
+import AuthBouncer from './AuthBouncer';
 import User from './User';
 import SkillList from './SkillList';
 import Login from './scenes/Login';
-
-class AuthBouncer extends Component {
-  componentWillMount() {
-    this.bounce(this.props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.bounce(nextProps);
-  }
-
-  bounce(props) {
-    if (!this.isAuthenticated(props)) {
-      console.log('Not auth, redirecting...');
-      this.context.router.history.replace('/login');
-    }
-  }
-
-  isAuthenticated(props) {
-    return props.user || this.context.router.route.pathname.endsWith('/login');
-  }
-
-  render() {
-    if (!this.isAuthenticated(this.props)) return null;
-
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    );
-  }
-}
-
-AuthBouncer.contextTypes = {
-  router: PropTypes.object.isRequired,
-};
 
 const renderApp = ({ error, props }) => (
   <Router>
@@ -57,7 +22,7 @@ const renderApp = ({ error, props }) => (
       &nbsp;~&nbsp;
       <Link to="/skills">skills</Link>
 
-      {!!error && <pre>{JSON.stringify(error, null, 2)}</pre>}
+      {!!error && <pre>{error.message}<br />{error.stack}</pre>}
 
       {props ? (
         <AuthBouncer {...props}>
@@ -77,7 +42,7 @@ const renderApp = ({ error, props }) => (
 const query = graphql`
   query srcQuery {
     user {
-      id
+      ...AuthBouncer_user
       ...User_user
       ...SkillList_user
       ...Login_user

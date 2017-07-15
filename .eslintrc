@@ -13,6 +13,7 @@
     "no-confusing-arrow": "off",
     "global-require": "off",
     "import/no-dynamic-require": "off",
+    "import/first": "off",
     "react/jsx-filename-extension": "off",
     "react/prop-types": "off",
   },

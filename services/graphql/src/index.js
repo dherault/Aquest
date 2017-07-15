@@ -37,20 +37,23 @@ const server = express()
     console.log('body:', req.body);
   }
 
-  console.log('req.auth:', req.auth);
-
   /* Fetch user data */
 
-  db.get(db.firstUserKey, (err, userEntity) => {
+  const userPromise = req.auth && req.auth.userId ?
+    db.readResourceById(req.auth.userId)
+    : Promise.resolve(null);
+
+  /* Execute query */
+
+  userPromise.then(user => {
     graphqlHTTP({
       schema,
       formatError,
       pretty: true,
       graphiql: isDevelopment,
-      context: { user: null },
+      context: { user },
     })(req, res);
   });
-
 })
 .listen(3001, err => console.log(err || 'GraphQL endpoint listening on port 3001\n'));
 

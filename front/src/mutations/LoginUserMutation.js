@@ -1,12 +1,14 @@
 import { commitMutation, graphql } from 'react-relay';
-import { ConnectionHandler } from 'relay-runtime';
 import environment from '../relayEnvironment';
-import toClearId from '../utils/toClearId';
+import store from '../relayStore';
 
 const mutation = graphql`
   mutation LoginUserMutation($input: LoginUserInput!) {
     loginUser(input: $input) {
       token
+      user {
+        id
+      }
     }
   }
 `;
@@ -20,10 +22,24 @@ const loginUser = (email, password) => commitMutation(environment, {
       clientMutationId: Math.random().toString().slice(2),
     },
   },
-  updater(store) {
-    const token = store.getRootField('loginUser').getValue('token');
+  // updater(mutationStore) {
+  //   const user = mutationStore.getRootField('loginUser').getLinkedRecord('user');
+  //   console.log('user:', user);
+  //   console.log('store:', store);
+  //
+  //   window.x = store;
+  //   window.a = mutationStore;
+  //   window.user = user;
+  //
+  // },
+  onCompleted(response) {
+    const { token } = response.loginUser;
 
-    console.log(token);
+    console.log('Got auth token!', token);
+
+    localStorage.setItem('token', token);
+
+    window.location.href = '/'; // LOOOOOOL NOOOOOOOB
   },
   // optimisticUpdater(store) {
   //   const id = 'client:newCommit:' + tempId++;

@@ -11,7 +11,9 @@ class LoginScene extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    console.log(this.state);
+    const { email, password } = this.state;
+
+    loginUser(email, password);
   }
 
   render() {

@@ -64,21 +64,21 @@ const firstUserResource = {
 const firstUserKey = db.keyForResource(firstUserResource);
 
 db.firstUserKey = firstUserKey;
-
-db.get(firstUserKey, (err, entity) => {
-  if (err) return console.error(err);
-
-  if (!entity) {
-    db.save({ data: firstUserResource, key: firstUserKey }, err => {
-      if (err) return console.log(err);
-
-      console.log('First user created');
-    });
-  }
-  else {
-    console.log('First user already present');
-  }
-});
+//
+// db.get(firstUserKey, (err, entity) => {
+//   if (err) return console.error(err);
+//
+//   if (!entity) {
+//     db.save({ data: firstUserResource, key: firstUserKey }, err => {
+//       if (err) return console.log(err);
+//
+//       console.log('First user created');
+//     });
+//   }
+//   else {
+//     console.log('First user already present');
+//   }
+// });
 
 // db.delete(firstUserKey);
 
