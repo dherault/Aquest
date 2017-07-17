@@ -22,7 +22,9 @@ class AuthBouncer extends Component {
   }
 
   isAuthenticated() {
-    return this.props.user || this.context.router.route.location.pathname.endsWith('/login');
+    const { user, publicPaths } = this.props;
+
+    return user || publicPaths.includes(this.context.router.route.location.pathname);
   }
 
   render() {

@@ -10,24 +10,35 @@ import AuthBouncer from './AuthBouncer';
 import User from './User';
 import SkillList from './SkillList';
 import Login from './scenes/Login';
+import Landing from './scenes/Landing';
+
+const publicPaths = [
+  '/',
+  '/login',
+];
 
 const renderApp = ({ error, props }) => (
   <Router>
     <div>
 
       <h1>Super Cool App</h1>
-      <Link to="/">home</Link>
+      <Link to="/">landing</Link>
+      &nbsp;~&nbsp;
+      <Link to="/user">user</Link>
       &nbsp;~&nbsp;
       <Link to="/login">login</Link>
       &nbsp;~&nbsp;
       <Link to="/skills">skills</Link>
+      &nbsp;~&nbsp;
+      <a onClick={() => localStorage.removeItem('token') || (window.location.href = '/')}>logout</a>
 
       {!!error && <pre>{error.message}<br />{error.stack}</pre>}
 
       {props ? (
-        <AuthBouncer {...props}>
-          <Route exact path="/" render={p => <User {...p} {...props} />} />
+        <AuthBouncer {...props} publicPaths={publicPaths}>
+          <Route exact path="/" render={p => <Landing {...p} {...props} />} />
           <Route exact path="/login" render={p => <Login {...p} {...props} />} />
+          <Route exact path="/user" render={p => <User {...p} {...props} />} />
           <Route exact path="/skills" render={p => <SkillList {...p} {...props} />} />
         </AuthBouncer>
       ) : (
@@ -46,6 +57,7 @@ const query = graphql`
       ...User_user
       ...SkillList_user
       ...Login_user
+      ...Landing_user
     }
     individuals {
       ...SkillList_individuals
