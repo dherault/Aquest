@@ -43,6 +43,7 @@ class SkillList extends Component {
 export default createFragmentContainer(SkillList, graphql`
   fragment SkillList_individuals on Individuals {
     id
+
     skills(
       first: 2147483647  # max GraphQLInt
     ) @connection(key: "individuals_skills") {
@@ -56,13 +57,15 @@ export default createFragmentContainer(SkillList, graphql`
   }
   fragment SkillList_user on Person {
     id
-    skills(
+    skillInstances(
       first: 2147483647  # max GraphQLInt
-    ) @connection(key: "user_skills") {
+    ) @connection(key: "user_skillInstances") {
       edges {
         node {
           id
-          label
+          skill {
+            id
+          }
         }
       }
     }

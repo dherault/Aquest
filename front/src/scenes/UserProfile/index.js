@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import createCommit from './mutations/CreateCommitMutation';
-import './User.css';
+import './index.css';
 
-class User extends Component {
+class UserProfile extends Component {
   state = {}
 
   updateState = key => e => this.setState({ [key]: e.target.value })
@@ -33,13 +33,13 @@ class User extends Component {
     const commits = user.commits.edges.map(e => e.node);
 
     return (
-      <div className="User">
+      <div className="UserProfile">
         <section>
-          <img className="User-picture" alt="" src={user.pictureUrl} />
+          <img className="UserProfile-picture" alt="" src={user.pictureUrl} />
 
           <h1>{user.fisrtName} {user.lastName}</h1>
 
-          <p className="User-intro">
+          <p className="UserProfile-intro">
             {user.intro}
           </p>
         </section>
@@ -82,19 +82,22 @@ class User extends Component {
   }
 }
 
-export default createFragmentContainer(User, graphql`
-  fragment User_user on Person {
+export default createFragmentContainer(UserProfile, graphql`
+  fragment UserProfile_user on Person {
     id
-    firstName
-    lastName
+    pseudo
     intro
     pictureUrl
 
-    skills(first: 2147483647) @connection(key: "user_skills") {
+    skillInstances(first: 2147483647) @connection(key: "user_skillInstances") {
       edges {
         node {
           id
-          label
+          level
+          skill {
+            id
+            label
+          }
         }
       }
     }

@@ -70,4 +70,4 @@ const createSkill = (label, individuals) => commitMutation(environment, {
   },
 });
 
-export default createSkill
+export default createSkill;
