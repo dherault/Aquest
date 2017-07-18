@@ -1,0 +1,19 @@
+@prefix : <http://foo.com#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:SkillInstance
+  a owl:Class ;
+  rdfs:subClassOf :Thing ;
+  rdfs:label "SkillInstance"@en ;
+  rdfs:comment "A human being regarded as an individual."@en ;
+  rdfs:seeAlso schema:SkillInstance .
+
+:level
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:label "Level"@en ;
+  rdfs:comment "The level the user has reached in this skill."@en ;
+  rdfs:domain :SkillInstance ;
+  rdfs:range xsd:nonNegativeInteger .

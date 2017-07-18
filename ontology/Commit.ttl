@@ -9,8 +9,3 @@
   rdfs:subClassOf :Thing ;
   rdfs:label "Commit"@en ;
   rdfs:comment "A substancial improvment of a Skill."@en .
-
-:skill
-  a owl:ObjectProperty, owl:FunctionalProperty ;
-  rdfs:domain :Commit ;
-  rdfs:range :Skill .

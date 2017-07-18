@@ -59,11 +59,12 @@
   rdfs:range :MilestoneInstance ;
   owl:inverseOf :sourcePerson .
 
-:skills
-  rdfs:comment "The Skills the Person has."@en ;
+:skillInstances
+  rdfs:comment "The Skills Instances the Person has."@en ;
   a owl:ObjectProperty ;
   rdfs:domain :Person ;
-  rdfs:range :Skill .
+  rdfs:range :SkillInstance ;
+  owl:inverseOf :sourcePerson .
 
 :commits
   rdfs:comment "The Commits the Person has."@en ;
