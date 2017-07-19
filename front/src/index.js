@@ -7,7 +7,7 @@ import { QueryRenderer, graphql } from 'react-relay';
 import environment from './relayEnvironment';
 
 import AuthBouncer from './AuthBouncer';
-import SkillList from './SkillList';
+import SkillsRegistry from './scenes/SkillsRegistry';
 import UserProfile from './scenes/UserProfile';
 import Login from './scenes/Login';
 import Landing from './scenes/Landing';
@@ -39,7 +39,7 @@ const renderApp = ({ error, props }) => (
           <Route exact path="/" render={p => <Landing {...p} {...props} />} />
           <Route exact path="/login" render={p => <Login {...p} {...props} />} />
           <Route exact path="/user" render={p => <UserProfile {...p} {...props} />} />
-          <Route exact path="/skills" render={p => <SkillList {...p} {...props} />} />
+          <Route exact path="/skills" render={p => <SkillsRegistry {...p} {...props} />} />
         </AuthBouncer>
       ) : (
         <div>
@@ -55,12 +55,12 @@ const query = graphql`
     user {
       ...AuthBouncer_user
       ...UserProfile_user
-      ...SkillList_user
+      ...SkillsRegistry_user
       ...Login_user
       ...Landing_user
     }
     individuals {
-      ...SkillList_individuals
+      ...SkillsRegistry_individuals
     }
   }
 `;

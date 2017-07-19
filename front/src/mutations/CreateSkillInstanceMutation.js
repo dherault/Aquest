@@ -11,6 +11,10 @@ const mutation = graphql`
         cursor
         node {
           id
+          level
+          skill {
+            id
+          }
         }
       }
       user {

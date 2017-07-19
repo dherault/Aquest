@@ -17,7 +17,7 @@ module.exports = mutationWithClientMutationId({
     skillInstanceEdge: {
       type: _.getEdgeType('http://foo.com#SkillInstance'),
       resolve: ({ skillInstance: { id } }, args, { user }) => {
-        const query = db.createQuery('SkillInstance').filter('sourcePerson', user.id);
+        const query = db.createQuery('http://foo.com#SkillInstance').filter('sourcePerson', user.id);
 
         return run(query).then(skillInstances => {
           const skillInstance = skillInstances.find(s => s.id === id);
