@@ -1,4 +1,5 @@
 import './index.css';
+import 'bulma/css/bulma.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
@@ -21,16 +22,18 @@ const renderApp = ({ error, props }) => (
   <Router>
     <div>
 
-      <h1>Super Cool App</h1>
-      <Link to="/">landing</Link>
-      &nbsp;~&nbsp;
-      <Link to="/user">user</Link>
-      &nbsp;~&nbsp;
-      <Link to="/login">login</Link>
-      &nbsp;~&nbsp;
-      <Link to="/skills">skills</Link>
-      &nbsp;~&nbsp;
-      <a onClick={() => localStorage.removeItem('token') || (window.location.href = '/')}>logout</a>
+      <nav className="navbar">
+        <div className="navbar-brand">
+          :)
+        </div>
+        <div className="navbar-menu">
+          <Link className="navbar-item" to="/">landing</Link>
+          <Link className="navbar-item" to="/user">user</Link>
+          <Link className="navbar-item" to="/login">login</Link>
+          <Link className="navbar-item" to="/skills">skills</Link>
+          <a className="navbar-item" onClick={() => localStorage.removeItem('token') || (window.location.href = '/')}>logout</a>
+        </div>
+      </nav>
 
       {!!error && <pre>{error.message}<br />{error.stack}</pre>}
 

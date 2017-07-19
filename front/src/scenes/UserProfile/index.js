@@ -16,7 +16,7 @@ class UserProfile extends Component {
         <section>
           <img className="UserProfile-picture" alt="" src={user.pictureUrl} />
 
-          <h1>{user.fisrtName} {user.lastName}</h1>
+          <h1>{user.pseudo}</h1>
 
           <p className="UserProfile-intro">
             {user.intro}

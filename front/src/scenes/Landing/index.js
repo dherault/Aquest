@@ -19,11 +19,26 @@ class LandingScene extends Component {
     const { signupToggled } = this.state;
 
     return (
-      <div style={{ display: 'flex' }}>
-        <div style={{ flexGrow: 1.618, backgroundColor: 'yellow' }}>
-          left
+      <div className="columns">
+        <div className="column is-two-thirds">
+          <section className="hero is-primary">
+            <div className="hero-body">
+              <div className="container">
+                <h1 className="title">
+                  Aquest is a tool for self-learners
+                </h1>
+                <h2 className="subtitle">
+                  <ul>
+                    <li>Track your progress</li>
+                    <li>Stay motivated</li>
+                    <li>have fun!</li>
+                  </ul>
+                </h2>
+              </div>
+            </div>
+          </section>
         </div>
-        <div style={{ flexGrow: 1, backgroundColor: 'grey' }}>
+        <div className="column">
           <button onClick={() => this.setState({ signupToggled: !signupToggled })}>x</button>
           {signupToggled ? <LoginForm /> : <SignupForm />}
         </div>
