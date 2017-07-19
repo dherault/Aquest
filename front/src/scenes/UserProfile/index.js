@@ -3,13 +3,13 @@ import { createFragmentContainer, graphql } from 'react-relay';
 import './index.css';
 
 import CommitCreationForm from './components/CommitCreationForm';
+import CommitsList from './components/CommitsList';
 
 class UserProfile extends Component {
 
   render() {
     const { user } = this.props;
     const skillInstances = user.skillInstances.edges.map(e => e.node);
-    const commits = user.commits.edges.map(e => e.node);
 
     return (
       <div className="UserProfile">
@@ -28,18 +28,13 @@ class UserProfile extends Component {
           {skillInstances.map(({ id, level, skill }) => (
             <div key={id}>
               <h3>{skill.label} (level {level})</h3>
-              {commits.filter(c => c.skill.id === skill.id).map(c => (
-                <div key={c.id}>
-                  <strong>{c.label}</strong>
-                  &nbsp;
-                  <span>{new Date(c.createdAt).toLocaleString()}</span>
-                </div>
-              ))}
             </div>
           ))}
         </section>
 
         {!!skillInstances.length && <CommitCreationForm user={user} />}
+
+        <CommitsList user={user} />
       </div>
     );
   }
@@ -64,18 +59,6 @@ export default createFragmentContainer(UserProfile, graphql`
         }
       }
     }
-
-    commits(first: 2147483647) @connection(key: "user_commits") {
-      edges {
-        node {
-          id
-          label
-          createdAt
-          skill {
-            id
-          }
-        }
-      }
-    }
+    ...CommitsList_user
   }
 `);

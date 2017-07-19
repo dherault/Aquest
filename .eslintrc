@@ -3,6 +3,13 @@
   "rules": {
     "no-console": "off",
     "padded-blocks": "off",
+    "comma-dangle": ["error", {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "ignore",
+    }],
     "brace-style": ["error", "stroustrup"],
     "max-len": "off",
     "arrow-parens": "off",

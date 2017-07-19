@@ -25,7 +25,7 @@ class LandingScene extends Component {
             <div className="hero-body">
               <div className="container">
                 <h1 className="title">
-                  Aquest is a tool for self-learners
+                  Aquest is a tool for self-learners, students and passionate people
                 </h1>
                 <h2 className="subtitle">
                   <ul>

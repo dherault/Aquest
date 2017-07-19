@@ -25,18 +25,6 @@ const mutation = graphql`
   }
 `;
 
-function sharedUpdater(store, user, newEdge) {
-  const userProxy = store.get(user.id);
-  const conn = ConnectionHandler.getConnection(userProxy, 'user_commits');
-  // console.log('userProxy', userProxy);
-  // console.log('conn', conn);
-  // console.log('newEdge', newEdge.getDataID());
-
-  ConnectionHandler.insertEdgeAfter(conn, newEdge);
-}
-
-// let tempId = 0;
-
 const createCommit = (skillId, label, user) => commitMutation(environment, {
   mutation,
   variables: {
@@ -48,23 +36,11 @@ const createCommit = (skillId, label, user) => commitMutation(environment, {
   },
   updater(store) {
     const newEdge = store.getRootField('createCommit').getLinkedRecord('commitEdge');
-    sharedUpdater(store, user, newEdge);
+    const userProxy = store.get(user.id);
+    const conn = ConnectionHandler.getConnection(userProxy, 'user_commits');
+
+    ConnectionHandler.insertEdgeBefore(conn, newEdge);
   },
-  // optimisticUpdater(store) {
-  //   const id = 'client:newCommit:' + tempId++;
-  //   const node = store.create(id, 'Commit');
-  //   node.setValue(input.label, 'label');
-  //   node.setValue(id, 'id');
-  //
-  //   console.log('node', node);
-  //   // node.setValue(input.skillId, 'skill');
-  //
-  //   const newEdge = store.create('client:newEdge:' + tempId++, 'CommitEdge');
-  //
-  //   newEdge.setLinkedRecord(node, 'node');
-  //
-  //   sharedUpdater(store, user, newEdge);
-  // },
   onCompleted(response, errors) {
     console.log('response:', response);
     console.log('errors:', errors);

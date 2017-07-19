@@ -1,12 +1,10 @@
 const { GraphQLNonNull, GraphQLString, GraphQLID } = require('graphql');
-const { mutationWithClientMutationId, cursorForObjectInConnection } = require('graphql-relay');
+const { mutationWithClientMutationId } = require('graphql-relay');
 const createResource = require('../utils/createResource');
 const ensureAuth = require('../utils/ensureAuth');
+const base64 = require('../utils/base64');
 const db = require('../db');
-const { run } = require('../db/queries');
 const _ = require('../graph');
-
-const creatQuery = userId => db.createQuery('http://foo.com#Commit').filter('sourcePerson', userId).order('createdAt');
 
 module.exports = mutationWithClientMutationId({
   name: 'CreateCommit',
@@ -21,13 +19,9 @@ module.exports = mutationWithClientMutationId({
   outputFields: {
     commitEdge: {
       type: _.getEdgeType('http://foo.com#Commit'),
-      resolve: ({ commit: { id } }, args, { user }) => run(creatQuery(user.id)).then(commits => {
-        const commit = commits.find(c => c.id === id);
-
-        return {
-          cursor: cursorForObjectInConnection(commits, commit),
-          node: commit,
-        };
+      resolve: ({ commit }) => ({
+        cursor: base64('arrayconnection:0'), // HACK, new commit is always first in connection
+        node: commit,
       }),
     },
     user: {
@@ -42,9 +36,5 @@ module.exports = mutationWithClientMutationId({
     });
 
     return db.upsertResource(commit).then(() => ({ commit }));
-    // console.log(JSON.stringify(data, null, 2));
-
-    // return new Promise(resolve => setTimeout(() => resolve({ commit }), 2000));
-    // return { commit, user };
   }),
 });

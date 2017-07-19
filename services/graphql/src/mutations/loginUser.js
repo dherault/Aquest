@@ -26,7 +26,7 @@ module.exports = mutationWithClientMutationId({
       resolve: ({ token }) => token,
     },
   },
-  mutateAndGetPayload({ email, password }) {
+  mutateAndGetPayload({ email, password }, context) {
     return run(db.createQuery('http://foo.com#Person').filter('email', email))
     .then(results => {
       if (!results.length) throw new Error('Email not found');
@@ -35,6 +35,8 @@ module.exports = mutationWithClientMutationId({
 
       return bcrypt.compare(password, user.passwordHash).then(isPasswordValid => {
         if (!isPasswordValid) throw new Error('Invalid password');
+
+        context.user = user;
 
         return { user, token: createToken(user.id) };
       });
