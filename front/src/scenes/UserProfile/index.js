@@ -1,64 +1,43 @@
-import React, { Component } from 'react';
-import { createFragmentContainer, graphql } from 'react-relay';
-import './index.css';
+import React from 'react';
+import { QueryRenderer, graphql } from 'react-relay';
+import environment from '../../relayEnvironment';
 
-import CommitCreationForm from './components/CommitCreationForm';
-import CommitsList from './components/CommitsList';
+import AuthBouncer from '../../components/AuthBouncer';
+import LoadingIndicator from '../../components/LoadingIndicator';
+import DevelopmentErrorMessage from '../../components/DevelopmentErrorMessage';
 
-class UserProfile extends Component {
+import UserProfileScene from './UserProfileScene';
 
-  render() {
-    const { viewer } = this.props;
-    const skillInstances = viewer.skillInstances.edges.map(e => e.node);
-
-    return (
-      <div className="UserProfile">
-        <section>
-          <img className="UserProfile-picture" alt="" src={viewer.pictureUrl} />
-
-          <h1>{viewer.pseudo}</h1>
-
-          <p className="UserProfile-intro">
-            {viewer.intro}
-          </p>
-        </section>
-
-        <section>
-          <h2>Skill list</h2>
-          {skillInstances.map(({ id, level, skill }) => (
-            <div key={id}>
-              <h3>{skill.label} (level {level})</h3>
-            </div>
-          ))}
-        </section>
-
-        {!!skillInstances.length && <CommitCreationForm viewer={viewer} />}
-
-        <CommitsList viewer={viewer} />
-      </div>
-    );
-  }
-}
-
-export default createFragmentContainer(UserProfile, graphql`
-  fragment UserProfile_viewer on User {
-    id
-    pseudo
-    intro
-    pictureUrl
-
-    skillInstances(first: 2147483647) @connection(key: "viewer_skillInstances") {
-      edges {
-        node {
-          id
-          level
-          skill {
-            id
-            label
-          }
-        }
-      }
+const query = graphql`
+  query UserProfileQuery($count: Int!, $cursor: String) {
+    viewer {
+      ...AuthBouncer_viewer
+      ...UserProfileScene_viewer
     }
-    ...CommitsList_viewer
   }
-`);
+`;
+
+const initialVariables = {
+  count: 10,
+  cursor: null,
+};
+
+const UserProfile = routerProps => (
+  <QueryRenderer
+    query={query}
+    environment={environment}
+    variables={initialVariables}
+    render={({ error, props }) => {
+      if (error) return <DevelopmentErrorMessage error={error} />;
+      else if (!props) return <LoadingIndicator />;
+
+      return (
+        <AuthBouncer {...props}>
+          <UserProfileScene {...routerProps} {...props} />
+        </AuthBouncer>
+      );
+    }}
+  />
+);
+
+export default UserProfile;

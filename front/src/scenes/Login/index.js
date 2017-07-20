@@ -1,55 +1,31 @@
-// import './Skills.css';
-import React, { Component } from 'react';
-import { createFragmentContainer, graphql } from 'react-relay';
-import loginUser from '../../mutations/LoginUserMutation';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { QueryRenderer, graphql } from 'react-relay';
+import environment from '../../relayEnvironment';
 
-class LoginScene extends Component {
-  state = { email: '', password: '' }
+import LoadingIndicator from '../../components/LoadingIndicator';
+import DevelopmentErrorMessage from '../../components/DevelopmentErrorMessage';
 
-  createInputHandler = key => e => this.setState({ [key]: e.target.value })
+import LoginScene from './LoginScene';
 
-  handleSubmit = e => {
-    e.preventDefault();
-
-    const { email, password } = this.state;
-
-    loginUser(email, password);
+const query = graphql`
+  query LoginQuery {
+    viewer {
+      ...LoginScene_viewer
+    }
   }
+`;
 
-  render() {
-    const { viewer } = this.props;
-    const { email, password } = this.state;
+const Login = routerProps => (
+  <QueryRenderer
+    query={query}
+    environment={environment}
+    render={({ error, props }) => {
+      if (error) return <DevelopmentErrorMessage error={error} />;
+      else if (!props) return <LoadingIndicator />;
 
-    return (
-      <div style={{ textAlign: 'center' }}>
+      return <LoginScene {...routerProps} {...props} />;
+    }}
+  />
+);
 
-        <h1>Log in</h1>
-
-        {!!viewer && <div>You are logged in as {viewer.pseudo}</div>}
-
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <input type="text" value={email} onChange={this.createInputHandler('email')} />
-          </div>
-          <div>
-            <input type="password" value={password} onChange={this.createInputHandler('password')} />
-          </div>
-          <input type="submit" value="ok" />
-        </form>
-
-      </div>
-    );
-  }
-}
-
-LoginScene.contextTypes = {
-  router: PropTypes.object.isRequired,
-};
-
-export default createFragmentContainer(LoginScene, graphql`
-  fragment Login_viewer on User {
-    id
-    pseudo
-  }
-`);
+export default Login;

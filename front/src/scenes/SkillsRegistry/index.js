@@ -1,83 +1,40 @@
-// import './Skills.css';
-import React, { Component } from 'react';
-import { createFragmentContainer, graphql } from 'react-relay';
-import createSkill from '../../mutations/CreateSkillMutation';
-import createSkillInstance from '../../mutations/CreateSkillInstanceMutation';
+import React from 'react';
+import { QueryRenderer, graphql } from 'react-relay';
+import environment from '../../relayEnvironment';
 
-class SkillsRegistry extends Component {
-  state = { label: '' }
+import AuthBouncer from '../../components/AuthBouncer';
+import LoadingIndicator from '../../components/LoadingIndicator';
+import DevelopmentErrorMessage from '../../components/DevelopmentErrorMessage';
 
-  render() {
-    const { individuals, viewer } = this.props;
-    const { label } = this.state;
+import SkillsRegistryScene from './SkillsRegistryScene';
 
-    const viewerSkills = [];
-    const nonUserSkills = [];
-    const viewerSkillIds = viewer.skillInstances.edges.map(e => e.node.skill.id);
-
-    individuals.skills.edges.forEach(e => {
-      if (viewerSkillIds.includes(e.node.id)) viewerSkills.push(e.node);
-      else nonUserSkills.push(e.node);
-    });
-
-    return (
-      <div className="Skills" style={{ textAlign: 'center' }}>
-        <h1>{`${individuals.skills.edges.length} Skills`}</h1>
-
-        <input type="text" value={label} onChange={e => this.setState({ label: e.target.value })} />
-        <button onClick={() => createSkill(this.state.label, individuals)}>Create</button>
-
-        <h2>My skills</h2>
-        <div>
-          {viewerSkills.map(({ id, label }) =>
-            <div key={id}>
-              {label}
-            </div>
-          )}
-        </div>
-
-        <h2>Other skills</h2>
-        <div>
-          {nonUserSkills.map(({ id, label }) =>
-            <div key={id} onClick={() => createSkillInstance(id, viewer)}>
-              {label}
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  }
-}
-
-export default createFragmentContainer(SkillsRegistry, graphql`
-  fragment SkillsRegistry_individuals on Individuals {
-    id
-    skills(
-      first: 2147483647  # max GraphQLInt
-    ) @connection(key: "individuals_skills") {
-      edges {
-        node {
-          id
-          label
-        }
-      }
+const query = graphql`
+  query SkillsRegistryQuery {
+    viewer {
+      ...AuthBouncer_viewer
+      ...SkillsRegistryScene_viewer
+    }
+    individuals {
+      ...SkillsRegistryScene_individuals
     }
   }
+`;
 
-  fragment SkillsRegistry_viewer on User {
-    id
-    skillInstances(
-      first: 2147483647  # max GraphQLInt
-    ) @connection(key: "viewer_skillInstances") {
-      edges {
-        node {
-          id
-          level
-          skill {
-            id
-          }
-        }
-      }
-    }
-  }
-`);
+const SkillsRegistry = routerProps => (
+  <QueryRenderer
+    query={query}
+    environment={environment}
+    render={({ error, props }) => {
+      if (error) return <DevelopmentErrorMessage error={error} />;
+      else if (!props) return <LoadingIndicator />;
+
+      return (
+        <AuthBouncer {...props}>
+          <SkillsRegistryScene {...routerProps} {...props} />;
+        </AuthBouncer>
+      );
+    }}
+  />
+);
+
+export default SkillsRegistry;

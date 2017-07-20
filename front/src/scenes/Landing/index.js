@@ -1,8 +1,4 @@
-// import './Skills.css';
 import React, { Component } from 'react';
-import { createFragmentContainer, graphql } from 'react-relay';
-import { Redirect } from 'react-router-dom';
-// import PropTypes from 'prop-types';
 
 import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
@@ -12,10 +8,6 @@ class LandingScene extends Component {
   state = { signupToggled: true }
 
   render() {
-    const { viewer } = this.props;
-
-    if (viewer) return <Redirect to="/viewer" />;
-
     const { signupToggled } = this.state;
 
     return (
@@ -47,9 +39,4 @@ class LandingScene extends Component {
   }
 }
 
-export default createFragmentContainer(LandingScene, graphql`
-  fragment Landing_viewer on User {
-    id
-    pseudo
-  }
-`);
+export default LandingScene;

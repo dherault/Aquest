@@ -41,7 +41,7 @@ const loginUser = (email, password) => commitMutation(environment, {
 
     const parsed = queryString.parse(window.location.search);
 
-    window.location.href = parsed.r ? decodeURIComponent(parsed.r) : '/'; // LOOOOOOL NOOOOOOOB
+    window.location.href = parsed.r ? decodeURIComponent(parsed.r) : '/user'; // LOOOOOOL NOOOOOOOB
   },
   onError(error) {
     console.error('error:', error);

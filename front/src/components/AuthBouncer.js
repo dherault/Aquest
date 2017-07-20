@@ -12,7 +12,7 @@ class AuthBouncer extends Component {
   }
 
   bounce() {
-    if (!this.isAuthenticated()) {
+    if (!this.props.viewer) {
       console.log('Not auth, redirecting...');
 
       const redirection = encodeURIComponent(this.context.router.route.location.pathname);
@@ -21,14 +21,8 @@ class AuthBouncer extends Component {
     }
   }
 
-  isAuthenticated() {
-    const { viewer, publicPaths } = this.props;
-
-    return viewer || publicPaths.includes(this.context.router.route.location.pathname);
-  }
-
   render() {
-    if (!this.isAuthenticated()) return null;
+    if (!this.props.viewer) return null;
 
     return (
       <div>
