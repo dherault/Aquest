@@ -2,14 +2,14 @@ import { commitMutation, graphql } from 'react-relay';
 import environment from '../relayEnvironment';
 
 const mutation = graphql`
-  mutation CreatePersonMutation($input: CreatePersonInput!) {
-    createPerson(input: $input) {
+  mutation CreateUserMutation($input: CreateUserInput!) {
+    createUser(input: $input) {
       token
     }
   }
 `;
 
-const createPerson = (email, password) => commitMutation(environment, {
+const createUser = (email, password) => commitMutation(environment, {
   mutation,
   variables: {
     input: {
@@ -21,7 +21,7 @@ const createPerson = (email, password) => commitMutation(environment, {
   onCompleted(response, errors) {
     console.log('errors:', errors);
 
-    const { token } = response.createPerson;
+    const { token } = response.createUser;
 
     console.log('Got auth token!', token);
 
@@ -34,4 +34,4 @@ const createPerson = (email, password) => commitMutation(environment, {
   },
 });
 
-export default createPerson;
+export default createUser;

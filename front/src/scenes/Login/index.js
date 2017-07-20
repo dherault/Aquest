@@ -18,7 +18,7 @@ class LoginScene extends Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { viewer } = this.props;
     const { email, password } = this.state;
 
     return (
@@ -26,7 +26,7 @@ class LoginScene extends Component {
 
         <h1>Log in</h1>
 
-        {!!user && <div>You are logged in as {user.pseudo}</div>}
+        {!!viewer && <div>You are logged in as {viewer.pseudo}</div>}
 
         <form onSubmit={this.handleSubmit}>
           <div>
@@ -48,7 +48,7 @@ LoginScene.contextTypes = {
 };
 
 export default createFragmentContainer(LoginScene, graphql`
-  fragment Login_user on Person {
+  fragment Login_viewer on User {
     id
     pseudo
   }

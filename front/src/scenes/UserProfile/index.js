@@ -8,18 +8,18 @@ import CommitsList from './components/CommitsList';
 class UserProfile extends Component {
 
   render() {
-    const { user } = this.props;
-    const skillInstances = user.skillInstances.edges.map(e => e.node);
+    const { viewer } = this.props;
+    const skillInstances = viewer.skillInstances.edges.map(e => e.node);
 
     return (
       <div className="UserProfile">
         <section>
-          <img className="UserProfile-picture" alt="" src={user.pictureUrl} />
+          <img className="UserProfile-picture" alt="" src={viewer.pictureUrl} />
 
-          <h1>{user.pseudo}</h1>
+          <h1>{viewer.pseudo}</h1>
 
           <p className="UserProfile-intro">
-            {user.intro}
+            {viewer.intro}
           </p>
         </section>
 
@@ -32,22 +32,22 @@ class UserProfile extends Component {
           ))}
         </section>
 
-        {!!skillInstances.length && <CommitCreationForm user={user} />}
+        {!!skillInstances.length && <CommitCreationForm viewer={viewer} />}
 
-        <CommitsList user={user} />
+        <CommitsList viewer={viewer} />
       </div>
     );
   }
 }
 
 export default createFragmentContainer(UserProfile, graphql`
-  fragment UserProfile_user on Person {
+  fragment UserProfile_viewer on User {
     id
     pseudo
     intro
     pictureUrl
 
-    skillInstances(first: 2147483647) @connection(key: "user_skillInstances") {
+    skillInstances(first: 2147483647) @connection(key: "viewer_skillInstances") {
       edges {
         node {
           id
@@ -59,6 +59,6 @@ export default createFragmentContainer(UserProfile, graphql`
         }
       }
     }
-    ...CommitsList_user
+    ...CommitsList_viewer
   }
 `);

@@ -8,7 +8,7 @@ const _ = require('../graph');
 const { createToken } = require('../auth');
 
 module.exports = mutationWithClientMutationId({
-  name: 'CreatePerson',
+  name: 'CreateUser',
   inputFields: {
     email: {
       type: new GraphQLNonNull(GraphQLString),
@@ -16,29 +16,36 @@ module.exports = mutationWithClientMutationId({
     password: {
       type: new GraphQLNonNull(GraphQLString),
     },
+    pseudo: {
+      type: GraphQLString,
+    },
   },
   outputFields: {
-    person: {
-      type: _.getObjectType('http://foo.com#Person'),
-      resolve: ({ person }) => person,
+    user: {
+      type: _.getObjectType('http://foo.com#User'),
+      resolve: ({ user }) => user,
     },
     token: {
       type: GraphQLString,
       resolve: ({ token }) => token,
     },
   },
-  mutateAndGetPayload({ email, password }, context) {
+  mutateAndGetPayload({ email, password, pseudo }, context) {
     if (password.length < 6) throw new Error('Invalid password');
 
-    const emailCheck = run(db.createQuery('http://foo.com#Person').filter('email', email));
+    const emailCheck = run(db.createQuery('http://foo.com#User').filter('email', email));
 
     return emailCheck.then(results => {
       if (results.length) throw new Error('Email already in use');
 
       return bcrypt.hash(password, 10).then(passwordHash => {
-        const person = createResource('Person', context, { email, passwordHash });
+        const user = createResource('User', context, {
+          email,
+          passwordHash,
+          pseudo: pseudo || 'Everyday life hero',
+        });
 
-        return db.upsertResource(person).then(() => ({ person, token: createToken(person.id) }));
+        return db.upsertResource(user).then(() => ({ user, token: createToken(user.id) }));
       });
     });
   },

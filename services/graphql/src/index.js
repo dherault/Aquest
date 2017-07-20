@@ -53,7 +53,7 @@ const server = express()
       formatError,
       pretty: true,
       graphiql: isDevelopment,
-      context: { user },
+      context: { viewer: user },
     })(req, res);
   });
 })

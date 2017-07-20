@@ -1,7 +1,7 @@
 // import './Skills.css';
 import React, { Component } from 'react';
 // import { createFragmentContainer, graphql } from 'react-relay';
-import createPerson from '../../../mutations/CreatePersonMutation';
+import createUser from '../../../mutations/CreateUserMutation';
 
 // import { Redirect } from 'react-router-dom';
 // import PropTypes from 'prop-types';
@@ -17,7 +17,7 @@ class SignupForm extends Component {
 
     const { email, password } = this.state;
 
-    createPerson(email, password);
+    createUser(email, password);
   }
 
   render() {

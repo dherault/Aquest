@@ -6,7 +6,7 @@
   a owl:Class ;
   rdfs:subClassOf :Thing ;
   rdfs:label "MilestoneInstance"@en ;
-  rdfs:comment "A proof that a Person has reached a Milestone in the application."@en .
+  rdfs:comment "A proof that a User has reached a Milestone in the application."@en .
 
 :milestone
   a owl:FunctionalProperty, owl:ObjectProperty ;

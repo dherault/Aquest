@@ -24,9 +24,9 @@ module.exports = mutationWithClientMutationId({
         node: commit,
       }),
     },
-    user: {
-      type: _.getObjectType('http://foo.com#Person'),
-      resolve: (payload, args, { user }) => user,
+    viewer: {
+      type: _.getObjectType('http://foo.com#User'),
+      resolve: (payload, args, { viewer }) => viewer,
     },
   },
   mutateAndGetPayload: ensureAuth(({ skillId, label }, context) => {

@@ -7,9 +7,6 @@ const mutation = graphql`
   mutation LoginUserMutation($input: LoginUserInput!) {
     loginUser(input: $input) {
       token
-      user {
-        id
-      }
     }
   }
 `;

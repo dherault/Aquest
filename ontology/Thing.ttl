@@ -22,12 +22,12 @@
   rdfs:domain :Thing ;
   rdfs:range xsd:dateTime .
 
-:sourcePerson
+:sourceUser
   a owl:ObjectProperty, owl:FunctionalProperty ;
   rdfs:label "Source person"@en ;
-  rdfs:comment "The Person (user) that originated the creation of the Thing."@en ;
+  rdfs:comment "The User (user) that originated the creation of the Thing."@en ;
   rdfs:domain :Thing ;
-  rdfs:range :Person .
+  rdfs:range :User .
 
 :sourceIp
   a owl:DatatypeProperty, owl:FunctionalProperty ;

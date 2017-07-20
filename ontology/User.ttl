@@ -4,71 +4,71 @@
 @prefix schema: <http://schema.org/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-:Person
+:User
   a owl:Class ;
   rdfs:subClassOf :Thing ;
-  rdfs:label "Person"@en ;
+  rdfs:label "User"@en ;
   rdfs:comment "A human being regarded as an individual."@en ;
-  rdfs:seeAlso schema:Person .
+  rdfs:seeAlso schema:User .
 
 :pseudo
   a owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:label "Pseudo"@en ;
   rdfs:comment "A user handle."@en ;
-  rdfs:domain :Person ;
+  rdfs:domain :User ;
   rdfs:range xsd:string .
 
-:firstName
-  a owl:DatatypeProperty, owl:FunctionalProperty ;
-  rdfs:label "Given name"@en ;
-  rdfs:comment "In the U.S., the first name of a Person."@en ;
-  rdfs:domain :Person ;
-  rdfs:range xsd:string ;
-  rdfs:seeAlso schema:givenName .
-
-:lastName
-  a owl:DatatypeProperty, owl:FunctionalProperty ;
-  rdfs:label "Family name"@en ;
-  rdfs:comment "In the U.S., the last name of a Person."@en ;
-  rdfs:domain :Person ;
-  rdfs:range xsd:string ;
-  rdfs:seeAlso schema:familyName .
+# :firstName
+#   a owl:DatatypeProperty, owl:FunctionalProperty ;
+#   rdfs:label "Given name"@en ;
+#   rdfs:comment "In the U.S., the first name of a User."@en ;
+#   rdfs:domain :User ;
+#   rdfs:range xsd:string ;
+#   rdfs:seeAlso schema:givenName .
+#
+# :lastName
+#   a owl:DatatypeProperty, owl:FunctionalProperty ;
+#   rdfs:label "Family name"@en ;
+#   rdfs:comment "In the U.S., the last name of a User."@en ;
+#   rdfs:domain :User ;
+#   rdfs:range xsd:string ;
+#   rdfs:seeAlso schema:familyName .
 
 :intro
   a owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:label "Introduction"@en ;
-  rdfs:domain :Person ;
+  rdfs:domain :User ;
   rdfs:range xsd:string .
 
 :email
   a owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:label "Email"@en ;
-  rdfs:comment "The email address of the Person."@en ;
-  rdfs:domain :Person ;
+  rdfs:comment "The email address of the User."@en ;
+  rdfs:domain :User ;
   rdfs:range xsd:string ;
   rdfs:seeAlso schema:email .
 
 :pictureUrl
   a owl:DatatypeProperty, owl:FunctionalProperty ;
-  rdfs:domain :Person ;
+  rdfs:domain :User ;
   rdfs:range xsd:string .
 
 :milestoneInstances
   a owl:ObjectProperty ;
-  rdfs:domain :Person ;
+  rdfs:domain :User ;
   rdfs:range :MilestoneInstance ;
-  owl:inverseOf :sourcePerson .
+  owl:inverseOf :sourceUser .
 
 :skillInstances
-  rdfs:comment "The Skills Instances the Person has."@en ;
+  rdfs:comment "The Skills Instances the User has."@en ;
   a owl:ObjectProperty ;
-  rdfs:domain :Person ;
+  rdfs:domain :User ;
   rdfs:range :SkillInstance ;
-  owl:inverseOf :sourcePerson .
+  owl:inverseOf :sourceUser .
 
 :commits
-  rdfs:comment "The Commits the Person has."@en ;
+  rdfs:comment "The Commits the User has."@en ;
   a owl:ObjectProperty ;
-  rdfs:domain :Person ;
+  rdfs:domain :User ;
   rdfs:range :Commit ;
-  owl:inverseOf :sourcePerson .
+  owl:inverseOf :sourceUser .

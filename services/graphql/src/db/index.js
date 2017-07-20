@@ -53,17 +53,17 @@ db.readResourcesById = ids => new Promise((resolve, reject) => {
 /* --- */
 
 // Script in code u_u TODO: remove
-const firstUserResource = {
-  id: 'http://foo.com/individuals#Person_firstUser',
-  type: 'http://foo.com#Person',
-  firstName: 'Andy',
-  lastName: 'Tryhard',
-  intro: 'And harder',
-};
-
-const firstUserKey = db.keyForResource(firstUserResource);
-
-db.firstUserKey = firstUserKey;
+// const firstUserResource = {
+//   id: 'http://foo.com/individuals#User_firstUser',
+//   type: 'http://foo.com#User',
+//   firstName: 'Andy',
+//   lastName: 'Tryhard',
+//   intro: 'And harder',
+// };
+//
+// const firstUserKey = db.keyForResource(firstUserResource);
+//
+// db.firstUserKey = firstUserKey;
 //
 // db.get(firstUserKey, (err, entity) => {
 //   if (err) return console.error(err);

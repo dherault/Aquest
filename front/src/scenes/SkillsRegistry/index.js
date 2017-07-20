@@ -8,15 +8,15 @@ class SkillsRegistry extends Component {
   state = { label: '' }
 
   render() {
-    const { individuals, user } = this.props;
+    const { individuals, viewer } = this.props;
     const { label } = this.state;
 
-    const userSkills = [];
+    const viewerSkills = [];
     const nonUserSkills = [];
-    const userSkillIds = user.skillInstances.edges.map(e => e.node.skill.id);
+    const viewerSkillIds = viewer.skillInstances.edges.map(e => e.node.skill.id);
 
     individuals.skills.edges.forEach(e => {
-      if (userSkillIds.includes(e.node.id)) userSkills.push(e.node);
+      if (viewerSkillIds.includes(e.node.id)) viewerSkills.push(e.node);
       else nonUserSkills.push(e.node);
     });
 
@@ -29,7 +29,7 @@ class SkillsRegistry extends Component {
 
         <h2>My skills</h2>
         <div>
-          {userSkills.map(({ id, label }) =>
+          {viewerSkills.map(({ id, label }) =>
             <div key={id}>
               {label}
             </div>
@@ -39,7 +39,7 @@ class SkillsRegistry extends Component {
         <h2>Other skills</h2>
         <div>
           {nonUserSkills.map(({ id, label }) =>
-            <div key={id} onClick={() => createSkillInstance(id, user)}>
+            <div key={id} onClick={() => createSkillInstance(id, viewer)}>
               {label}
             </div>
           )}
@@ -64,11 +64,11 @@ export default createFragmentContainer(SkillsRegistry, graphql`
     }
   }
 
-  fragment SkillsRegistry_user on Person {
+  fragment SkillsRegistry_viewer on User {
     id
     skillInstances(
       first: 2147483647  # max GraphQLInt
-    ) @connection(key: "user_skillInstances") {
+    ) @connection(key: "viewer_skillInstances") {
       edges {
         node {
           id

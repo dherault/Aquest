@@ -17,18 +17,18 @@ const mutation = graphql`
           }
         }
       }
-      user {
+      viewer {
         id
       }
     }
   }
 `;
 
-function sharedUpdater(store, user, newEdge) {
-  // console.log('user', user);
-  const userProxy = store.get(user.id);
-  const conn = ConnectionHandler.getConnection(userProxy, 'user_skillInstances');
-  // console.log('userProxy', userProxy);
+function sharedUpdater(store, viewer, newEdge) {
+  // console.log('viewer', viewer);
+  const viewerProxy = store.get(viewer.id);
+  const conn = ConnectionHandler.getConnection(viewerProxy, 'viewer_skillInstances');
+  // console.log('viewerProxy', viewerProxy);
   // console.log('conn', conn);
 
   ConnectionHandler.insertEdgeAfter(conn, newEdge);
@@ -36,7 +36,7 @@ function sharedUpdater(store, user, newEdge) {
 
 // let tempId = 0;
 
-const createSkillInstance = (skillId, user) => commitMutation(environment, {
+const createSkillInstance = (skillId, viewer) => commitMutation(environment, {
   mutation,
   variables: {
     input: {
@@ -51,7 +51,7 @@ const createSkillInstance = (skillId, user) => commitMutation(environment, {
 
     const newEdge = payload.getLinkedRecord('skillInstanceEdge');
 
-    sharedUpdater(store, user, newEdge);
+    sharedUpdater(store, viewer, newEdge);
   },
   // optimisticUpdater(store) {
   //   const id = 'client:newSkillInstance:' + tempId++;
@@ -63,7 +63,7 @@ const createSkillInstance = (skillId, user) => commitMutation(environment, {
   //
   //   newEdge.setLinkedRecord(node, 'node');
   //
-  //   sharedUpdater(store, user, newEdge);
+  //   sharedUpdater(store, viewer, newEdge);
   // },
   onCompleted(response, errors) {
     console.log('response:', response);

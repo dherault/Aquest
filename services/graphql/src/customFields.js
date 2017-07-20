@@ -15,9 +15,9 @@ _['http://foo.com#skillInstances'].isRelayConnection = true;
 _['http://foo.com#commits'].isRelayConnection = true;
 
 _['http://foo.com#commits'].graphqlFieldConfigExtension = {
-  resolve: (source, args, { user }) => connectionFromPromisedArray(
+  resolve: (source, args, { viewer }) => connectionFromPromisedArray(
     db.createQuery('http://foo.com#Commit')
-      .filter('sourcePerson', user.id)
+      .filter('sourceUser', viewer.id)
       .order('createdAt', { descending: true })
       .run()
       .then(([results]) => results),

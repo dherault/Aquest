@@ -2,15 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { createFragmentContainer, graphql } from 'react-relay';
 
-const Footer = ({ user }) => {
+const Footer = ({ viewer }) => {
 
   return (
     <footer className="footer">
       <div className="container">
         <div className="content has-text-centered">
-          {user ? (
+          {viewer ? (
             <p>
-              Keep going {user.pseudo}!&nbsp;
+              Keep going {viewer.pseudo}!&nbsp;
               <a onClick={() => localStorage.removeItem('token') || (window.location.href = '/')}>Log out</a>
             </p>
           ) : (
@@ -35,7 +35,7 @@ const Footer = ({ user }) => {
 };
 
 export default createFragmentContainer(Footer, graphql`
-  fragment Footer_user on Person {
+  fragment Footer_viewer on User {
     id
     pseudo
   }

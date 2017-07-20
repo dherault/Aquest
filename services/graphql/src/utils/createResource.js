@@ -11,7 +11,7 @@ function createResource(type, context, data) {
     type: `http://foo.com#${type}`,
     createdAt: nowIso,
     updatedAt: nowIso,
-    sourcePerson: context.user ? context.user.id : id,
+    sourceUser: context.viewer ? context.viewer.id : id,
     sourceIp: '0.0.0.0',
   }, data);
 }

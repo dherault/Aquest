@@ -16,8 +16,8 @@ module.exports = mutationWithClientMutationId({
   outputFields: {
     skillInstanceEdge: {
       type: _.getEdgeType('http://foo.com#SkillInstance'),
-      resolve: ({ skillInstance: { id } }, args, { user }) => {
-        const query = db.createQuery('http://foo.com#SkillInstance').filter('sourcePerson', user.id);
+      resolve: ({ skillInstance: { id } }, args, { viewer }) => {
+        const query = db.createQuery('http://foo.com#SkillInstance').filter('sourceUser', viewer.id);
 
         return run(query).then(skillInstances => {
           const skillInstance = skillInstances.find(s => s.id === id);
@@ -29,9 +29,9 @@ module.exports = mutationWithClientMutationId({
         });
       },
     },
-    user: {
-      type: _.getObjectType('http://foo.com#Person'),
-      resolve: (payload, args, { user }) => user,
+    viewer: {
+      type: _.getObjectType('http://foo.com#User'),
+      resolve: (payload, args, { viewer }) => viewer,
     },
   },
   mutateAndGetPayload: ensureAuth(({ skillId }, context) => {

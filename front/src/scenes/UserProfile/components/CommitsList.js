@@ -34,13 +34,13 @@ class CommitsList extends Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { viewer } = this.props;
 
-    if (!user) return null;
-    
+    if (!viewer) return null;
+
     return (
       <div className="container">
-        {user.commits.edges.map(e => this.renderCommit(e.node))}
+        {viewer.commits.edges.map(e => this.renderCommit(e.node))}
         <button onClick={() => this.loadMore()}>Load more</button>
       </div>
     );
@@ -50,13 +50,13 @@ class CommitsList extends Component {
 export default createPaginationContainer(
   CommitsList,
   {
-    user: graphql`
-      fragment CommitsList_user on Person {
+    viewer: graphql`
+      fragment CommitsList_viewer on User {
         id
         commits(
           first: $count
           after: $cursor
-        ) @connection(key: "user_commits") {
+        ) @connection(key: "viewer_commits") {
           edges {
             node {
               id
@@ -79,7 +79,7 @@ export default createPaginationContainer(
   {
     direction: 'forward',
     getConnectionFromProps(props) {
-      return props.user && props.user.commits;
+      return props.viewer && props.viewer.commits;
     },
     getFragmentVariables(prevVars, totalCount) {
       return {
@@ -101,8 +101,8 @@ export default createPaginationContainer(
         $count: Int!
         $cursor: String
       ) {
-        user {
-          ...CommitsList_user
+        viewer {
+          ...CommitsList_viewer
         }
       }
     `,

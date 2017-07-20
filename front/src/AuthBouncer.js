@@ -22,9 +22,9 @@ class AuthBouncer extends Component {
   }
 
   isAuthenticated() {
-    const { user, publicPaths } = this.props;
+    const { viewer, publicPaths } = this.props;
 
-    return user || publicPaths.includes(this.context.router.route.location.pathname);
+    return viewer || publicPaths.includes(this.context.router.route.location.pathname);
   }
 
   render() {
@@ -43,7 +43,7 @@ AuthBouncer.contextTypes = {
 };
 
 export default createFragmentContainer(AuthBouncer, graphql`
-  fragment AuthBouncer_user on Person {
+  fragment AuthBouncer_viewer on User {
     id
   }
 `);

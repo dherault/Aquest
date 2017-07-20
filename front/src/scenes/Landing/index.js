@@ -12,18 +12,18 @@ class LandingScene extends Component {
   state = { signupToggled: true }
 
   render() {
-    const { user } = this.props;
+    const { viewer } = this.props;
 
-    if (user) return <Redirect to="/user" />;
+    if (viewer) return <Redirect to="/viewer" />;
 
     const { signupToggled } = this.state;
 
     return (
       <div className="columns">
         <div className="column is-two-thirds">
-          <section className="hero is-primary">
-            <div className="hero-body">
-              <div className="container">
+          <section className="">
+            <div className="">
+              <div className="">
                 <h1 className="title">
                   Aquest is a tool for self-learners, students and passionate people
                 </h1>
@@ -48,7 +48,7 @@ class LandingScene extends Component {
 }
 
 export default createFragmentContainer(LandingScene, graphql`
-  fragment Landing_user on Person {
+  fragment Landing_viewer on User {
     id
     pseudo
   }

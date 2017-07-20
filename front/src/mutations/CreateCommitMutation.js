@@ -18,14 +18,14 @@ const mutation = graphql`
           }
         }
       }
-      user {
+      viewer {
         id
       }
     }
   }
 `;
 
-const createCommit = (skillId, label, user) => commitMutation(environment, {
+const createCommit = (skillId, label, viewer) => commitMutation(environment, {
   mutation,
   variables: {
     input: {
@@ -36,8 +36,8 @@ const createCommit = (skillId, label, user) => commitMutation(environment, {
   },
   updater(store) {
     const newEdge = store.getRootField('createCommit').getLinkedRecord('commitEdge');
-    const userProxy = store.get(user.id);
-    const conn = ConnectionHandler.getConnection(userProxy, 'user_commits');
+    const viewerProxy = store.get(viewer.id);
+    const conn = ConnectionHandler.getConnection(viewerProxy, 'viewer_commits');
 
     ConnectionHandler.insertEdgeBefore(conn, newEdge);
   },

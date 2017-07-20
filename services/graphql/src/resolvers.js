@@ -12,7 +12,7 @@ module.exports = {
     return source[getLocalName(iri)];
   },
   resolveSourceTypes(source) {
-    return `http://foo.com#${source.type}`;
+    return source.type;
   },
   resolveResource(id) {
     return db.readResourceById(id);

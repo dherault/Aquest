@@ -18,11 +18,11 @@ module.exports = new GraphQLSchema({
     name: 'Query',
     fields: {
       node: _.nodeField,
-      user: {
-        type: _.getObjectType('http://foo.com#Person'),
-        resolve: (source, args, { user }) => user,
-      },
       individuals: IndividualsType.field,
+      viewer: {
+        type: _.getObjectType('http://foo.com#User'),
+        resolve: (source, args, { viewer }) => viewer,
+      },
     },
   }),
   mutation: new GraphQLObjectType({

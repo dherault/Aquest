@@ -20,27 +20,22 @@ const publicPaths = [
 ];
 
 const noFooterPaths = [
-
 ];
 
 const renderApp = ({ error, props }) => (
   <Router>
     <div>
 
-      {!!error && (
-        <article className="message is-danger">
-          <div className="message-body">
-            <pre>
-              {error.stack}
-              {!!error.source && (
-                <span>
-                  <br />Source:<br />
-                  {JSON.stringify(error.source, null, 2)}
-                </span>
-              )}
-            </pre>
-          </div>
-        </article>
+      {!!error && process.env.NODE_ENV !== 'production' && (
+        <pre>
+          {error.stack}
+          {!!error.source && (
+            <span>
+              <br />Source:<br />
+              {JSON.stringify(error.source, null, 2)}
+            </span>
+          )}
+        </pre>
       )}
 
       {props ? (
@@ -63,13 +58,13 @@ const renderApp = ({ error, props }) => (
 
 const query = graphql`
   query srcQuery($count: Int!, $cursor: String) {
-    user {
-      ...AuthBouncer_user
-      ...UserProfile_user
-      ...SkillsRegistry_user
-      ...Login_user
-      ...Landing_user
-      ...Footer_user
+    viewer {
+      ...AuthBouncer_viewer
+      ...UserProfile_viewer
+      ...SkillsRegistry_viewer
+      ...Login_viewer
+      ...Landing_viewer
+      ...Footer_viewer
     }
     individuals {
       ...SkillsRegistry_individuals
