@@ -4,6 +4,7 @@ import { createFragmentContainer, graphql } from 'react-relay';
 import CommitCreationForm from './components/CommitCreationForm';
 import CommitsList from './components/CommitsList';
 
+import NavBar from '../../components/NavBar';
 import Footer from '../../components/Footer';
 
 class UserProfileScene extends Component {
@@ -14,10 +15,13 @@ class UserProfileScene extends Component {
 
     return (
       <div>
+        <NavBar viewer={viewer} />
         <section>
           <img alt="" src={viewer.pictureUrl} />
 
-          <h1>{viewer.pseudo}</h1>
+          <h1>
+            {viewer.pseudo}
+          </h1>
 
           <p>
             {viewer.intro}
@@ -26,6 +30,7 @@ class UserProfileScene extends Component {
 
         <section>
           <h2>Skill list</h2>
+
           {skillInstances.map(({ id, level, skill }) => (
             <div key={id}>
               <h3>{skill.label} (level {level})</h3>

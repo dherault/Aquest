@@ -30,7 +30,7 @@ const SkillsRegistry = routerProps => (
 
       return (
         <AuthBouncer {...props}>
-          <SkillsRegistryScene {...routerProps} {...props} />;
+          <SkillsRegistryScene {...routerProps} {...props} />
         </AuthBouncer>
       );
     }}

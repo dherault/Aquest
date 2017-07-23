@@ -2,6 +2,22 @@ import React, { Component } from 'react';
 import { createPaginationContainer, graphql } from 'react-relay';
 import moment from 'moment';
 
+const CommitItem = ({ commit }) => (
+  <div className="box">
+    <article className="media">
+      <div className="media-content">
+        <div className="content">
+          <p>
+            <strong>{commit.skill.label}</strong> <small>{moment(commit.createdAt).fromNow()}</small>
+            <br />
+            {commit.label}
+          </p>
+        </div>
+      </div>
+    </article>
+  </div>
+);
+
 class CommitsList extends Component {
 
   loadMore() {
@@ -15,24 +31,6 @@ class CommitsList extends Component {
     );
   }
 
-  renderCommit(node) {
-    return (
-      <div className="box" key={node.id}>
-        <article className="media">
-          <div className="media-content">
-            <div className="content">
-              <p>
-                <strong>{node.skill.label}</strong> <small>{moment(node.createdAt).fromNow()}</small>
-                <br />
-                {node.label}
-              </p>
-            </div>
-          </div>
-        </article>
-      </div>
-    );
-  }
-
   render() {
     const { viewer } = this.props;
 
@@ -40,7 +38,7 @@ class CommitsList extends Component {
 
     return (
       <div className="container">
-        {viewer.commits.edges.map(e => this.renderCommit(e.node))}
+        {viewer.commits.edges.map(e => <CommitItem commit={e.node} key={e.node.id} />)}
         <button onClick={() => this.loadMore()}>Load more</button>
       </div>
     );
