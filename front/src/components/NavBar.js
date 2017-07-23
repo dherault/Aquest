@@ -15,7 +15,7 @@ const sSearch = {
 };
 
 const NavBar = ({ viewer }) => (
-  <div>
+  <div style={{ position: 'relative' }}>
     <div style={sSearch}>
       <input className="input has-text-centered" type="text" placeholder="🔍 Search" />
     </div>
@@ -31,7 +31,7 @@ const NavBar = ({ viewer }) => (
         <DiskImage size="small" linkTo="/" className="navbar-item" />
         <DiskImage size="small" linkTo="/" className="navbar-item" />
         <DiskImage size="small" linkTo="/" className="navbar-item" />
-        <DiskImage size="small" linkTo="/" className="navbar-item" />
+        <DiskImage size="small" linkTo="/" className="navbar-item" onClick={() => localStorage.removeItem('token') || (window.location.href = '/')} />
       </div>
     </nav>
   </div>

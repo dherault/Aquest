@@ -11,7 +11,7 @@ const CommitItem = ({ commit }) => (
         <DiskImage />
       </figure>
       <div className="media-content">
-        <div className="content">
+        <div className="contentz">
           <p>
             <strong>{commit.vocation.label}</strong> <small>{moment(commit.createdAt).fromNow()}</small>
             <br />

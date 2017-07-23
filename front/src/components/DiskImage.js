@@ -7,7 +7,14 @@ const sizes = {
   large: 156,
 };
 
-const DiskImage = ({ size = 'small', src, linkTo, className, style = {} }) => {
+const DiskImage = ({
+  size = 'small',
+  src,
+  linkTo,
+  onClick,
+  className,
+  style,
+}) => {
 
   const sizePx = sizes[size];
 
@@ -26,6 +33,7 @@ const DiskImage = ({ size = 'small', src, linkTo, className, style = {} }) => {
   };
 
   if (!linkTo) elProps.className = className;
+  if (typeof onClick === 'function') elProps.onClick = onClick;
 
   const el = <div {...elProps} />;
 

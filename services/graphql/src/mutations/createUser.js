@@ -44,7 +44,7 @@ module.exports = mutationWithClientMutationId({
           passwordHash,
           pseudo: pseudo || 'Everyday life hero',
           profileImageUrl: '/images/profile1.jpg',
-          backgroundImageUrl: '/images/profile2.jpg',
+          backgroundImageUrl: '/images/background1.jpg',
         });
 
         return db.upsertResource(user).then(() => ({ user, token: createToken(user.id) }));
