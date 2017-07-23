@@ -3,8 +3,8 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-:Skill
+:Vocation
   a owl:Class ;
   rdfs:subClassOf :Thing ;
-  rdfs:label "Skill"@en ;
-  rdfs:comment "A Skill."@en .
+  rdfs:label "Vocation"@en ;
+  rdfs:comment "A Vocation."@en .

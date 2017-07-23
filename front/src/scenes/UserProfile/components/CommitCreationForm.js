@@ -10,29 +10,29 @@ class CommitCreationForm extends Component {
     e.preventDefault();
 
     const { viewer } = this.props;
-    const { commitSkillId, commitLabel } = this.state;
+    const { commitVocationId, commitLabel } = this.state;
 
-    createCommit(commitSkillId, commitLabel, viewer);
+    createCommit(commitVocationId, commitLabel, viewer);
   }
 
   componentWillMount() {
     this.setState({
       commitLabel: '',
-      commitSkillId: this.props.viewer.skillInstances.edges[0].node.skill.id,
+      commitVocationId: this.props.viewer.vocationInstances.edges[0].node.vocation.id,
     });
   }
 
   render() {
     const { viewer } = this.props;
-    const { commitLabel, commitSkillId } = this.state;
+    const { commitLabel, commitVocationId } = this.state;
 
     return (
       <form onSubmit={this.submitCommit}>
         <input type="text" value={commitLabel} onChange={this.updateState('commitLabel')}/>
-        <select value={commitSkillId} onChange={this.updateState('commitSkillId')}>
-          {viewer.skillInstances.edges.map(e => (
-            <option key={e.node.skill.id} value={e.node.skill.id}>
-              {e.node.skill.label}
+        <select value={commitVocationId} onChange={this.updateState('commitVocationId')}>
+          {viewer.vocationInstances.edges.map(e => (
+            <option key={e.node.vocation.id} value={e.node.vocation.id}>
+              {e.node.vocation.label}
             </option>
           ))}
         </select>

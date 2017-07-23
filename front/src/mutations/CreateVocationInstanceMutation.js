@@ -4,15 +4,15 @@ import environment from '../relayEnvironment';
 import toClearId from '../utils/toClearId';
 
 const mutation = graphql`
-  mutation CreateSkillInstanceMutation($input: CreateSkillInstanceInput!) {
-    createSkillInstance(input: $input) {
-      skillInstanceEdge {
+  mutation CreateVocationInstanceMutation($input: CreateVocationInstanceInput!) {
+    createVocationInstance(input: $input) {
+      vocationInstanceEdge {
         __typename
         cursor
         node {
           id
           level
-          skill {
+          vocation {
             id
           }
         }
@@ -27,7 +27,7 @@ const mutation = graphql`
 function sharedUpdater(store, viewer, newEdge) {
   // console.log('viewer', viewer);
   const viewerProxy = store.get(viewer.id);
-  const conn = ConnectionHandler.getConnection(viewerProxy, 'viewer_skillInstances');
+  const conn = ConnectionHandler.getConnection(viewerProxy, 'viewer_vocationInstances');
   // console.log('viewerProxy', viewerProxy);
   // console.log('conn', conn);
 
@@ -36,30 +36,30 @@ function sharedUpdater(store, viewer, newEdge) {
 
 // let tempId = 0;
 
-const createSkillInstance = (skillId, viewer) => commitMutation(environment, {
+const createVocationInstance = (vocationId, viewer) => commitMutation(environment, {
   mutation,
   variables: {
     input: {
-      skillId: toClearId(skillId),
+      vocationId: toClearId(vocationId),
       clientMutationId: Math.random().toString().slice(2),
     },
   },
   updater(store) {
-    const payload = store.getRootField('createSkillInstance');
+    const payload = store.getRootField('createVocationInstance');
 
     if (!payload) return console.log('No payload');
 
-    const newEdge = payload.getLinkedRecord('skillInstanceEdge');
+    const newEdge = payload.getLinkedRecord('vocationInstanceEdge');
 
     sharedUpdater(store, viewer, newEdge);
   },
   // optimisticUpdater(store) {
-  //   const id = 'client:newSkillInstance:' + tempId++;
-  //   const node = store.create(id, 'SkillInstance');
+  //   const id = 'client:newVocationInstance:' + tempId++;
+  //   const node = store.create(id, 'VocationInstance');
   //   node.setValue(label, 'label');
   //   node.setValue(id, 'id');
   //
-  //   const newEdge = store.create('client:newEdge:' + tempId++, 'SkillInstanceEdge');
+  //   const newEdge = store.create('client:newEdge:' + tempId++, 'VocationInstanceEdge');
   //
   //   newEdge.setLinkedRecord(node, 'node');
   //
@@ -74,4 +74,4 @@ const createSkillInstance = (skillId, viewer) => commitMutation(environment, {
   },
 });
 
-export default createSkillInstance;
+export default createVocationInstance;

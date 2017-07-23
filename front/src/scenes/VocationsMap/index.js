@@ -6,21 +6,21 @@ import AuthBouncer from '../../components/AuthBouncer';
 import LoadingIndicator from '../../components/LoadingIndicator';
 import DevelopmentErrorMessage from '../../components/DevelopmentErrorMessage';
 
-import SkillsRegistryScene from './SkillsRegistryScene';
+import VocationsMapScene from './VocationsMapScene';
 
 const query = graphql`
-  query SkillsRegistryQuery {
+  query VocationsMapQuery {
     viewer {
       ...AuthBouncer_viewer
-      ...SkillsRegistryScene_viewer
+      ...VocationsMapScene_viewer
     }
     individuals {
-      ...SkillsRegistryScene_individuals
+      ...VocationsMapScene_individuals
     }
   }
 `;
 
-const SkillsRegistry = routerProps => (
+const VocationsMap = routerProps => (
   <QueryRenderer
     query={query}
     environment={environment}
@@ -30,11 +30,11 @@ const SkillsRegistry = routerProps => (
 
       return (
         <AuthBouncer {...props}>
-          <SkillsRegistryScene {...routerProps} {...props} />
+          <VocationsMapScene {...routerProps} {...props} />
         </AuthBouncer>
       );
     }}
   />
 );
 
-export default SkillsRegistry;
+export default VocationsMap;

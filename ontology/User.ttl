@@ -9,7 +9,7 @@
   rdfs:subClassOf :Thing ;
   rdfs:label "User"@en ;
   rdfs:comment "A human being regarded as an individual."@en ;
-  rdfs:seeAlso schema:User .
+  rdfs:seeAlso schema:Person .
 
 :pseudo
   a owl:DatatypeProperty, owl:FunctionalProperty ;
@@ -18,23 +18,7 @@
   rdfs:domain :User ;
   rdfs:range xsd:string .
 
-# :firstName
-#   a owl:DatatypeProperty, owl:FunctionalProperty ;
-#   rdfs:label "Given name"@en ;
-#   rdfs:comment "In the U.S., the first name of a User."@en ;
-#   rdfs:domain :User ;
-#   rdfs:range xsd:string ;
-#   rdfs:seeAlso schema:givenName .
-#
-# :lastName
-#   a owl:DatatypeProperty, owl:FunctionalProperty ;
-#   rdfs:label "Family name"@en ;
-#   rdfs:comment "In the U.S., the last name of a User."@en ;
-#   rdfs:domain :User ;
-#   rdfs:range xsd:string ;
-#   rdfs:seeAlso schema:familyName .
-
-:intro
+:bio
   a owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:label "Introduction"@en ;
   rdfs:domain :User ;
@@ -48,7 +32,12 @@
   rdfs:range xsd:string ;
   rdfs:seeAlso schema:email .
 
-:pictureUrl
+:profileImageUrl
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:domain :User ;
+  rdfs:range xsd:string .
+
+:backgroundImageUrl
   a owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain :User ;
   rdfs:range xsd:string .
@@ -59,11 +48,11 @@
   rdfs:range :MilestoneInstance ;
   owl:inverseOf :sourceUser .
 
-:skillInstances
-  rdfs:comment "The Skills Instances the User has."@en ;
+:vocationInstances
+  rdfs:comment "The Vocations Instances the User has."@en ;
   a owl:ObjectProperty ;
   rdfs:domain :User ;
-  rdfs:range :SkillInstance ;
+  rdfs:range :VocationInstance ;
   owl:inverseOf :sourceUser .
 
 :commits

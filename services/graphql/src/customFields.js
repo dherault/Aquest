@@ -11,7 +11,7 @@ _.addFieldOnObjectType('http://foo.com#Thing', 'iri', {
 
 _['http://www.w3.org/2000/01/rdf-schema#label'].isGraphqlList = false;
 
-_['http://foo.com#skillInstances'].isRelayConnection = true;
+_['http://foo.com#vocationInstances'].isRelayConnection = true;
 _['http://foo.com#commits'].isRelayConnection = true;
 
 _['http://foo.com#commits'].graphqlFieldConfigExtension = {

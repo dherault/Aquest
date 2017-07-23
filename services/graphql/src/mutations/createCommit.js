@@ -9,7 +9,7 @@ const _ = require('../graph');
 module.exports = mutationWithClientMutationId({
   name: 'CreateCommit',
   inputFields: {
-    skillId: {
+    vocationId: {
       type: new GraphQLNonNull(GraphQLID),
     },
     label: {
@@ -29,9 +29,9 @@ module.exports = mutationWithClientMutationId({
       resolve: (payload, args, { viewer }) => viewer,
     },
   },
-  mutateAndGetPayload: ensureAuth(({ skillId, label }, context) => {
+  mutateAndGetPayload: ensureAuth(({ vocationId, label }, context) => {
     const commit = createResource('Commit', context, {
-      skill: skillId,
+      vocation: vocationId,
       label,
     });
 

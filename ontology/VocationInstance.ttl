@@ -4,16 +4,16 @@
 @prefix schema: <http://schema.org/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-:SkillInstance
+:VocationInstance
   a owl:Class ;
   rdfs:subClassOf :Thing ;
-  rdfs:label "SkillInstance"@en ;
+  rdfs:label "VocationInstance"@en ;
   rdfs:comment "A human being regarded as an individual."@en ;
-  rdfs:seeAlso schema:SkillInstance .
+  rdfs:seeAlso schema:VocationInstance .
 
 :level
   a owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:label "Level"@en ;
-  rdfs:comment "The level the user has reached in this skill."@en ;
-  rdfs:domain :SkillInstance ;
+  rdfs:comment "The level the user has reached in this vocation."@en ;
+  rdfs:domain :VocationInstance ;
   rdfs:range xsd:nonNegativeInteger .

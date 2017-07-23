@@ -13,7 +13,7 @@ const mutation = graphql`
           id
           label
           createdAt
-          skill {
+          vocation {
             id
           }
         }
@@ -25,12 +25,12 @@ const mutation = graphql`
   }
 `;
 
-const createCommit = (skillId, label, viewer) => commitMutation(environment, {
+const createCommit = (vocationId, label, viewer) => commitMutation(environment, {
   mutation,
   variables: {
     input: {
       label,
-      skillId: toClearId(skillId),
+      vocationId: toClearId(vocationId),
       clientMutationId: Math.random().toString().slice(2),
     },
   },

@@ -53,7 +53,7 @@ const loginUser = (email, password) => commitMutation(environment, {
   //   node.setValue(id, 'id');
   //
   //   console.log('node', node);
-  //   // node.setValue(input.skillId, 'skill');
+  //   // node.setValue(input.vocationId, 'vocation');
   //
   //   const newEdge = store.create('client:newEdge:' + tempId++, 'CommitEdge');
   //

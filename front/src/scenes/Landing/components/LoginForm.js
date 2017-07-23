@@ -1,4 +1,4 @@
-// import './Skills.css';
+// import './Vocations.css';
 import React, { Component } from 'react';
 // import { createFragmentContainer, graphql } from 'react-relay';
 import loginUser from '../../../mutations/LoginUserMutation';

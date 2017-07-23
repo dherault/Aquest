@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Landing from './scenes/Landing';
 import Login from './scenes/Login';
 import UserProfile from './scenes/UserProfile';
-import SkillsRegistry from './scenes/SkillsRegistry';
+import VocationsMap from './scenes/VocationsMap';
 
 const routes = (
   <Router>
@@ -18,7 +18,7 @@ const routes = (
       <Route exact path="/" component={Landing} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/user" component={UserProfile} />
-      <Route exact path="/skills" component={SkillsRegistry} />
+      <Route exact path="/vocations" component={VocationsMap} />
     </div>
   </Router>
 );

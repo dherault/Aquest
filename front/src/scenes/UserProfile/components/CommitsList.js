@@ -8,7 +8,7 @@ const CommitItem = ({ commit }) => (
       <div className="media-content">
         <div className="content">
           <p>
-            <strong>{commit.skill.label}</strong> <small>{moment(commit.createdAt).fromNow()}</small>
+            <strong>{commit.vocation.label}</strong> <small>{moment(commit.createdAt).fromNow()}</small>
             <br />
             {commit.label}
           </p>
@@ -60,7 +60,7 @@ export default createPaginationContainer(
               id
               label
               createdAt
-              skill {
+              vocation {
                 id
                 label
               }

@@ -8,7 +8,7 @@
 # The properties that admit multiple domains #
 # ------------------------------------------ #
 
-:skill
+:vocation
   a owl:ObjectProperty, owl:FunctionalProperty ;
-  rdfs:domain :Commit, :SkillInstance ;
-  rdfs:range :Skill .
+  rdfs:domain :Commit, :VocationInstance ;
+  rdfs:range :Vocation .

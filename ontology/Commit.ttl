@@ -8,4 +8,4 @@
   a owl:Class ;
   rdfs:subClassOf :Thing ;
   rdfs:label "Commit"@en ;
-  rdfs:comment "A substancial improvment of a Skill."@en .
+  rdfs:comment "A substancial improvment of a Vocation."@en .

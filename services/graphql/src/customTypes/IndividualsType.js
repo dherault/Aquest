@@ -1,6 +1,6 @@
 const { GraphQLObjectType } = require('graphql');
 const { globalIdField, connectionArgs, connectionFromPromisedArray } = require('graphql-relay');
-const { run, skillsQuery } = require('../db/queries');
+const { run, vocationsQuery } = require('../db/queries');
 const _ = require('../graph');
 
 const IndividualsType = new GraphQLObjectType({
@@ -8,10 +8,10 @@ const IndividualsType = new GraphQLObjectType({
   interfaces: [_.nodeInterface],
   fields: {
     id: globalIdField('Individuals', () => 'individuals'),
-    skills: {
-      type: _.getConnectionType('http://foo.com#Skill'),
+    vocations: {
+      type: _.getConnectionType('http://foo.com#Vocation'),
       args: connectionArgs,
-      resolve: (source, args) => connectionFromPromisedArray(run(skillsQuery), args),
+      resolve: (source, args) => connectionFromPromisedArray(run(vocationsQuery), args),
     },
   },
 });

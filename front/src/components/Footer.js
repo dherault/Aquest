@@ -10,7 +10,7 @@ const Footer = ({ viewer }) => (
           <p>
             Keep going {viewer.pseudo}!&nbsp;
             <Link to="/user">Profile</Link>&nbsp;
-            <Link to="/skills">Skills</Link>&nbsp;
+            <Link to="/vocations">Vocations</Link>&nbsp;
             <a onClick={() => localStorage.removeItem('token') || (window.location.href = '/')}>Log out</a>
           </p>
         ) : (

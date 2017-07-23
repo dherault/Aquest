@@ -4,33 +4,33 @@ const IndividualsType = require('../customTypes/IndividualsType');
 const createResource = require('../utils/createResource');
 const ensureAuth = require('../utils/ensureAuth');
 const db = require('../db');
-const { run, skillsQuery } = require('../db/queries');
+const { run, vocationsQuery } = require('../db/queries');
 const _ = require('../graph');
 
 module.exports = mutationWithClientMutationId({
-  name: 'CreateSkill',
+  name: 'CreateVocation',
   inputFields: {
     label: {
       type: new GraphQLNonNull(GraphQLString),
     },
   },
   outputFields: {
-    skillEdge: {
-      type: _.getEdgeType('http://foo.com#Skill'),
-      resolve: ({ skill: { id } }) => run(skillsQuery).then(skills => {
-        const skill = skills.find(s => s.id === id);
+    vocationEdge: {
+      type: _.getEdgeType('http://foo.com#Vocation'),
+      resolve: ({ vocation: { id } }) => run(vocationsQuery).then(vocations => {
+        const vocation = vocations.find(s => s.id === id);
 
         return {
-          cursor: cursorForObjectInConnection(skills, skill),
-          node: skill,
+          cursor: cursorForObjectInConnection(vocations, vocation),
+          node: vocation,
         };
       }),
     },
     individuals: IndividualsType.field,
   },
   mutateAndGetPayload: ensureAuth(({ label }, context) => {
-    const skill = createResource('Skill', context, { label });
+    const vocation = createResource('Vocation', context, { label });
 
-    return db.upsertResource(skill).then(() => ({ skill }));
+    return db.upsertResource(vocation).then(() => ({ vocation }));
   }),
 });

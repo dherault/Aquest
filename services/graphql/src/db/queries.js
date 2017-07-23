@@ -5,10 +5,10 @@ const run = query => new Promise((resolve, reject) => {
   db.runQuery(query, (err, result) => err ? reject(err) : resolve(result));
 });
 
-const skillsQuery = db.createQuery('http://foo.com#Skill').order('createdAt');
+const vocationsQuery = db.createQuery('http://foo.com#Vocation').order('createdAt');
 
 
 module.exports = {
   run,
-  skillsQuery,
+  vocationsQuery,
 };
