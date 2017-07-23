@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import { createPaginationContainer, graphql } from 'react-relay';
 import moment from 'moment';
 
+import DiskImage from '../../../components/DiskImage';
+
 const CommitItem = ({ commit }) => (
-  <div className="box">
+  <div className="box" style={{ width: '50%' }}>
     <article className="media">
+      <figure className="media-left">
+        <DiskImage />
+      </figure>
       <div className="media-content">
         <div className="content">
           <p>
@@ -37,7 +42,7 @@ class CommitsList extends Component {
     if (!viewer) return null;
 
     return (
-      <div className="container">
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {viewer.commits.edges.map(e => <CommitItem commit={e.node} key={e.node.id} />)}
         <button onClick={() => this.loadMore()}>Load more</button>
       </div>

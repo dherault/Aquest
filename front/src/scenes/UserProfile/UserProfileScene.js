@@ -5,6 +5,7 @@ import CommitCreationForm from './components/CommitCreationForm';
 import CommitsList from './components/CommitsList';
 
 import NavBar from '../../components/NavBar';
+import DiskImage from '../../components/DiskImage';
 import Footer from '../../components/Footer';
 
 class UserProfileScene extends Component {
@@ -16,8 +17,11 @@ class UserProfileScene extends Component {
     return (
       <div>
         <NavBar viewer={viewer} />
-        <section>
-          <img alt="" src={viewer.profileImageUrl} />
+        <section style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+
+          <div>
+            <DiskImage size="large" src={viewer.profileImageUrl} />
+          </div>
 
           <h1>
             {viewer.pseudo}
@@ -56,7 +60,7 @@ export default createFragmentContainer(UserProfileScene, graphql`
     profileImageUrl
     backgroundImageUrl
 
-    vocationInstances(first: 2147483647) @connection(key: "viewer_vocationInstances") {
+    vocationInstances(first: 4) @connection(key: "viewer_vocationInstances") {
       edges {
         node {
           id
@@ -68,6 +72,7 @@ export default createFragmentContainer(UserProfileScene, graphql`
         }
       }
     }
+    ...NavBar_viewer
     ...CommitsList_viewer
     ...Footer_viewer
   }
