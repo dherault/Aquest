@@ -54,7 +54,7 @@ class NavBar extends Component {
     const { searchText } = this.state;
 
     return (
-      <div>
+      <div className="has-full-width">
         <nav style={sNav}>
 
           <div className="rcc" style={sSearchInput}>

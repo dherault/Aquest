@@ -19,13 +19,17 @@ class UserProfileScene extends Component {
       <BackgroundImage src={viewer.backgroundImageUrl}>
         <NavBar viewer={viewer} />
 
-        <section style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 32 }}>
-          <UserShowcase user={viewer} />
-        </section>
+        <BackgroundImage.Content>
+          <section className="rcc" style={{ marginTop: '4rem' }}>
+            <UserShowcase
+              user={viewer} 
+            />
+          </section>
 
-        <section>
-          <CommitsList viewer={viewer} />
-        </section>
+          <section>
+            <CommitsList viewer={viewer} />
+          </section>
+        </BackgroundImage.Content>
 
         <Footer />
       </BackgroundImage>

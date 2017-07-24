@@ -9,7 +9,7 @@ class VocationInstanceShowcase extends Component {
     const { isLeft, vocationInstance: { level, vocation: { userLabel, label } } } = this.props;
 
     return (
-      <div className={isLeft ? 'rxrc' : 'rlc'} style={{ margin: '1.5rem 0px' }}>
+      <div className={isLeft ? 'rxrc' : 'rlc'} style={{ margin: '1rem 0px' }}>
         <DiskImage size="medium" style={{ [`margin${isLeft ? 'Left' : 'Right'}`]: '1rem' }} />
         <strong>{userLabel || label} level {level}</strong>
       </div>

@@ -23,7 +23,7 @@ class UserShowcase extends Component {
             {!!vocationInstances[1] && <VocationInstanceShowcase isLeft vocationInstance={vocationInstances[1]} />}
           </div>
 
-          <DiskImage size="large" src={user.profileImageUrl} style={{ margin: '0px 3rem' }}/>
+          <DiskImage size="large" src={user.profileImageUrl} style={{ margin: '0px 4rem' }} />
 
           <div className="clc" style={vocationWingStyle}>
             {!!vocationInstances[2] && <VocationInstanceShowcase vocationInstance={vocationInstances[2]} />}
@@ -32,12 +32,12 @@ class UserShowcase extends Component {
 
         </div>
 
-        <h1>
+        <h1 style={{ margin: '2.5rem 0px 1rem 0px' }}>
           {user.pseudo}
         </h1>
-        <p>
+        <div>
           {user.description}
-        </p>
+        </div>
       </div>
     );
   }
