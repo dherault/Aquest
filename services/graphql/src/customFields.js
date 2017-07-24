@@ -21,6 +21,7 @@ _['http://foo.com#commits'].graphqlFieldConfigExtension = {
       .find({ sourceUser: viewer.id })
       .sort({ createdAt: -1 })
       .toArray()
-    )
+    ),
+    args
   ),
 };

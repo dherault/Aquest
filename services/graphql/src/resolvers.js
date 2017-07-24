@@ -21,9 +21,14 @@ module.exports = {
   },
   resolveResourcesByPredicate(types, iri, value) {
     const localName = getLocalName(iri);
+    // console.log('resolveResourcesByPredicate', types, localName, value);
 
     return query(db => {
-      const queries = types.map(type => db.collection(getLocalName(type)).find({ [localName]: value }));
+      const queries = types.map(type => db
+        .collection(getLocalName(type))
+        .find({ [localName]: value })
+        .toArray()
+      );
 
       return Promise.all(queries).then(payloads => payloads.reduce((a, b) => a.concat(b), []).sort(sortCreatedAt));
     });
