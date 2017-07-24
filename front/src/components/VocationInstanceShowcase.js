@@ -6,11 +6,15 @@ import DiskImage from './DiskImage';
 class VocationInstanceShowcase extends Component {
 
   render() {
-    const { isLeft, vocationInstance: { level, vocation: { userLabel, label } } } = this.props;
+    const { isLeft, onDiskImageClick, vocationInstance: { level, vocation: { userLabel, label } } } = this.props;
 
     return (
       <div className={isLeft ? 'rxrc' : 'rlc'} style={{ margin: '1rem 0px' }}>
-        <DiskImage size="medium" style={{ [`margin${isLeft ? 'Left' : 'Right'}`]: '1rem' }} />
+        <DiskImage
+          size="medium"
+          onClick={onDiskImageClick}
+          style={{ [`margin${isLeft ? 'Left' : 'Right'}`]: '1rem' }}
+        />
         <strong>{userLabel || label} level {level}</strong>
       </div>
     );

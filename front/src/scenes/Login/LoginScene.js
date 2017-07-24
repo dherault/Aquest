@@ -4,7 +4,7 @@ import { createFragmentContainer, graphql } from 'react-relay';
 import loginUser from '../../mutations/LoginUserMutation';
 
 class LoginScene extends Component {
-  state = { email: '', password: '' }
+  state = { email: 'yolo@gmail.com', password: 'yodoyodo' }
 
   createInputHandler = key => e => this.setState({ [key]: e.target.value })
 

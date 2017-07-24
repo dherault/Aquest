@@ -1,4 +1,4 @@
-import { storyMutation, graphql } from 'react-relay';
+import { commitMutation, graphql } from 'react-relay';
 import { ConnectionHandler } from 'relay-runtime';
 import environment from '../relayEnvironment';
 import toClearId from '../utils/toClearId';
@@ -36,7 +36,7 @@ function sharedUpdater(store, viewer, newEdge) {
 
 // let tempId = 0;
 
-const createVocationInstance = (vocationId, viewer) => storyMutation(environment, {
+const createVocationInstance = (vocationId, viewer) => commitMutation(environment, {
   mutation,
   variables: {
     input: {

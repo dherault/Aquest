@@ -1,4 +1,4 @@
-import { storyMutation, graphql } from 'react-relay';
+import { commitMutation, graphql } from 'react-relay';
 import environment from '../relayEnvironment';
 
 const mutation = graphql`
@@ -9,7 +9,7 @@ const mutation = graphql`
   }
 `;
 
-const createUser = (email, password) => storyMutation(environment, {
+const createUser = (email, password) => commitMutation(environment, {
   mutation,
   variables: {
     input: {

@@ -1,4 +1,4 @@
-import { storyMutation, graphql } from 'react-relay';
+import { commitMutation, graphql } from 'react-relay';
 import { ConnectionHandler } from 'relay-runtime';
 import environment from '../relayEnvironment';
 import toClearId from '../utils/toClearId';
@@ -25,12 +25,13 @@ const mutation = graphql`
   }
 `;
 
-const createStory = (vocationId, label, viewer) => storyMutation(environment, {
+const createStory = (label, shouldLevelUp, vocationInstance, viewer) => commitMutation(environment, {
   mutation,
   variables: {
     input: {
       label,
-      vocationId: toClearId(vocationId),
+      vocationId: toClearId(vocationInstance.vocation.id),
+      vocationInstanceId: shouldLevelUp ? toClearId(vocationInstance.id) : null,
       clientMutationId: Math.random().toString().slice(2),
     },
   },

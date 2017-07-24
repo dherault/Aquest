@@ -11,7 +11,7 @@ const vocationWingStyle = {
 class UserShowcase extends Component {
 
   render() {
-    const { user } = this.props;
+    const { user, onVocationInstanceClick } = this.props;
     const vocationInstances = user.vocationInstances.edges.map(e => e.node);
 
     return (
@@ -19,15 +19,42 @@ class UserShowcase extends Component {
         <div className="rcc has-full-width">
 
           <div className="crc" style={vocationWingStyle}>
-            {!!vocationInstances[0] && <VocationInstanceShowcase isLeft vocationInstance={vocationInstances[0]} />}
-            {!!vocationInstances[1] && <VocationInstanceShowcase isLeft vocationInstance={vocationInstances[1]} />}
+            {!!vocationInstances[0] && (
+              <VocationInstanceShowcase
+                isLeft
+                onDiskImageClick={() => onVocationInstanceClick(vocationInstances[0].id)}
+                vocationInstance={vocationInstances[0]}
+              />
+            )}
+            {!!vocationInstances[1] && (
+              <VocationInstanceShowcase
+                isLeft
+                onDiskImageClick={() => onVocationInstanceClick(vocationInstances[1].id)}
+                vocationInstance={vocationInstances[1]}
+              />
+            )}
           </div>
 
-          <DiskImage size="large" src={user.profileImageUrl} style={{ margin: '0px 4rem' }} />
+          <DiskImage
+            size="large"
+            src={user.profileImageUrl}
+            onClick={() => onVocationInstanceClick(vocationInstances[0].id)}
+            style={{ margin: '0px 4rem' }}
+          />
 
           <div className="clc" style={vocationWingStyle}>
-            {!!vocationInstances[2] && <VocationInstanceShowcase vocationInstance={vocationInstances[2]} />}
-            {!!vocationInstances[3] && <VocationInstanceShowcase vocationInstance={vocationInstances[3]} />}
+            {!!vocationInstances[2] && (
+              <VocationInstanceShowcase
+                onDiskImageClick={() => onVocationInstanceClick(vocationInstances[2].id)}
+                vocationInstance={vocationInstances[2]}
+              />
+            )}
+            {!!vocationInstances[3] && (
+              <VocationInstanceShowcase
+                onDiskImageClick={() => onVocationInstanceClick(vocationInstances[3].id)}
+                vocationInstance={vocationInstances[3]}
+              />
+            )}
           </div>
 
         </div>
