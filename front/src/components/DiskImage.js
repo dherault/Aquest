@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const sizes = {
   small: 40,
-  medium: 60,
+  medium: 80,
   large: 160,
 };
 

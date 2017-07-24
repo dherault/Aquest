@@ -10,8 +10,8 @@ class VocationInstanceShowcase extends Component {
 
     return (
       <div className={isLeft ? 'rxrc' : 'rlc'} style={{ margin: '1.5rem 0px' }}>
-        <DiskImage size="medium" />
-        {userLabel || label} level {level}
+        <DiskImage size="medium" style={{ [`margin${isLeft ? 'Left' : 'Right'}`]: '1rem' }} />
+        <strong>{userLabel || label} level {level}</strong>
       </div>
     );
   }

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { createFragmentContainer, graphql } from 'react-relay';
 
 const Footer = () => (
-  <footer className="container has-text-centered" style={{ marginTop: 24 }}>
+  <footer className="container has-text-centered has-color-white" style={{ marginTop: 24 }}>
     <p>
       <strong>Aquest</strong> by <a>David Hérault</a>.
       The source code is licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.

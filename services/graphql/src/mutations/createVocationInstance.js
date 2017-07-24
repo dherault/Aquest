@@ -15,18 +15,18 @@ module.exports = mutationWithClientMutationId({
   outputFields: {
     vocationInstanceEdge: {
       type: _.getEdgeType('http://foo.com#VocationInstance'),
-      resolve: ({ vocationInstance: { id } }, args, { viewer }) => {
-        const queryPromise = query(db => db.collection('VocationInstance').find({ sourceUser: viewer.id })).toArray();
+      resolve: ({ vocationInstance: { id } }, args, { viewer }) => query(db => db
+        .collection('VocationInstance')
+        .find({ sourceUser: viewer.id })
+        .toArray()
+      ).then(vocationInstances => {
+        const vocationInstance = vocationInstances.find(s => s.id === id);
 
-        return queryPromise.then(vocationInstances => {
-          const vocationInstance = vocationInstances.find(s => s.id === id);
-
-          return {
-            cursor: cursorForObjectInConnection(vocationInstances, vocationInstance),
-            node: vocationInstance,
-          };
-        });
-      },
+        return {
+          cursor: cursorForObjectInConnection(vocationInstances, vocationInstance),
+          node: vocationInstance,
+        };
+      }),
     },
     viewer: {
       type: _.getObjectType('http://foo.com#User'),

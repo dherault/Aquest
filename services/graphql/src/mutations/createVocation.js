@@ -16,7 +16,11 @@ module.exports = mutationWithClientMutationId({
   outputFields: {
     vocationEdge: {
       type: _.getEdgeType('http://foo.com#Vocation'),
-      resolve: ({ vocation: { id } }) => query(db => db.collection('Vocation').find().toArray()).then(vocations => {
+      resolve: ({ vocation: { id } }) => query(db => db
+        .collection('Vocation')
+        .find()
+        .toArray()
+      ).then(vocations => {
         const vocation = vocations.find(s => s.id === id);
 
         return {
