@@ -17,16 +17,16 @@ const sSearch = {
 const NavBar = ({ viewer }) => (
   <div style={{ position: 'relative' }}>
     <div style={sSearch}>
-      <input className="input has-text-centered" type="text" placeholder="🔍 Search" />
+      <input className="has-text-centered" type="text" placeholder="🔍 Search" />
     </div>
 
-    <nav className="navbar" style={{ boxShadow: '0px 0px 6px 0px rgba(0,0,0,0.75)' }}>
+    <nav className="row" style={{ boxShadow: '0px 0px 6px 0px rgba(0,0,0,0.75)', backgroundColor: 'white' }}>
 
       <DiskImage size="small" linkTo="/" className="navbar-item" />
       <DiskImage size="small" linkTo="/vocations" className="navbar-item" />
 
-      <div className="navbar-menu" style={{ flexDirection: 'row-reverse' }}>
-        <DiskImage size="small" linkTo="/" className="navbar-item" />
+      <div className="row" style={{ flexDirection: 'row-reverse' }}>
+        <DiskImage size="small" linkTo="/user" className="navbar-item" src={viewer.profileImageUrl} />
         <div style={{ height: 2, width: 32, backgroundColor: 'LightGrey', marginTop: 24 }} />
         <DiskImage size="small" linkTo="/" className="navbar-item" />
         <DiskImage size="small" linkTo="/" className="navbar-item" />
@@ -40,6 +40,6 @@ const NavBar = ({ viewer }) => (
 export default createFragmentContainer(NavBar, graphql`
   fragment NavBar_viewer on User {
     id
-    pseudo
+    profileImageUrl
   }
 `);

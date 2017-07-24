@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const sizes = {
   small: 36,
-  medium: 48,
+  medium: 64,
   large: 156,
 };
 
@@ -39,5 +39,7 @@ const DiskImage = ({
 
   return linkTo ? <Link to={linkTo} className={className}>{el}</Link> : el;
 };
+
+DiskImage.sizes = sizes;
 
 export default DiskImage;

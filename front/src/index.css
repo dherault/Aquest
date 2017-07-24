@@ -3,3 +3,63 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+html {
+  overflow: hidden;
+}
+
+/* Grid */
+
+.rcc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rlc {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.rxrc {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.cct {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.crc {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.clc {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* Utils */
+
+.has-full-width {
+  width: 100%;
+}
+
+.has-text-centered {
+  text-align: center;
+}
+
+.has-color-white {
+  color: white;
+}

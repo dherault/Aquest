@@ -8,7 +8,8 @@ const BackgroundImage = ({ src, children }) => (
     backgroundSize: '100% auto',
     backgroundRepeat: 'no-repeat',
     height: '100vh',
-    overflowY: 'scroll',
+    overflowY: 'auto',
+    overflowX: 'hidden',
   }}>
       {children}
   </div>

@@ -57,7 +57,7 @@ class VocationsMapScene extends Component {
           </div>
 
         </div>
-        <Footer viewer={viewer} />
+        <Footer />
 
       </div>
     );
@@ -96,7 +96,6 @@ export default createFragmentContainer(VocationsMapScene, graphql`
     }
 
     ...NavBar_viewer
-    ...Footer_viewer
   }
 
 `);
