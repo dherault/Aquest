@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const sizes = {
-  small: 36,
-  medium: 64,
-  large: 156,
+  small: 40,
+  medium: 60,
+  large: 160,
 };
 
 const DiskImage = ({
