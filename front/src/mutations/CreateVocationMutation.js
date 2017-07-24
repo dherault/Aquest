@@ -1,4 +1,4 @@
-import { commitMutation, graphql } from 'react-relay';
+import { storyMutation, graphql } from 'react-relay';
 import { ConnectionHandler } from 'relay-runtime';
 import environment from '../relayEnvironment';
 
@@ -32,7 +32,7 @@ function sharedUpdater(store, individuals, newEdge) {
 
 let tempId = 0;
 
-const createVocation = (label, individuals) => commitMutation(environment, {
+const createVocation = (label, individuals) => storyMutation(environment, {
   mutation,
   variables: {
     input: {

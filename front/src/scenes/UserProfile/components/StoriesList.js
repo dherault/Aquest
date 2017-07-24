@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import DiskImage from '../../../components/DiskImage';
 
-const CommitItem = ({ commit }) => (
+const StoryItem = ({ story }) => (
   <div className="box" style={{ width: '50%' }}>
     <article className="media">
       <figure className="media-left">
@@ -13,9 +13,9 @@ const CommitItem = ({ commit }) => (
       <div className="media-content">
         <div className="contentz">
           <p>
-            <strong>{commit.vocation.label}</strong> <small>{moment(commit.createdAt).fromNow()}</small>
+            <strong>{story.vocation.label}</strong> <small>{moment(story.createdAt).fromNow()}</small>
             <br />
-            {commit.label}
+            {story.label}
           </p>
         </div>
       </div>
@@ -23,7 +23,7 @@ const CommitItem = ({ commit }) => (
   </div>
 );
 
-class CommitsList extends Component {
+class StoriesList extends Component {
 
   loadMore() {
     if (!this.props.relay.hasMore() || this.props.relay.isLoading()) return;
@@ -43,7 +43,7 @@ class CommitsList extends Component {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        {viewer.commits.edges.map(e => <CommitItem commit={e.node} key={e.node.id} />)}
+        {viewer.stories.edges.map(e => <StoryItem story={e.node} key={e.node.id} />)}
         <button onClick={() => this.loadMore()}>Load more</button>
       </div>
     );
@@ -51,15 +51,15 @@ class CommitsList extends Component {
 }
 
 export default createPaginationContainer(
-  CommitsList,
+  StoriesList,
   {
     viewer: graphql`
-      fragment CommitsList_viewer on User {
+      fragment StoriesList_viewer on User {
         id
-        commits(
+        stories(
           first: $count
           after: $cursor
-        ) @connection(key: "viewer_commits") {
+        ) @connection(key: "viewer_stories") {
           edges {
             node {
               id
@@ -82,7 +82,7 @@ export default createPaginationContainer(
   {
     direction: 'forward',
     getConnectionFromProps(props) {
-      return props.viewer && props.viewer.commits;
+      return props.viewer && props.viewer.stories;
     },
     getFragmentVariables(prevVars, totalCount) {
       return {
@@ -100,12 +100,12 @@ export default createPaginationContainer(
       };
     },
     query: graphql`
-      query CommitsListPaginationQuery(
+      query StoriesListPaginationQuery(
         $count: Int!
         $cursor: String
       ) {
         viewer {
-          ...CommitsList_viewer
+          ...StoriesList_viewer
         }
       }
     `,

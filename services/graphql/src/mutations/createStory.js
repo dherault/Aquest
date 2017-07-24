@@ -7,7 +7,7 @@ const { createResource } = require('../db');
 const _ = require('../graph');
 
 module.exports = mutationWithClientMutationId({
-  name: 'CreateCommit',
+  name: 'CreateStory',
   inputFields: {
     vocationId: {
       type: new GraphQLNonNull(GraphQLID),
@@ -17,11 +17,11 @@ module.exports = mutationWithClientMutationId({
     },
   },
   outputFields: {
-    commitEdge: {
-      type: _.getEdgeType('http://foo.com#Commit'),
-      resolve: ({ commit }) => ({
-        cursor: base64('arrayconnection:0'), // HACK, new commit is always first in connection
-        node: commit,
+    storyEdge: {
+      type: _.getEdgeType('http://foo.com#Story'),
+      resolve: ({ story }) => ({
+        cursor: base64('arrayconnection:0'), // HACK, new story is always first in connection
+        node: story,
       }),
     },
     viewer: {
@@ -30,11 +30,11 @@ module.exports = mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload: ensureAuth(({ vocationId, label }, context) => {
-    const commit = createResourceObject('Commit', context, {
+    const story = createResourceObject('Story', context, {
       vocation: vocationId,
       label,
     });
 
-    return createResource(commit).then(() => ({ commit }));
+    return createResource(story).then(() => ({ story }));
   }),
 });

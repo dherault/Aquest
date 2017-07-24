@@ -49,9 +49,9 @@
   rdfs:range :VocationInstance ;
   owl:inverseOf :sourceUser .
 
-:commits
-  rdfs:comment "The Commits the User has."@en ;
+:stories
+  rdfs:comment "The Stories the User has."@en ;
   a owl:ObjectProperty ;
   rdfs:domain :User ;
-  rdfs:range :Commit ;
+  rdfs:range :Story ;
   owl:inverseOf :sourceUser .

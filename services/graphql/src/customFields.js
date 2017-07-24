@@ -12,12 +12,12 @@ _.addFieldOnObjectType('http://foo.com#Thing', 'iri', {
 _['http://www.w3.org/2000/01/rdf-schema#label'].isGraphqlList = false;
 
 _['http://foo.com#vocationInstances'].isRelayConnection = true;
-_['http://foo.com#commits'].isRelayConnection = true;
+_['http://foo.com#stories'].isRelayConnection = true;
 
-_['http://foo.com#commits'].graphqlFieldConfigExtension = {
+_['http://foo.com#stories'].graphqlFieldConfigExtension = {
   resolve: (source, args, { viewer }) => connectionFromPromisedArray(
     query(db => db
-      .collection('Commit')
+      .collection('Story')
       .find({ sourceUser: viewer.id })
       .sort({ createdAt: -1 })
       .toArray()

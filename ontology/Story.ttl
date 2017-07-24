@@ -4,8 +4,8 @@
 @prefix schema: <http://schema.org/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-:Commit
+:Story
   a owl:Class ;
   rdfs:subClassOf :Thing ;
-  rdfs:label "Commit"@en ;
+  rdfs:label "Story"@en ;
   rdfs:comment "A substancial improvment of a Vocation."@en .

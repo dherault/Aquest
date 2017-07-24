@@ -1,12 +1,12 @@
-import { commitMutation, graphql } from 'react-relay';
+import { storyMutation, graphql } from 'react-relay';
 import { ConnectionHandler } from 'relay-runtime';
 import environment from '../relayEnvironment';
 import toClearId from '../utils/toClearId';
 
 const mutation = graphql`
-  mutation CreateCommitMutation($input: CreateCommitInput!) {
-    createCommit(input: $input) {
-      commitEdge {
+  mutation CreateStoryMutation($input: CreateStoryInput!) {
+    createStory(input: $input) {
+      storyEdge {
         __typename
         cursor
         node {
@@ -25,7 +25,7 @@ const mutation = graphql`
   }
 `;
 
-const createCommit = (vocationId, label, viewer) => commitMutation(environment, {
+const createStory = (vocationId, label, viewer) => storyMutation(environment, {
   mutation,
   variables: {
     input: {
@@ -35,9 +35,9 @@ const createCommit = (vocationId, label, viewer) => commitMutation(environment, 
     },
   },
   updater(store) {
-    const newEdge = store.getRootField('createCommit').getLinkedRecord('commitEdge');
+    const newEdge = store.getRootField('createStory').getLinkedRecord('storyEdge');
     const viewerProxy = store.get(viewer.id);
-    const conn = ConnectionHandler.getConnection(viewerProxy, 'viewer_commits');
+    const conn = ConnectionHandler.getConnection(viewerProxy, 'viewer_stories');
 
     ConnectionHandler.insertEdgeBefore(conn, newEdge);
   },
@@ -50,4 +50,4 @@ const createCommit = (vocationId, label, viewer) => commitMutation(environment, 
   },
 });
 
-export default createCommit;
+export default createStory;

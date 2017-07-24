@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 
-import CommitCreationForm from './components/CommitCreationForm';
-import CommitsList from './components/CommitsList';
+import StoryCreationForm from './components/StoryCreationForm';
+import StoriesList from './components/StoriesList';
 
 import UserShowcase from '../../components/UserShowcase';
 import NavBar from '../../components/NavBar';
@@ -22,12 +22,12 @@ class UserProfileScene extends Component {
         <BackgroundImage.Content>
           <section className="rcc" style={{ marginTop: '4rem' }}>
             <UserShowcase
-              user={viewer} 
+              user={viewer}
             />
           </section>
 
           <section>
-            <CommitsList viewer={viewer} />
+            <StoriesList viewer={viewer} />
           </section>
         </BackgroundImage.Content>
 
@@ -44,6 +44,6 @@ export default createFragmentContainer(UserProfileScene, graphql`
 
     ...NavBar_viewer
     ...UserShowcase_user
-    ...CommitsList_viewer
+    ...StoriesList_viewer
   }
 `);

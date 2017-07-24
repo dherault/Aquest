@@ -10,7 +10,7 @@
 
 :vocation
   a owl:ObjectProperty, owl:FunctionalProperty ;
-  rdfs:domain :Commit, :VocationInstance ;
+  rdfs:domain :Story, :VocationInstance ;
   rdfs:range :Vocation .
 
 :description

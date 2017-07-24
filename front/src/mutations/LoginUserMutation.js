@@ -1,4 +1,4 @@
-import { commitMutation, graphql } from 'react-relay';
+import { storyMutation, graphql } from 'react-relay';
 import environment from '../relayEnvironment';
 import queryString from 'query-string';
 // import store from '../relayStore';
@@ -11,7 +11,7 @@ const mutation = graphql`
   }
 `;
 
-const loginUser = (email, password) => commitMutation(environment, {
+const loginUser = (email, password) => storyMutation(environment, {
   mutation,
   variables: {
     input: {
@@ -47,15 +47,15 @@ const loginUser = (email, password) => commitMutation(environment, {
     console.error('error:', error);
   },
   // optimisticUpdater(store) {
-  //   const id = 'client:newCommit:' + tempId++;
-  //   const node = store.create(id, 'Commit');
+  //   const id = 'client:newStory:' + tempId++;
+  //   const node = store.create(id, 'Story');
   //   node.setValue(input.label, 'label');
   //   node.setValue(id, 'id');
   //
   //   console.log('node', node);
   //   // node.setValue(input.vocationId, 'vocation');
   //
-  //   const newEdge = store.create('client:newEdge:' + tempId++, 'CommitEdge');
+  //   const newEdge = store.create('client:newEdge:' + tempId++, 'StoryEdge');
   //
   //   newEdge.setLinkedRecord(node, 'node');
   //
