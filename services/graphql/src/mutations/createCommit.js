@@ -1,9 +1,9 @@
 const { GraphQLNonNull, GraphQLString, GraphQLID } = require('graphql');
 const { mutationWithClientMutationId } = require('graphql-relay');
-const createResource = require('../utils/createResource');
+const createResourceObject = require('../utils/createResourceObject');
 const ensureAuth = require('../utils/ensureAuth');
 const base64 = require('../utils/base64');
-const db = require('../db');
+const { createResource } = require('../db');
 const _ = require('../graph');
 
 module.exports = mutationWithClientMutationId({
@@ -30,11 +30,11 @@ module.exports = mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload: ensureAuth(({ vocationId, label }, context) => {
-    const commit = createResource('Commit', context, {
+    const commit = createResourceObject('Commit', context, {
       vocation: vocationId,
       label,
     });
 
-    return db.upsertResource(commit).then(() => ({ commit }));
+    return createResource(commit).then(() => ({ commit }));
   }),
 });

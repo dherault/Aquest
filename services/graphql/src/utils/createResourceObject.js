@@ -1,6 +1,6 @@
 const uuid = require('uuid').v4;
 
-function createResource(type, context, data) {
+function createResourceObject(type, context, data) {
   if (!(typeof type === 'string' || type.length)) throw new Error(`Invalid type: "${type}"`);
 
   const id = `http://foo.com/individuals#${type}_${uuid()}`;
@@ -16,4 +16,4 @@ function createResource(type, context, data) {
   }, data);
 }
 
-module.exports = createResource;
+module.exports = createResourceObject;

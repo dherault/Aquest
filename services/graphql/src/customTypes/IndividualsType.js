@@ -1,6 +1,6 @@
 const { GraphQLObjectType } = require('graphql');
 const { globalIdField, connectionArgs, connectionFromPromisedArray } = require('graphql-relay');
-const { run, vocationsQuery } = require('../db/queries');
+const { query } = require('../db');
 const _ = require('../graph');
 
 const IndividualsType = new GraphQLObjectType({
@@ -11,7 +11,17 @@ const IndividualsType = new GraphQLObjectType({
     vocations: {
       type: _.getConnectionType('http://foo.com#Vocation'),
       args: connectionArgs,
-      resolve: (source, args) => connectionFromPromisedArray(run(vocationsQuery), args),
+      resolve: (source, args) => {
+        const queryPromise = query(db => db
+          .collection('Vocation')
+          .find()
+          .sort({ createdAt: 1 })
+          .toArray()
+          // todo: use connectionArgs
+        );
+
+        return connectionFromPromisedArray(queryPromise, args);
+      },
     },
   },
 });

@@ -1,9 +1,8 @@
 const { GraphQLNonNull, GraphQLString } = require('graphql');
 const { mutationWithClientMutationId, cursorForObjectInConnection } = require('graphql-relay');
-const createResource = require('../utils/createResource');
+const createResourceObject = require('../utils/createResourceObject');
 const ensureAuth = require('../utils/ensureAuth');
-const db = require('../db');
-const { run } = require('../db/queries');
+const { query, createResource } = require('../db');
 const _ = require('../graph');
 
 module.exports = mutationWithClientMutationId({
@@ -17,9 +16,9 @@ module.exports = mutationWithClientMutationId({
     vocationInstanceEdge: {
       type: _.getEdgeType('http://foo.com#VocationInstance'),
       resolve: ({ vocationInstance: { id } }, args, { viewer }) => {
-        const query = db.createQuery('http://foo.com#VocationInstance').filter('sourceUser', viewer.id);
+        const queryPromise = query(db => db.collection('VocationInstance').find({ sourceUser: viewer.id })).toArray();
 
-        return run(query).then(vocationInstances => {
+        return queryPromise.then(vocationInstances => {
           const vocationInstance = vocationInstances.find(s => s.id === id);
 
           return {
@@ -35,11 +34,11 @@ module.exports = mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload: ensureAuth(({ vocationId }, context) => {
-    const vocationInstance = createResource('VocationInstance', context, {
+    const vocationInstance = createResourceObject('VocationInstance', context, {
       vocation: vocationId,
       level: 1,
     });
 
-    return db.upsertResource(vocationInstance).then(() => ({ vocationInstance }));
+    return createResource(vocationInstance).then(() => ({ vocationInstance }));
   }),
 });

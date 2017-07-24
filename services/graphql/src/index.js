@@ -4,14 +4,11 @@ const jwt = require('express-jwt');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const schema = require('./schema');
-const db = require('./db');
+const { findResource } = require('./db');
 const { jwtSecret } = require('./auth');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
-
-const formatError = isDevelopment ?
-  error => console.error(error) || { message: error.message, locations: error.locations } :
-  error => console.error(error) || { message: 'Internal server error' };
+const formatError = error => console.error(error) || error;
 
 const server = express()
 .use(cors())
@@ -39,21 +36,19 @@ const server = express()
     console.log('body:', req.body);
   }
 
-  /* Fetch user data */
+  /* Fetch viewer data */
 
-  const userPromise = req.auth && req.auth.userId ?
-    db.readResourceById(req.auth.userId)
-    : Promise.resolve(null);
+  const viewerPromise = req.auth && req.auth.userId ? findResource(req.auth.userId) : Promise.resolve(null);
 
   /* Execute query */
 
-  userPromise.then(user => {
+  viewerPromise.then(user => {
     graphqlHTTP({
       schema,
-      formatError,
       pretty: true,
       graphiql: isDevelopment,
       context: { viewer: user },
+      formatError,
     })(req, res);
   });
 })

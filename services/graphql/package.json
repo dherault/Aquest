@@ -6,16 +6,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js",
-    "dev": "npm run dev-db & npm run dev-server",
-    "dev-db": "gcloud beta emulators datastore start --no-legacy",
-    "dev-server": "DATASTORE_EMULATOR_HOST=localhost:8081 ./node_modules/.bin/nodemon --watch . --watch ../../ontology -e js,json,ttl src/index.js",
+    "dev": "npm run dev-build & npm run dev-server",
+    "dev-server": "./node_modules/.bin/nodemon --watch . --watch ../../ontology -e js,json,ttl src/index.js",
     "dev-build": "./node_modules/.bin/nodemon --watch ../../ontology --watch . -e js,ttl scripts/printSchema.js",
     "build": "node scripts/printSchema.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@google-cloud/datastore": "^1.0.4",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
     "cors": "^2.8.3",
@@ -25,6 +23,7 @@
     "graphql": "^0.10.3",
     "graphql-relay": "^0.5.2",
     "jsonwebtoken": "^7.4.1",
+    "mongodb": "^2.2.30",
     "semantic-graphql": "^0.6.2",
     "semantic-toolkit": "^0.2.1",
     "uuid": "^3.1.0"

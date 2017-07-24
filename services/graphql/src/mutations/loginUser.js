@@ -2,7 +2,7 @@ const { GraphQLNonNull, GraphQLString } = require('graphql');
 const { mutationWithClientMutationId } = require('graphql-relay');
 const bcrypt = require('bcrypt');
 const db = require('../db');
-const { run } = require('../db/queries');
+const { query } = require('../db');
 const _ = require('../graph');
 const { createToken } = require('../auth');
 
@@ -27,12 +27,9 @@ module.exports = mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload({ email, password }, context) {
-    return run(db.createQuery('http://foo.com#User')
-    .filter('email', email))
-    .then(results => {
-      if (!results.length) throw new Error('Email not found');
-
-      const user = results[0];
+    return query(db => db.collection('User').findOne({ email }))
+    .then(user => {
+      if (!user) throw new Error('Email not found');
 
       return bcrypt.compare(password, user.passwordHash).then(isPasswordValid => {
         if (!isPasswordValid) throw new Error('Invalid password');
