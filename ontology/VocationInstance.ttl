@@ -17,3 +17,8 @@
   rdfs:comment "The level the user has reached in this vocation."@en ;
   rdfs:domain :VocationInstance ;
   rdfs:range xsd:nonNegativeInteger .
+
+:punchline
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:domain :VocationInstance ;
+  rdfs:range xsd:string .

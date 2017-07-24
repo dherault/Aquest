@@ -12,3 +12,9 @@
   a owl:ObjectProperty, owl:FunctionalProperty ;
   rdfs:domain :Commit, :VocationInstance ;
   rdfs:range :Vocation .
+
+:description
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:label "Description"@en ;
+  rdfs:domain :User, :Vocation ;
+  rdfs:range xsd:string .

@@ -23,6 +23,7 @@ const DiskImage = ({
       width: sizePx,
       height: sizePx,
       borderRadius: sizePx / 2,
+      cursor: onClick ? 'pointer' : 'inherit',
       backgroundColor: 'LightGrey',
       backgroundImage: src ? `url(${src})` : null,
       backgroundPosition: 'center',

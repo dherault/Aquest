@@ -18,12 +18,6 @@
   rdfs:domain :User ;
   rdfs:range xsd:string .
 
-:bio
-  a owl:DatatypeProperty, owl:FunctionalProperty ;
-  rdfs:label "Introduction"@en ;
-  rdfs:domain :User ;
-  rdfs:range xsd:string .
-
 :email
   a owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:label "Email"@en ;

@@ -6,12 +6,12 @@ import DiskImage from './DiskImage';
 class VocationInstanceShowcase extends Component {
 
   render() {
-    const { isLeft, vocationInstance: { level, vocation: { label } } } = this.props;
+    const { isLeft, vocationInstance: { level, vocation: { userLabel, label } } } = this.props;
 
     return (
-      <div className={isLeft ? 'rxrc' : 'rlc'}>
+      <div className={isLeft ? 'rxrc' : 'rlc'} style={{ margin: '1.5rem 0px' }}>
         <DiskImage size="medium" />
-        {label} {level}
+        {userLabel || label} level {level}
       </div>
     );
   }
@@ -24,6 +24,7 @@ export default createFragmentContainer(VocationInstanceShowcase, graphql`
     vocation {
       id
       label
+      userLabel
     }
   }
 `);

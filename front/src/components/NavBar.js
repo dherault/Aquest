@@ -22,16 +22,16 @@ const NavBar = ({ viewer }) => (
 
     <nav className="row" style={{ boxShadow: '0px 0px 6px 0px rgba(0,0,0,0.75)', backgroundColor: 'white' }}>
 
-      <DiskImage size="small" linkTo="/" className="navbar-item" />
-      <DiskImage size="small" linkTo="/vocations" className="navbar-item" />
+      <DiskImage size="small" linkTo="/" />
+      <DiskImage size="small" linkTo="/vocations" />
 
       <div className="row" style={{ flexDirection: 'row-reverse' }}>
-        <DiskImage size="small" linkTo="/user" className="navbar-item" src={viewer.profileImageUrl} />
+        <DiskImage size="small" linkTo="/user" src={viewer.profileImageUrl} />
         <div style={{ height: 2, width: 32, backgroundColor: 'LightGrey', marginTop: 24 }} />
-        <DiskImage size="small" linkTo="/" className="navbar-item" />
-        <DiskImage size="small" linkTo="/" className="navbar-item" />
-        <DiskImage size="small" linkTo="/" className="navbar-item" />
-        <DiskImage size="small" linkTo="/" className="navbar-item" onClick={() => localStorage.removeItem('token') || (window.location.href = '/')} />
+        <DiskImage size="small" linkTo="/" />
+        <DiskImage size="small" linkTo="/" />
+        <DiskImage size="small" linkTo="/" />
+        <DiskImage size="small" onClick={() => localStorage.removeItem('token') || (window.location.href = '/')} />
       </div>
     </nav>
   </div>

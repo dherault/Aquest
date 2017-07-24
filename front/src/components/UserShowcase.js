@@ -23,7 +23,7 @@ class UserShowcase extends Component {
             {!!vocationInstances[1] && <VocationInstanceShowcase isLeft vocationInstance={vocationInstances[1]} />}
           </div>
 
-          <DiskImage size="large" src={user.profileImageUrl} />
+          <DiskImage size="large" src={user.profileImageUrl} style={{ margin: '0px 3rem' }}/>
 
           <div className="clc" style={vocationWingStyle}>
             {!!vocationInstances[2] && <VocationInstanceShowcase vocationInstance={vocationInstances[2]} />}
@@ -36,7 +36,7 @@ class UserShowcase extends Component {
           {user.pseudo}
         </h1>
         <p>
-          {user.bio}
+          {user.description}
         </p>
       </div>
     );
@@ -47,7 +47,7 @@ export default createFragmentContainer(UserShowcase, graphql`
   fragment UserShowcase_user on User {
     id
     pseudo
-    bio
+    description
     profileImageUrl
 
     vocationInstances(first: 4) @connection(key: "user_vocationInstances") {

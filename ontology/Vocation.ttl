@@ -8,3 +8,8 @@
   rdfs:subClassOf :Thing ;
   rdfs:label "Vocation"@en ;
   rdfs:comment "A Vocation."@en .
+
+:userLabel
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:domain :Vocation ;
+  rdfs:range xsd:string .
