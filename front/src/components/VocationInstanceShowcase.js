@@ -6,7 +6,7 @@ import DiskImage from './DiskImage';
 class VocationInstanceShowcase extends Component {
 
   render() {
-    const { isLeft, onDiskImageClick, vocationInstance: { level, vocation: { userLabel, label } } } = this.props;
+    const { isLeft, isDimmed, onDiskImageClick, vocationInstance: { level, vocation: { userLabel, label } } } = this.props;
 
     return (
       <div className={isLeft ? 'rxrc' : 'rlc'} style={{ margin: '1rem 0px' }}>
@@ -15,7 +15,7 @@ class VocationInstanceShowcase extends Component {
           onClick={onDiskImageClick}
           style={{ [`margin${isLeft ? 'Left' : 'Right'}`]: '1rem' }}
         />
-        <strong>{userLabel || label} level {level}</strong>
+      <strong style={{ color: isDimmed ? 'LightGrey' : 'inherit' }}>{userLabel || label} level {level}</strong>
       </div>
     );
   }

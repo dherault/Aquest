@@ -11,15 +11,16 @@ const mutation = graphql`
         cursor
         node {
           id
-          label
-          createdAt
-          vocation {
-            id
-          }
+          ...Story_story
         }
       }
       viewer {
         id
+        storyCount
+      }
+      vocationInstance {
+        id
+        level
       }
     }
   }
@@ -41,13 +42,20 @@ const createStory = (label, shouldLevelUp, vocationInstance, viewer) => commitMu
     const conn = ConnectionHandler.getConnection(viewerProxy, 'viewer_stories');
 
     ConnectionHandler.insertEdgeBefore(conn, newEdge);
+
+    if (shouldLevelUp) {
+      const vocationInstanceProxy = store.get(vocationInstance.id);
+
+
+      vocationInstanceProxy.setValue('level', vocationInstanceProxy.getValue('level') + 1);
+    }
   },
   onCompleted(response, errors) {
     console.log('response:', response);
     console.log('errors:', errors);
   },
   onError(error) {
-    console.error('error:', error);
+    console.error('onError:', error);
   },
 });
 

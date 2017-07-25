@@ -32,6 +32,10 @@ module.exports = mutationWithClientMutationId({
       type: _.getObjectType('http://foo.com#User'),
       resolve: (payload, args, { viewer }) => viewer,
     },
+    vocationInstance: {
+      type: _.getObjectType('http://foo.com#VocationInstance'),
+      resolve: ({ vocationInstance }) => vocationInstance,
+    },
   },
   mutateAndGetPayload: ensureAuth(({ vocationId, label, vocationInstanceId }, context) => {
     const story = createResourceObject('Story', context, {
@@ -44,7 +48,7 @@ module.exports = mutationWithClientMutationId({
 
       return query(db => db
         .collection('VocationInstance')
-        .findOne({ id: vocationInstanceId }, { fields: { level: 1, sourceUser: 1 } })
+        .findOne({ id: vocationInstanceId })
       )
       .then(vocationInstance => {
         if (vocationInstance.sourceUser !== context.viewer.id) throw new Error('!');
@@ -52,7 +56,15 @@ module.exports = mutationWithClientMutationId({
         return query(db => db
           .collection('VocationInstance')
           .updateOne({ id: vocationInstanceId }, { $set: { level: vocationInstance.level + 1 } })
-        );
+        )
+        .then(() => {
+          console.log('vocationInstance:', vocationInstance);
+          // mongo's "findOneAndUpdate" performs a write lock, so we use "findOne" instead
+          // and modify the local resource
+          vocationInstance.level += 1;
+
+          return { story, vocationInstance };
+        });
       });
     });
   }),

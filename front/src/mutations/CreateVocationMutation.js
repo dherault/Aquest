@@ -13,9 +13,6 @@ const mutation = graphql`
           label
         }
       }
-      individuals {
-        id
-      }
     }
   }
 `;

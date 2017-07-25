@@ -37,7 +37,7 @@ class StoryCreationForm extends Component {
   }
 
   render() {
-    const { label, shouldLevelUp, onSubmit } = this.state;
+    const { label, shouldLevelUp } = this.state;
 
     const vocationInstance = this.getVocationInstance();
 
@@ -82,7 +82,7 @@ class StoryCreationForm extends Component {
         </div>
         <div className="rcc">
           <input type="submit" value="This is my story" />
-          <input type="button" value="Cancel" onClick={onSubmit} style={{ marginLeft: '1rem' }} />
+          <input type="button" value="Cancel" onClick={() => this.props.onSubmit()} style={{ marginLeft: '1rem' }} />
         </div>
       </form>
     );

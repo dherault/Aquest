@@ -20,7 +20,7 @@ class UserShowcase extends Component {
       <VocationInstanceShowcase
         vocationInstance={vocationInstance}
         isLeft={index < 2}
-        isDimmed={vocationInstance.id !== selectedVocationInstanceId}
+        isDimmed={selectedVocationInstanceId && vocationInstance.id !== selectedVocationInstanceId}
         onDiskImageClick={() => setSelectedVocationInstanceId(vocationInstance.id)}
       />
     );
