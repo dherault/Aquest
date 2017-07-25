@@ -1,39 +1,41 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
-import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
+import Footer from '../../components/Footer';
 
 class LandingScene extends Component {
 
-  state = { signupToggled: true }
+  state = { signupToggled: false }
 
   render() {
     const { signupToggled } = this.state;
 
     return (
-      <div className="columns">
-        <div className="column is-two-thirds">
-          <section className="">
-            <div className="">
-              <div className="">
-                <h1 className="title">
-                  Aquest is a tool for self-learners, students and passionate people
-                </h1>
-                <h2 className="subtitle">
-                  <ul>
-                    <li>Track your progress</li>
-                    <li>Stay motivated</li>
-                    <li>have fun!</li>
-                  </ul>
-                </h2>
-              </div>
+      <div className="cct has-screen-height">
+        <div className="cct" style={{ flexGrow: 1 }}>
+          <p>
+            <strong>Aquest</strong> is a real life role-playing game for self-learners, students, athletes and passionate people.
+          </p>
+
+          {signupToggled ? (
+            <div>
+              <SignupForm />
             </div>
-          </section>
+          ) : (
+            <div className="rcc">
+              <button onClick={() => this.setState({ signupToggled: !signupToggled })}>
+                Start
+              </button>
+              <Link to="/login">
+                <button>
+                  Continue
+                </button>
+              </Link>
+            </div>
+          )}
         </div>
-        <div className="column">
-          <button onClick={() => this.setState({ signupToggled: !signupToggled })}>x</button>
-          {signupToggled ? <LoginForm /> : <SignupForm />}
-        </div>
+        <Footer />
       </div>
     );
   }
