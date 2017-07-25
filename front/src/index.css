@@ -30,6 +30,12 @@ body {
   justify-content: flex-start;
 }
 
+.rlt {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
 .rsbc {
   display: flex;
   align-items: center;
@@ -40,6 +46,13 @@ body {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
+  justify-content: flex-start;
+}
+
+.clt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: flex-start;
 }
 
@@ -74,8 +87,12 @@ body {
   text-align: center;
 }
 
-.has-color-white {
+.has-white-color {
   color: white;
+}
+
+.has-black-color {
+  color: #333;
 }
 
 .has-relative-position {

@@ -6,7 +6,7 @@ import DiskImage from './DiskImage';
 const sNav = {
   position: 'relative',
   height: '5rem',
-  boxShadow: '0px 0px 6px 0px rgba(0,0,0,0.75)',
+  boxShadow: '0px 3px 10px 0px rgba(0,0,0,0.50)',
   backgroundColor: 'white',
   zIndex: 998,
 };

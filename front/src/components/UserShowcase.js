@@ -10,51 +10,44 @@ const vocationWingStyle = {
 
 class UserShowcase extends Component {
 
-  render() {
-    const { user, onVocationInstanceClick } = this.props;
-    const vocationInstances = user.vocationInstances.edges.map(e => e.node);
+  renderVocationInstance(index) {
+    const { user, setSelectedVocationInstanceId, selectedVocationInstanceId } = this.props;
+    const vocationInstance = (user.vocationInstances.edges[index] || {}).node;
+
+    if (!vocationInstance) return null;
 
     return (
-      <div className="cct has-color-white has-full-width">
+      <VocationInstanceShowcase
+        vocationInstance={vocationInstance}
+        isLeft={index < 2}
+        isDimmed={vocationInstance.id !== selectedVocationInstanceId}
+        onDiskImageClick={() => setSelectedVocationInstanceId(vocationInstance.id)}
+      />
+    );
+  }
+
+  render() {
+    const { user, setSelectedVocationInstanceId } = this.props;
+
+    return (
+      <div className="cct has-white-color has-full-width">
         <div className="rcc has-full-width">
 
           <div className="crc" style={vocationWingStyle}>
-            {!!vocationInstances[0] && (
-              <VocationInstanceShowcase
-                isLeft
-                onDiskImageClick={() => onVocationInstanceClick(vocationInstances[0].id)}
-                vocationInstance={vocationInstances[0]}
-              />
-            )}
-            {!!vocationInstances[1] && (
-              <VocationInstanceShowcase
-                isLeft
-                onDiskImageClick={() => onVocationInstanceClick(vocationInstances[1].id)}
-                vocationInstance={vocationInstances[1]}
-              />
-            )}
+            {this.renderVocationInstance(0)}
+            {this.renderVocationInstance(1)}
           </div>
 
           <DiskImage
             size="large"
             src={user.profileImageUrl}
-            onClick={() => onVocationInstanceClick(vocationInstances[0].id)}
+            onClick={() => setSelectedVocationInstanceId(((user.vocationInstances.edges[0] || {}).node || {}).id)}
             style={{ margin: '0px 4rem' }}
           />
 
           <div className="clc" style={vocationWingStyle}>
-            {!!vocationInstances[2] && (
-              <VocationInstanceShowcase
-                onDiskImageClick={() => onVocationInstanceClick(vocationInstances[2].id)}
-                vocationInstance={vocationInstances[2]}
-              />
-            )}
-            {!!vocationInstances[3] && (
-              <VocationInstanceShowcase
-                onDiskImageClick={() => onVocationInstanceClick(vocationInstances[3].id)}
-                vocationInstance={vocationInstances[3]}
-              />
-            )}
+            {this.renderVocationInstance(2)}
+            {this.renderVocationInstance(3)}
           </div>
 
         </div>

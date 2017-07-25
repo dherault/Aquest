@@ -1,27 +1,7 @@
 import React, { Component } from 'react';
 import { createPaginationContainer, graphql } from 'react-relay';
-import moment from 'moment';
 
-import DiskImage from '../../../components/DiskImage';
-
-const StoryItem = ({ story }) => (
-  <div className="box" style={{ width: '50%' }}>
-    <article className="media">
-      <figure className="media-left">
-        <DiskImage />
-      </figure>
-      <div className="media-content">
-        <div className="contentz">
-          <p>
-            <strong>{story.vocation.label}</strong> <small>{moment(story.createdAt).fromNow()}</small>
-            <br />
-            {story.label}
-          </p>
-        </div>
-      </div>
-    </article>
-  </div>
-);
+import Story from '../../../components/Story';
 
 class StoriesList extends Component {
 
@@ -41,10 +21,20 @@ class StoriesList extends Component {
 
     if (!viewer) return null;
 
+    const { edges, pageInfo } = viewer.stories;
+
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        {viewer.stories.edges.map(e => <StoryItem story={e.node} key={e.node.id} />)}
-        <button onClick={() => this.loadMore()}>Load more</button>
+      <div className="cct">
+        <strong className="has-white-color">{viewer.storyCount} Stories</strong>
+        {edges.map(e => (
+          <div key={e.node.id} style={{ marginBottom: '2rem' }}>
+            <Story story={e.node} />
+          </div>
+        ))}
+
+        {pageInfo.hasNextPage && (
+          <button onClick={() => this.loadMore()}>Load more stories</button>
+        )}
       </div>
     );
   }
@@ -56,6 +46,7 @@ export default createPaginationContainer(
     viewer: graphql`
       fragment StoriesList_viewer on User {
         id
+        storyCount
         stories(
           first: $count
           after: $cursor
@@ -63,12 +54,7 @@ export default createPaginationContainer(
           edges {
             node {
               id
-              label
-              createdAt
-              vocation {
-                id
-                label
-              }
+              ...Story_story
             }
           }
           pageInfo {
