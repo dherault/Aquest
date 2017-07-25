@@ -15,3 +15,16 @@
   rdfs:label "Has leveled up"@en ;
   rdfs:domain :Story ;
   rdfs:range xsd:boolean .
+
+:vocationInstanceLevel
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:label "Vocation Instance level"@en ;
+  rdfs:comment "The level of the Vocation Instance at the time of the commit, before any leveling up"@en ;
+  rdfs:domain :Story ;
+  rdfs:range xsd:nonNegativeInteger .
+
+:vocationInstance
+  a owl:ObjectProperty, owl:FunctionalProperty ;
+  rdfs:label "Vocation Instance"@en ;
+  rdfs:domain :Story ;
+  rdfs:range :VocationInstance .

@@ -70,7 +70,7 @@ class NavBar extends Component {
           <div className="rsbc" style={sMenu}>
 
             <div className="rlc">
-              <DiskImage style={sl} size="small" linkTo="/" />
+              <DiskImage style={sl} linkTo="/" />
               <Link to="/vocations">
                 <button>
                   Vocations
@@ -79,12 +79,16 @@ class NavBar extends Component {
             </div>
 
             <div className="rxrc">
-              <DiskImage style={sr} size="small" linkTo="/user" src={viewer.profileImageUrl} />
+              <DiskImage
+                style={sr}
+                linkTo={`/~${window.encodeURIComponent(viewer.pseudo)}`}
+                src={viewer.profileImageUrl}
+              />
               <div style={{ height: 2, width: 32, backgroundColor: 'LightGrey', marginLeft: '0.5rem' }} />
-              <DiskImage style={sr} size="small" linkTo="/" />
-              <DiskImage style={sr} size="small" linkTo="/" />
-              <DiskImage style={sr} size="small" linkTo="/" />
-              <DiskImage style={sr} size="small" onClick={() => localStorage.removeItem('token') || (window.location.href = '/')} />
+              <DiskImage style={sr} onClick={() => localStorage.removeItem('token') || (window.location.href = '/')} />
+              <DiskImage style={sr} onClick={() => localStorage.removeItem('token') || (window.location.href = '/')} />
+              <DiskImage style={sr} onClick={() => localStorage.removeItem('token') || (window.location.href = '/')} />
+              <DiskImage style={sr} onClick={() => localStorage.removeItem('token') || (window.location.href = '/')} />
             </div>
 
           </div>
@@ -104,6 +108,7 @@ class NavBar extends Component {
 export default createFragmentContainer(NavBar, graphql`
   fragment NavBar_viewer on User {
     id
+    pseudo
     profileImageUrl
   }
 `);

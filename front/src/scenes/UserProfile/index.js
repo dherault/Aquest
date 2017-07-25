@@ -9,31 +9,36 @@ import DevelopmentErrorMessage from '../../components/DevelopmentErrorMessage';
 import UserProfileScene from './UserProfileScene';
 
 const query = graphql`
-  query UserProfileQuery($count: Int!, $cursor: String) {
+  query UserProfileQuery($pseudo: String!, $count: Int!, $cursor: String) {
     viewer {
       ...AuthBouncer_viewer
       ...UserProfileScene_viewer
     }
+    individuals {
+      user(pseudo: $pseudo) {
+        ...UserProfileScene_user
+      }
+    }
   }
 `;
-
-const initialVariables = {
-  count: 10,
-  cursor: null,
-};
 
 const UserProfile = routerProps => (
   <QueryRenderer
     query={query}
     environment={environment}
-    variables={initialVariables}
+    variables={{
+      count: 10,
+      cursor: null,
+      pseudo: routerProps.match.params.pseudo,
+    }}
     render={({ error, props }) => {
       if (error) return <DevelopmentErrorMessage error={error} />;
       else if (!props) return <LoadingIndicator />;
+      else if (!props.individuals.user) return <div>User not found</div>;
 
       return (
         <AuthBouncer {...props}>
-          <UserProfileScene {...routerProps} {...props} />
+          <UserProfileScene {...routerProps} viewer={props.viewer} user={props.individuals.user} />
         </AuthBouncer>
       );
     }}

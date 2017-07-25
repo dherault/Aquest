@@ -17,7 +17,7 @@ const routes = (
     <Switch>
       <Route exact path="/" component={Landing} />
       <Route exact path="/login" component={Login} />
-      <Route exact path="/user" component={UserProfile} />
+      <Route exact path="/~:pseudo" component={UserProfile} />
       <Route exact path="/vocations" component={VocationsMap} />
       <Route component={NotFound} />
     </Switch>

@@ -17,23 +17,24 @@ class UserProfileScene extends Component {
   setSelectedVocationInstanceId = id => this.setState({ selectedVocationInstanceId: id || '' });
 
   render() {
-    const { viewer } = this.props;
+    const { viewer, user } = this.props;
     const { selectedVocationInstanceId } = this.state;
+    const userIsViewer = viewer.id === user.id;
 
     return (
-      <BackgroundImage src={viewer.backgroundImageUrl}>
+      <BackgroundImage src={user.backgroundImageUrl}>
         <NavBar viewer={viewer} />
 
         <BackgroundImage.Content>
           <section className="rcc" style={{ margin: '4rem 0 4rem 0' }}>
             <UserShowcase
-              user={viewer}
-              setSelectedVocationInstanceId={this.setSelectedVocationInstanceId}
+              user={user}
+              setSelectedVocationInstanceId={userIsViewer ? this.setSelectedVocationInstanceId : () => null}
               selectedVocationInstanceId={selectedVocationInstanceId}
             />
           </section>
 
-          {selectedVocationInstanceId ? (
+          {userIsViewer && selectedVocationInstanceId ? (
             <section>
               <StoryCreationForm
                 viewer={viewer}
@@ -43,7 +44,7 @@ class UserProfileScene extends Component {
             </section>
           ) : (
             <section>
-              <StoriesList viewer={viewer} />
+              <StoriesList user={user} />
             </section>
           )}
 
@@ -58,11 +59,16 @@ class UserProfileScene extends Component {
 export default createFragmentContainer(UserProfileScene, graphql`
   fragment UserProfileScene_viewer on User {
     id
-    backgroundImageUrl
 
     ...NavBar_viewer
-    ...UserShowcase_user
-    ...StoriesList_viewer
     ...StoryCreationForm_viewer
+  }
+
+  fragment UserProfileScene_user on User {
+    id
+    backgroundImageUrl
+
+    ...UserShowcase_user
+    ...StoriesList_user
   }
 `);

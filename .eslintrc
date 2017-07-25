@@ -10,6 +10,7 @@
         "exports": "always-multiline",
         "functions": "ignore",
     }],
+    "prefer-template": "off",
     "brace-style": ["error", "stroustrup"],
     "max-len": "off",
     "arrow-parens": "off",

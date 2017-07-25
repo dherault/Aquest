@@ -41,7 +41,7 @@ module.exports = mutationWithClientMutationId({
         const user = createResourceObject('User', context, {
           email,
           passwordHash,
-          pseudo: pseudo || 'Everyday life hero',
+          pseudo: pseudo || 'Everyday life hero' + Math.random().toString().slice(2, 5),
           description: 'This ain\'t no place for no hero',
           profileImageUrl: '/images/profile1.jpg',
           backgroundImageUrl: '/images/background1.jpg',

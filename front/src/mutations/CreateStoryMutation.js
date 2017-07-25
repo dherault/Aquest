@@ -32,7 +32,6 @@ const createStory = (label, shouldLevelUp, vocationInstance, viewer) => commitMu
     input: {
       label,
       hasLeveledUp: shouldLevelUp,
-      vocationId: toClearId(vocationInstance.vocation.id),
       vocationInstanceId: toClearId(vocationInstance.id),
       clientMutationId: Math.random().toString().slice(2),
     },
@@ -40,7 +39,7 @@ const createStory = (label, shouldLevelUp, vocationInstance, viewer) => commitMu
   updater(store) {
     const newEdge = store.getRootField('createStory').getLinkedRecord('storyEdge');
     const viewerProxy = store.get(viewer.id);
-    const conn = ConnectionHandler.getConnection(viewerProxy, 'viewer_stories');
+    const conn = ConnectionHandler.getConnection(viewerProxy, 'user_stories');
 
     ConnectionHandler.insertEdgeBefore(conn, newEdge);
   },

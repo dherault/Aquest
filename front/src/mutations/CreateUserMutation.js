@@ -5,6 +5,9 @@ const mutation = graphql`
   mutation CreateUserMutation($input: CreateUserInput!) {
     createUser(input: $input) {
       token
+      user {
+        pseudo
+      }
     }
   }
 `;
@@ -21,13 +24,13 @@ const createUser = (email, password) => commitMutation(environment, {
   onCompleted(response, errors) {
     console.log('errors:', errors);
 
-    const { token } = response.createUser;
+    const { token, user: { pseudo } } = response.createUser;
 
     console.log('Got auth token!', token);
 
     localStorage.setItem('token', token);
 
-    window.location.href = '/user';
+    window.location.href = '/~' + window.encodeURIComponent(pseudo);
   },
   onError(error) {
     console.error('error:', error);

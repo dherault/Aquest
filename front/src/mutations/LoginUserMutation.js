@@ -7,6 +7,9 @@ const mutation = graphql`
   mutation LoginUserMutation($input: LoginUserInput!) {
     loginUser(input: $input) {
       token
+      user {
+        pseudo
+      }
     }
   }
 `;
@@ -33,7 +36,7 @@ const loginUser = (email, password) => commitMutation(environment, {
   onCompleted(response, errors) {
     console.log('errors:', errors);
 
-    const { token } = response.loginUser;
+    const { token, user: { pseudo } } = response.loginUser;
 
     console.log('Got auth token!', token);
 
@@ -41,7 +44,9 @@ const loginUser = (email, password) => commitMutation(environment, {
 
     const parsed = queryString.parse(window.location.search);
 
-    window.location.href = parsed.r ? decodeURIComponent(parsed.r) : '/user'; // LOOOOOOL NOOOOOOOB
+    window.location.href = parsed.r ? 
+      decodeURIComponent(parsed.r)
+      : '/~' + window.encodeURIComponent(pseudo); // LOOOOOOL NOOOOOOOB
   },
   onError(error) {
     console.error('error:', error);

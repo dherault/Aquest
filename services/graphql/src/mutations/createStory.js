@@ -15,9 +15,6 @@ module.exports = mutationWithClientMutationId({
     hasLeveledUp: {
       type: new GraphQLNonNull(GraphQLBoolean),
     },
-    vocationId: {
-      type: new GraphQLNonNull(GraphQLID),
-    },
     vocationInstanceId: {
       type: new GraphQLNonNull(GraphQLID),
     },
@@ -39,37 +36,36 @@ module.exports = mutationWithClientMutationId({
       resolve: (payload, args, { viewer }) => viewer,
     },
   },
-  mutateAndGetPayload: ensureAuth(({ label, hasLeveledUp, vocationId, vocationInstanceId }, context) => {
-    const story = createResourceObject('Story', context, {
-      label,
-      hasLeveledUp,
-      vocation: vocationId,
-      vocationInstance: vocationInstanceId,
-    });
+  mutateAndGetPayload: ensureAuth(({ label, hasLeveledUp, vocationInstanceId }, context) => (
+    query(db => db
+      .collection('VocationInstance')
+      .findOne({ id: vocationInstanceId })
+    )
+    .then(vocationInstance => {
+      if (!vocationInstance || vocationInstance.sourceUser !== context.viewer.id) throw new Error('!');
 
-    return createResource(story).then(() => {
-      if (!hasLeveledUp) return { story };
+      const story = createResourceObject('Story', context, {
+        label,
+        hasLeveledUp,
+        vocation: vocationInstance.vocation,
+        vocationInstance: vocationInstanceId,
+        vocationInstanceLevel: vocationInstance.level,
+      });
 
-      return query(db => db
-        .collection('VocationInstance')
-        .findOne({ id: vocationInstanceId })
-      )
-      .then(vocationInstance => {
-        if (!vocationInstance || vocationInstance.sourceUser !== context.viewer.id) throw new Error('!');
+      return createResource(story).then(() => {
+        if (!hasLeveledUp) return { story, vocationInstance };
 
         return query(db => db
           .collection('VocationInstance')
           .updateOne({ id: vocationInstanceId }, { $set: { level: vocationInstance.level + 1 } })
         )
         .then(() => {
-          console.log('vocationInstance:', vocationInstance);
-          // mongo's "findOneAndUpdate" performs a write lock, so we use "findOne" instead
-          // and modify the local resource
+          // Update local resource
           vocationInstance.level += 1;
 
           return { story, vocationInstance };
         });
       });
-    });
-  }),
+    })
+  )),
 });

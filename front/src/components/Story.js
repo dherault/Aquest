@@ -76,7 +76,11 @@ const Story = ({ story }) => (
             {moment(story.createdAt).fromNow()}
           </small>
         </em>
-        {story.hasLeveledUp && <small>up!</small>}
+        {story.hasLeveledUp && (
+          <small className="has-grey-color">
+            lvl {story.vocationInstanceLevel} → {story.vocationInstanceLevel + 1} 🎉
+          </small>
+        )}
 
       </LayoutHeader>
 
@@ -93,6 +97,7 @@ const StoryContainer = createFragmentContainer(Story, graphql`
     id
     label
     hasLeveledUp
+    vocationInstanceLevel
     createdAt
     sourceUser {
       id

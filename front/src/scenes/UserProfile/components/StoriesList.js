@@ -17,16 +17,16 @@ class StoriesList extends Component {
   }
 
   render() {
-    const { viewer } = this.props;
+    const { user } = this.props;
 
-    if (!viewer) return null;
+    if (!user) return null;
 
-    const { edges, pageInfo } = viewer.stories;
+    const { edges, pageInfo } = user.stories;
 
     return (
       <div className="cct">
         <strong className="has-white-color" style={{ marginBottom: '1rem' }}>
-          {`${viewer.storyCount} Stor${viewer.storyCount > 1 ? 'ies' : 'y'}`}
+          {`${user.storyCount} Stor${user.storyCount > 1 ? 'ies' : 'y'}`}
         </strong>
 
         {edges.map(e => (
@@ -46,14 +46,15 @@ class StoriesList extends Component {
 export default createPaginationContainer(
   StoriesList,
   {
-    viewer: graphql`
-      fragment StoriesList_viewer on User {
+    user: graphql`
+      fragment StoriesList_user on User {
         id
+        pseudo
         storyCount
         stories(
           first: $count
           after: $cursor
-        ) @connection(key: "viewer_stories") {
+        ) @connection(key: "user_stories") {
           edges {
             node {
               id
@@ -71,7 +72,7 @@ export default createPaginationContainer(
   {
     direction: 'forward',
     getConnectionFromProps(props) {
-      return props.viewer && props.viewer.stories;
+      return props.user && props.user.stories;
     },
     getFragmentVariables(prevVars, totalCount) {
       return {
@@ -81,6 +82,7 @@ export default createPaginationContainer(
     },
     getVariables(props, { count, cursor }, fragmentVariables) {
       return {
+        pseudo: props.user.pseudo,
         count,
         cursor,
         // in most cases, for variables other than connection filters like
@@ -90,11 +92,14 @@ export default createPaginationContainer(
     },
     query: graphql`
       query StoriesListPaginationQuery(
+        $pseudo: String!
         $count: Int!
         $cursor: String
       ) {
-        viewer {
-          ...StoriesList_viewer
+        individuals {
+          user(pseudo: $pseudo) {
+            ...StoriesList_user
+          }
         }
       }
     `,
