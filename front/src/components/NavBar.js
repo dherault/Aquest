@@ -15,8 +15,8 @@ const sSearchInput = {
   height: '5rem',
   position: 'absolute',
   top: 0,
-  left: '25%',
-  right: '25%',
+  left: '30%',
+  right: '30%',
   zIndex: 999,
 };
 

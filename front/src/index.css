@@ -84,6 +84,10 @@ body {
   width: 100%;
 }
 
+.has-screen-height {
+  height: 100vh;
+}
+
 .has-text-centered {
   text-align: center;
 }

@@ -6,8 +6,8 @@ import DiskImage from './DiskImage';
 
 const sLayout = {
   backgroundColor: 'white',
-  minWidth: '50vw',
-  maxWidth: '100vw',
+  width: '40vw',
+  // maxWidth: '100vw',
   padding: '1rem',
   boxShadow: '0px 3px 10px 0px rgba(0,0,0,0.50)',
 };

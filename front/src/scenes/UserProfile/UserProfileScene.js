@@ -49,7 +49,7 @@ class UserProfileScene extends Component {
 
         </BackgroundImage.Content>
 
-        <Footer />
+        <Footer invert />
       </BackgroundImage>
     );
   }
