@@ -39,19 +39,20 @@ const sl = {
   marginRight: '0.5rem',
 };
 
-const sr = {
-  marginLeft: '0.5rem',
+const sMenuItem = {
+  margin: '0 0.5rem',
 };
 
 class NavBar extends Component {
 
-  state = { searchText: '' }
+  state = { searchText: '', isMenuOpen: false }
 
   handleSearchInputChange = e => this.setState({ searchText: e.target.value });
+  handleMenuToggle = () => this.setState({ isMenuOpen: !this.state.isMenuOpen });
 
   render() {
     const { viewer } = this.props;
-    const { searchText } = this.state;
+    const { searchText, isMenuOpen } = this.state;
 
     return (
       <div className="has-full-width">
@@ -71,24 +72,50 @@ class NavBar extends Component {
 
             <div className="rlc">
               <DiskImage style={sl} linkTo="/" />
-              <Link to="/vocations">
-                <button>
-                  Vocations
-                </button>
-              </Link>
             </div>
 
             <div className="rxrc">
+              <div
+                role="button"
+                tabIndex={0}
+                className="has-no-select has-cursor-pointer has-grey-color"
+                onClick={this.handleMenuToggle}
+              >
+                {isMenuOpen ? '🗙' : '•••'}
+              </div>
+              {isMenuOpen && (
+                <div className="rxrc has-grey-color">
+                  <i
+                    className="fa fa-cog has-cursor-pointer"
+                    style={sMenuItem}
+                    role="button"
+                    tabIndex={0}
+                  />
+                  <i
+                    className="fa fa-paint-brush has-cursor-pointer"
+                    style={sMenuItem}
+                    role="button"
+                    tabIndex={0}
+                  />
+                  <i
+                    className="fa fa-sign-out has-cursor-pointer"
+                    style={sMenuItem}
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => localStorage.removeItem('token') || (window.location.href = '/')}
+                  />
+                </div>
+              )}
               <DiskImage
-                style={sr}
                 linkTo={`/~${window.encodeURIComponent(viewer.pseudo)}`}
                 src={viewer.profileImageUrl}
+                style={{ margin: '0 1rem' }}
               />
-              <div style={{ height: 2, width: 32, backgroundColor: 'LightGrey', marginLeft: '0.5rem' }} />
-              <DiskImage style={sr} onClick={() => localStorage.removeItem('token') || (window.location.href = '/')} />
-              <DiskImage style={sr} onClick={() => localStorage.removeItem('token') || (window.location.href = '/')} />
-              <DiskImage style={sr} onClick={() => localStorage.removeItem('token') || (window.location.href = '/')} />
-              <DiskImage style={sr} onClick={() => localStorage.removeItem('token') || (window.location.href = '/')} />
+              <Link to="/vocations" style={{ marginTop: '0.75rem' }}>
+                <button className="button button-outline">
+                  Vocations
+                </button>
+              </Link>
             </div>
 
           </div>

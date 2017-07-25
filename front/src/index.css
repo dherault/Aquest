@@ -16,13 +16,25 @@ input:focus:-moz-placeholder { color:transparent; } /* FF 4-18 */
 input:focus::-moz-placeholder { color:transparent; } /* FF 19+ */
 input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
 
-
-/* Variables */
-/*
-  margin: 20
-*/
-
 /* Grid */
+/*
+Class names legend: [A][B][C]
+
+__ A : main direction __
+r: row
+rx: row-reverse
+c: column
+cx: column-reverse
+
+__ B : x-axis behavior __
+__ C : y-axis behavior __
+c: align center
+l: push left
+r: push right
+sb: space-between
+sa: space-around
+st: stretch
+*/
 
 .rcc {
   display: flex;
@@ -126,4 +138,8 @@ input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
 
 .has-no-select {
   user-select: none;
+}
+
+.has-cursor-pointer {
+  cursor: pointer;
 }

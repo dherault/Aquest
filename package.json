@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/dherault/_#readme",
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.2",
     "eslint-plugin-import": "^2.7.0",
