@@ -71,9 +71,13 @@ const Story = ({ story }) => (
 
       <LayoutHeader>
         <strong>{story.vocation.label}</strong>
-        <em className="has-grey-color" style={{ marginLeft: '1rem', fontSize: '1.5rem' }}>
-          {moment(story.createdAt).fromNow()}
+        <em className="has-grey-color" style={{ margin: '0 1rem' }}>
+          <small>
+            {moment(story.createdAt).fromNow()}
+          </small>
         </em>
+        {story.hasLeveledUp && <small>up!</small>}
+
       </LayoutHeader>
 
       <LayoutContent>
@@ -88,6 +92,7 @@ const StoryContainer = createFragmentContainer(Story, graphql`
   fragment Story_story on Story {
     id
     label
+    hasLeveledUp
     createdAt
     sourceUser {
       id

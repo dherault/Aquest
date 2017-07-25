@@ -9,15 +9,17 @@ const _ = require('../graph');
 module.exports = mutationWithClientMutationId({
   name: 'CreateStory',
   inputFields: {
-    vocationId: {
-      type: new GraphQLNonNull(GraphQLID),
-    },
     label: {
       type: new GraphQLNonNull(GraphQLString),
     },
+    hasLeveledUp: {
+      type: new GraphQLNonNull(GraphQLBoolean),
+    },
+    vocationId: {
+      type: new GraphQLNonNull(GraphQLID),
+    },
     vocationInstanceId: {
-      type: GraphQLID,
-      description: 'If the user levels up, pass vocationInstanceId',
+      type: new GraphQLNonNull(GraphQLID),
     },
   },
   outputFields: {
@@ -28,30 +30,32 @@ module.exports = mutationWithClientMutationId({
         node: story,
       }),
     },
-    viewer: {
-      type: _.getObjectType('http://foo.com#User'),
-      resolve: (payload, args, { viewer }) => viewer,
-    },
     vocationInstance: {
       type: _.getObjectType('http://foo.com#VocationInstance'),
       resolve: ({ vocationInstance }) => vocationInstance,
     },
+    viewer: {
+      type: _.getObjectType('http://foo.com#User'),
+      resolve: (payload, args, { viewer }) => viewer,
+    },
   },
-  mutateAndGetPayload: ensureAuth(({ vocationId, label, vocationInstanceId }, context) => {
+  mutateAndGetPayload: ensureAuth(({ label, hasLeveledUp, vocationId, vocationInstanceId }, context) => {
     const story = createResourceObject('Story', context, {
-      vocation: vocationId,
       label,
+      hasLeveledUp,
+      vocation: vocationId,
+      vocationInstance: vocationInstanceId,
     });
 
     return createResource(story).then(() => {
-      if (!vocationInstanceId) return { story };
+      if (!hasLeveledUp) return { story };
 
       return query(db => db
         .collection('VocationInstance')
         .findOne({ id: vocationInstanceId })
       )
       .then(vocationInstance => {
-        if (vocationInstance.sourceUser !== context.viewer.id) throw new Error('!');
+        if (!vocationInstance || vocationInstance.sourceUser !== context.viewer.id) throw new Error('!');
 
         return query(db => db
           .collection('VocationInstance')

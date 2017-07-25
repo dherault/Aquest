@@ -24,6 +24,7 @@ class StoryCreationForm extends Component {
     const { viewer, onSubmit } = this.props;
     const { label, shouldLevelUp } = this.state;
 
+    if (!label) return;
 
     createStory(label, shouldLevelUp, this.getVocationInstance(), viewer);
 
@@ -85,8 +86,18 @@ class StoryCreationForm extends Component {
           </div>
         </div>
         <div className="rcc">
-          <input type="submit" value="This is my story" />
-          <input type="button" value="Cancel" onClick={() => this.props.onSubmit()} style={{ marginLeft: '1rem' }} />
+          <input
+            type="submit"
+            className="button"
+            value="This is my story"
+            disabled={!label}
+          />
+          <input
+            type="button"
+            value="Cancel"
+            className="button"
+            onClick={() => this.props.onSubmit()} style={{ marginLeft: '1rem' }}
+          />
         </div>
       </form>
     );

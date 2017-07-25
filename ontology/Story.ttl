@@ -9,3 +9,9 @@
   rdfs:subClassOf :Thing ;
   rdfs:label "Story"@en ;
   rdfs:comment "A substancial improvment of a Vocation."@en .
+
+:hasLeveledUp
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:label "Has leveled up"@en ;
+  rdfs:domain :Story ;
+  rdfs:range xsd:boolean .

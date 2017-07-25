@@ -31,8 +31,9 @@ const createStory = (label, shouldLevelUp, vocationInstance, viewer) => commitMu
   variables: {
     input: {
       label,
+      hasLeveledUp: shouldLevelUp,
       vocationId: toClearId(vocationInstance.vocation.id),
-      vocationInstanceId: shouldLevelUp ? toClearId(vocationInstance.id) : null,
+      vocationInstanceId: toClearId(vocationInstance.id),
       clientMutationId: Math.random().toString().slice(2),
     },
   },
@@ -42,13 +43,6 @@ const createStory = (label, shouldLevelUp, vocationInstance, viewer) => commitMu
     const conn = ConnectionHandler.getConnection(viewerProxy, 'viewer_stories');
 
     ConnectionHandler.insertEdgeBefore(conn, newEdge);
-
-    if (shouldLevelUp) {
-      const vocationInstanceProxy = store.get(vocationInstance.id);
-
-
-      vocationInstanceProxy.setValue('level', vocationInstanceProxy.getValue('level') + 1);
-    }
   },
   onCompleted(response, errors) {
     console.log('response:', response);
