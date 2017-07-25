@@ -22,6 +22,8 @@ const DiskImage = ({
     style: {
       width: sizePx,
       height: sizePx,
+      minWidth: sizePx,
+      minHeight: sizePx,
       borderRadius: sizePx / 2,
       cursor: onClick ? 'pointer' : 'inherit',
       backgroundColor: 'LightGrey',

@@ -9,7 +9,7 @@ class StoryCreationForm extends Component {
 
   state = { label: '', shouldLevelUp: false }
 
-  handleCheckboxChange = e => this.setState({ shouldLevelUp: e.target.checked })
+  handleCheckboxChange = e => this.setState({ shouldLevelUp: !this.state.shouldLevelUp })
 
   handleInputChange = e => {
     e.target.style.height = '1px';
@@ -64,7 +64,7 @@ class StoryCreationForm extends Component {
                   ref={e => e && e.focus()}
                   value={label}
                   onChange={this.handleInputChange}
-                  style={{ resize: 'none', marginBottom: '-2px' }}
+                  style={{ resize: 'none', marginBottom: '-4px' }}
                   className="has-no-margin has-full-width"
                 />
               </Story.LayoutContent>
@@ -72,13 +72,17 @@ class StoryCreationForm extends Component {
             </Story.LayoutRight>
           </Story.Layout>
 
-          <input
-            type="checkbox"
-            checked={shouldLevelUp}
-            onChange={this.handleCheckboxChange}
-            style={{ marginLeft: '1rem' }}
-          />
-          <span className="label-inline has-white-color">I'm worthy of leveling up</span>
+          <div
+            onClick={this.handleCheckboxChange}
+            style={{ margin: '1rem 0 0 1rem', cursor: 'pointer' }}
+            className="has-no-select"
+          >
+            <input
+              type="checkbox"
+              checked={shouldLevelUp}
+            />
+            <span className="label-inline has-white-color">I'm worthy of leveling up</span>
+          </div>
         </div>
         <div className="rcc">
           <input type="submit" value="This is my story" />

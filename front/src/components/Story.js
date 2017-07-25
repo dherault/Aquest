@@ -30,8 +30,8 @@ const LayoutLeft = ({ children }) => (
 
 const sLayoutRight = {
   flexGrow: 1,
-  marginTop: '-0.9rem',
-  marginBottom: '-1rem',
+  // marginTop: '-0.5rem',
+  // marginBottom: '-0.6rem',
 };
 
 const LayoutRight = ({ children }) => (
@@ -41,11 +41,11 @@ const LayoutRight = ({ children }) => (
 );
 
 const sLayoutHeader = {
-
+  marginBottom: '0.5rem',
 };
 
 const LayoutHeader = ({ children }) => (
-  <div style={sLayoutHeader} className="rlt">
+  <div style={sLayoutHeader} className="has-black-color">
     {children}
   </div>
 );
@@ -55,7 +55,7 @@ const sLayoutContent = {
 };
 
 const LayoutContent = ({ children }) => (
-  <div style={sLayoutContent} className="has-full-width">
+  <div style={sLayoutContent} className="has-full-width has-black-color">
     {children}
   </div>
 );
@@ -71,7 +71,9 @@ const Story = ({ story }) => (
 
       <LayoutHeader>
         <strong>{story.vocation.label}</strong>
-        <em>{moment(story.createdAt).fromNow()}</em>
+        <em className="has-grey-color" style={{ marginLeft: '1rem', fontSize: '1.5rem' }}>
+          {moment(story.createdAt).fromNow()}
+        </em>
       </LayoutHeader>
 
       <LayoutContent>

@@ -25,7 +25,7 @@ class UserProfileScene extends Component {
         <NavBar viewer={viewer} />
 
         <BackgroundImage.Content>
-          <section className="rcc" style={{ marginTop: '4rem' }}>
+          <section className="rcc" style={{ margin: '4rem 0 4rem 0' }}>
             <UserShowcase
               user={viewer}
               setSelectedVocationInstanceId={this.setSelectedVocationInstanceId}
@@ -33,19 +33,20 @@ class UserProfileScene extends Component {
             />
           </section>
 
-          <section>
-            {!!selectedVocationInstanceId && (
+          {selectedVocationInstanceId ? (
+            <section>
               <StoryCreationForm
                 viewer={viewer}
                 selectedVocationInstanceId={selectedVocationInstanceId}
                 onSubmit={this.setSelectedVocationInstanceId}
               />
-            )}
-          </section>
+            </section>
+          ) : (
+            <section>
+              <StoriesList viewer={viewer} />
+            </section>
+          )}
 
-          <section>
-            <StoriesList viewer={viewer} />
-          </section>
         </BackgroundImage.Content>
 
         <Footer />

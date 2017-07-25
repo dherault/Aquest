@@ -25,7 +25,10 @@ class StoriesList extends Component {
 
     return (
       <div className="cct">
-        <strong className="has-white-color">{viewer.storyCount} Stories</strong>
+        <strong className="has-white-color" style={{ marginBottom: '1rem' }}>
+          {`${viewer.storyCount} Stor${viewer.storyCount > 1 ? 'ies' : 'y'}`}
+        </strong>
+
         {edges.map(e => (
           <div key={e.node.id} style={{ marginBottom: '2rem' }}>
             <Story story={e.node} />
