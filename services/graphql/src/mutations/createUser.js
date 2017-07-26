@@ -36,7 +36,7 @@ module.exports = mutationWithClientMutationId({
   mutateAndGetPayload({ email, password, pseudo, description }, context) {
     if (password.length < 6) throw new Error('Invalid password');
     if (!validator.isEmail(email)) throw new Error('Invalid email');
-    if (pseudo !== null && pseudo.length < 3) throw new Error('Pseudo too short');
+    if (typeof pseudo === 'string' && pseudo.length < 3) throw new Error('Pseudo too short');
 
     const normalizedEmail = validator.normalizeEmail(email);
 

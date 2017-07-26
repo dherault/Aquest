@@ -24,6 +24,8 @@ const createUser = (email, password) => commitMutation(environment, {
   onCompleted(response, errors) {
     console.log('errors:', errors);
 
+    if (!response.createUser) return console.log('createUser: no response');
+
     const { token, user: { pseudo } } = response.createUser;
 
     console.log('Got auth token!', token);

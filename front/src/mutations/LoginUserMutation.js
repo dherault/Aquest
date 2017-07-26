@@ -36,6 +36,8 @@ const loginUser = (email, password) => commitMutation(environment, {
   onCompleted(response, errors) {
     console.log('errors:', errors);
 
+    if (!response.loginUser) return console.log('loginUser: no response');
+
     const { token, user: { pseudo } } = response.loginUser;
 
     console.log('Got auth token!', token);
@@ -44,7 +46,7 @@ const loginUser = (email, password) => commitMutation(environment, {
 
     const parsed = queryString.parse(window.location.search);
 
-    window.location.href = parsed.r ? 
+    window.location.href = parsed.r ?
       decodeURIComponent(parsed.r)
       : '/~' + window.encodeURIComponent(pseudo); // LOOOOOOL NOOOOOOOB
   },

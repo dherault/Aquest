@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
+import isEmail from 'validator/lib/isEmail';
+
+import updateViewer from '../../mutations/UpdateViewerMutation';
 
 import Layout from '../../components/Layout';
 import PasswordInput from '../../components/PasswordInput';
@@ -20,14 +23,22 @@ class UserSettingsScene extends Component {
 
   handleEmailFormSubmit = e => {
     e.preventDefault();
+
+    const { email } = this.state;
+
+    if (email && isEmail(email)) updateViewer({ email });
   }
 
   handlePasswordFormSubmit = e => {
     e.preventDefault();
+
+    const { password } = this.state;
+
+    if (password.length >= 6) updateViewer({ password });
   }
 
-  handleProfilePrivacyChange = e => {
-    console.log(e.target.checked);
+  handleProfilePrivacyChange = () => {
+    updateViewer({ hasPrivateProfile: !this.props.viewer.hasPrivateProfile });
   }
 
   handleDeleteAccountClick = () => {
@@ -43,7 +54,7 @@ class UserSettingsScene extends Component {
         <div className="cct has-flex-grow has-large-margin has-large-padding has-white-background">
           <div style={_inner}>
 
-            <section>
+            <section className="has-large-bottom-margin">
               <h3>Account settings</h3>
 
               <form onSubmit={this.handleEmailFormSubmit} className="has-large-bottom-margin">
@@ -61,14 +72,15 @@ class UserSettingsScene extends Component {
                     <input
                       type="submit"
                       value="save"
-                      style={{ marginLeft: '1rem' }}
                       onClick={this.handleEmailFormSubmit}
+                      disabled={!isEmail(email)}
+                      style={{ marginLeft: '1rem' }}
                     />
                   )}
                 </div>
               </form>
 
-              <form onSubmit={this.handlePasswordFormSubmit} className="has-large-bottom-margin">
+              <form onSubmit={this.handlePasswordFormSubmit}>
                 <label htmlFor="passwordField">Change password</label>
                 <div className="rlc">
                   <PasswordInput
@@ -81,26 +93,27 @@ class UserSettingsScene extends Component {
                     <input
                       type="submit"
                       value="save"
-                      style={{ marginLeft: '1rem' }}
                       onClick={this.handlePasswordFormSubmit}
+                      disabled={password.length < 6}
+                      style={{ marginLeft: '1rem' }}
                     />
                   )}
                 </div>
               </form>
             </section>
 
-            <section>
+            <section className="has-large-bottom-margin">
               <h3>Privacy settings</h3>
 
               <div
                 className="has-cursor-pointer has-small-bottom-margin"
-                onChange={this.handleProfilePrivacyChange}
+                onClick={this.handleProfilePrivacyChange}
               >
                 <input
+                  readOnly
                   type="checkbox"
                   id="privacyCheckbox"
-                  checked={false}
-                  onChange={this.handleProfilePrivacyChange}
+                  checked={viewer.hasPrivateProfile}
                 />
                 <label
                   htmlFor="privacyCheckbox"
@@ -110,22 +123,6 @@ class UserSettingsScene extends Component {
                 </label>
               </div>
 
-              <div
-                className="has-large-bottom-margin has-cursor-pointer"
-                onChange={this.handleProfileShowcaseChange}
-              >
-                <input
-                  type="checkbox"
-                  id="showcaseCheckbox"
-                  checked={false}
-                />
-                <label
-                  htmlFor="showcaseCheckbox"
-                  className="label-inline"
-                >
-                  Showcase my profile on the front page
-                </label>
-              </div>
             </section>
 
             <section>
@@ -144,6 +141,7 @@ export default createFragmentContainer(UserSettingsScene, graphql`
   fragment UserSettingsScene_viewer on User {
     id
     email
+    hasPrivateProfile
     backgroundImageUrl
 
     ...Layout_viewer

@@ -23,9 +23,6 @@ module.exports = mutationWithClientMutationId({
     hasPrivateProfile: {
       type: GraphQLBoolean,
     },
-    wantsToBeShowcased: {
-      type: GraphQLBoolean,
-    },
   },
   outputFields: {
     viewer: {
@@ -40,7 +37,7 @@ module.exports = mutationWithClientMutationId({
 
     let normalizedEmail;
 
-    if (email !== null) {
+    if (typeof email === 'string') {
       if (!validator.isEmail(email)) throw new Error('Invalid email');
 
       normalizedEmail = validator.normalizeEmail(email);
@@ -50,13 +47,13 @@ module.exports = mutationWithClientMutationId({
       }
     }
 
-    if (pseudo !== null && pseudo !== viewer.pseudo) {
+    if (typeof pseudo === 'string' && pseudo !== viewer.pseudo) {
       if (pseudo.length < 3) throw new Error('Pseudo too short');
 
       pseudoCheck = query(db => db.collection('User').findOne({ pseudo }));
     }
 
-    if (password !== null) {
+    if (typeof password === 'string') {
       if (password.length < 6) throw new Error('Invalid password');
 
       passwordHashing = bcrypt.hash(password, 10);
@@ -77,9 +74,8 @@ module.exports = mutationWithClientMutationId({
       if (normalizedEmail && normalizedEmail !== viewer.email) $set.email = normalizedEmail;
       if (pseudo && pseudo !== viewer.pseudo) $set.pseudo = pseudo;
       if (passwordHash) $set.passwordHash = passwordHash;
-      if (description !== null && description !== viewer.description) $set.description = description;
-      if (hasPrivateProfile !== null && hasPrivateProfile !== viewer.hasPrivateProfile) $set.hasPrivateProfile = hasPrivateProfile;
-      if (wantsToBeShowcased !== null && wantsToBeShowcased !== viewer.wantsToBeShowcased) $set.wantsToBeShowcased = wantsToBeShowcased;
+      if (typeof description === 'string' && description !== viewer.description) $set.description = description;
+      if (typeof hasPrivateProfile === 'boolean' && hasPrivateProfile !== viewer.hasPrivateProfile) $set.hasPrivateProfile = hasPrivateProfile;
 
       if (!Object.keys($set).length) return { viewer };
 

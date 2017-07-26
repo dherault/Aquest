@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { createFragmentContainer, graphql } from 'react-relay';
+import isEmail from 'validator/lib/isEmail';
+
 import loginUser from '../../mutations/LoginUserMutation';
 
 import DiskImage from '../../components/DiskImage';
@@ -16,7 +18,7 @@ class LoginScene extends Component {
 
     const { email, password } = this.state;
 
-    loginUser(email, password);
+    if (isEmail(email) && password.length >= 6) loginUser(email, password);
   }
 
   render() {
@@ -39,15 +41,29 @@ class LoginScene extends Component {
         )}
 
         <form onSubmit={this.handleSubmit} className="cct" style={{ flexGrow: 1 }}>
-          <div>
-            <label>Email</label>
-            <input type="text" value={email} onChange={this.createInputHandler('email')} />
+          <div className="has-bottom-margin">
+            <label htmlFor="emailInput">Email</label>
+            <input
+              id="emailInput"
+              type="text"
+              value={email}
+              onChange={this.createInputHandler('email')}
+            />
           </div>
-          <div>
-            <label>Password</label>
-            <input type="password" value={password} onChange={this.createInputHandler('password')} />
+          <div className="has-large-bottom-margin">
+            <label htmlFor="passwordInput">Password</label>
+            <input
+              id="passwordInput"
+              type="password"
+              value={password}
+              onChange={this.createInputHandler('password')}
+            />
           </div>
-          <input type="submit" value="ok" />
+          <input
+            type="submit"
+            value="ok"
+            disabled={!isEmail(email) || password.length < 6}
+          />
         </form>
 
         <Footer />

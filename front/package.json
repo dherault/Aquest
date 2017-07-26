@@ -12,7 +12,8 @@
     "react-relay": "^1.1.0",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
-    "react-scripts": "1.0.10"
+    "react-scripts": "1.0.10",
+    "validator": "^8.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

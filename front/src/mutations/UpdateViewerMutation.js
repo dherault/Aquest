@@ -10,7 +10,6 @@ const mutation = graphql`
         pseudo
         description
         hasPrivateProfile
-        wantsToBeShowcased
       }
     }
   }
