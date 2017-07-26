@@ -26,7 +26,8 @@
     "mongodb": "^2.2.30",
     "semantic-graphql": "^0.6.2",
     "semantic-toolkit": "^0.2.1",
-    "uuid": "^3.1.0"
+    "uuid": "^3.1.0",
+    "validator": "^8.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"

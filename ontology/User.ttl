@@ -26,6 +26,16 @@
   rdfs:range xsd:string ;
   rdfs:seeAlso schema:email .
 
+:hasPrivateProfile
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:domain :User ;
+  rdfs:range xsd:boolean .
+
+:wantsToBeShowcased
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:domain :User ;
+  rdfs:range xsd:boolean .
+
 :profileImageUrl
   a owl:DatatypeProperty, owl:FunctionalProperty ;
   rdfs:domain :User ;
