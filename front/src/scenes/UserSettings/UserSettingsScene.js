@@ -3,6 +3,7 @@ import { createFragmentContainer, graphql } from 'react-relay';
 import isEmail from 'validator/lib/isEmail';
 
 import updateViewer from '../../mutations/UpdateViewerMutation';
+import deleteViewerAccount from '../../mutations/DeleteViewerAccountMutation';
 
 import Layout from '../../components/Layout';
 import PasswordInput from '../../components/PasswordInput';
@@ -42,7 +43,14 @@ class UserSettingsScene extends Component {
   }
 
   handleDeleteAccountClick = () => {
+    const isOkWithConsequences = window.confirm('Are you sure you want to delete your user account, including all its data ? This operation cannot be undone!');
 
+    if (isOkWithConsequences) {
+
+      const hasMadeUpHisMind = window.confirm('We are sorry to see you go, hope you enjoyed the game ! Do not hesitate to contact us. Goodbye friend! (PS: you can still change your mind, after that game is over)');
+
+      if (hasMadeUpHisMind) deleteViewerAccount();
+    }
   }
 
   render() {
