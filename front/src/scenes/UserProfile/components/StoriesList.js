@@ -23,6 +23,14 @@ class StoriesList extends Component {
 
     const { edges, pageInfo } = user.stories;
 
+    if (!edges.length) {
+      return (
+        <div className="has-white-color has-text-centered">
+          You have no story yet. Tell one by clicking on a vocation or on your your picture.
+        </div>
+      );
+    }
+
     return (
       <div className="cct">
         <strong className="has-white-color" style={{ marginBottom: '1rem' }}>
