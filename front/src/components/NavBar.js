@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { createFragmentContainer, graphql } from 'react-relay';
+
 import DiskImage from './DiskImage';
 
 const sNav = {
@@ -32,7 +33,7 @@ const sSearchResults = {
 
 const sMenu = {
   height: '5rem',
-  padding: '0.5rem',
+  padding: '0.5rem 2rem',
 };
 
 const sl = {
@@ -54,8 +55,10 @@ class NavBar extends Component {
     const { viewer } = this.props;
     const { searchText, isMenuOpen } = this.state;
 
+    const viewerProfileLocation = `/~${window.encodeURIComponent(viewer.pseudo)}`;
+
     return (
-      <div className="has-full-width">
+      <div>
         <nav style={sNav}>
 
           <div className="rcc" style={sSearchInput}>
@@ -64,7 +67,7 @@ class NavBar extends Component {
               placeholder="🔍 Search"
               value={searchText}
               onChange={this.handleSearchInputChange}
-              className="has-text-centered has-no-margin"
+              className="has-text-centered has-no-margin hide-placeholder-on-focus"
             />
           </div>
 
@@ -76,38 +79,39 @@ class NavBar extends Component {
 
             <div className="rxrc">
               <div
+                className="has-no-select has-cursor-pointer has-grey-color"
                 role="button"
                 tabIndex={0}
-                className="has-no-select has-cursor-pointer has-grey-color"
                 onClick={this.handleMenuToggle}
               >
                 {isMenuOpen ? '🗙' : '•••'}
               </div>
               {isMenuOpen && (
                 <div className="rxrc has-grey-color">
-                  <i
-                    className="fa fa-cog has-cursor-pointer"
-                    style={sMenuItem}
-                    role="button"
-                    tabIndex={0}
-                  />
+                  <Link to={viewerProfileLocation + '/settings'}>
+                    <i
+                      className="fa fa-cog has-cursor-pointer"
+                      role="button"
+                      style={sMenuItem}
+                    />
+                  </Link>
                   <i
                     className="fa fa-paint-brush has-cursor-pointer"
-                    style={sMenuItem}
                     role="button"
                     tabIndex={0}
+                    style={sMenuItem}
                   />
                   <i
                     className="fa fa-sign-out has-cursor-pointer"
-                    style={sMenuItem}
                     role="button"
                     tabIndex={0}
+                    style={sMenuItem}
                     onClick={() => localStorage.removeItem('token') || (window.location.href = '/')}
                   />
                 </div>
               )}
               <DiskImage
-                linkTo={`/~${window.encodeURIComponent(viewer.pseudo)}`}
+                linkTo={viewerProfileLocation}
                 src={viewer.profileImageUrl}
                 style={{ margin: '0 1rem' }}
               />
@@ -128,10 +132,10 @@ class NavBar extends Component {
         )}
 
       </div>
-
     );
   }
 }
+
 export default createFragmentContainer(NavBar, graphql`
   fragment NavBar_viewer on User {
     id

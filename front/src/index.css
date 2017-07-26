@@ -5,17 +5,36 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
   font-size: 2em;
-  /*line-height: 2em;*/
   line-height: normal;
+  color: #333;
 }
 
-input:focus::-webkit-input-placeholder { color:transparent; }
-input:focus:-moz-placeholder { color:transparent; } /* FF 4-18 */
-input:focus::-moz-placeholder { color:transparent; } /* FF 19+ */
-input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
+a {
+  cursor: pointer;
+}
 
+form {
+  margin: 0;
+}
+
+input {
+  font-size: 16px;
+  margin: 0;
+}
+
+input.hide-placeholder-on-focus:focus::-webkit-input-placeholder { color: transparent; }
+input.hide-placeholder-on-focus:focus:-moz-placeholder { color: transparent; } /* FF 4-18 */
+input.hide-placeholder-on-focus:focus::-moz-placeholder { color: transparent; } /* FF 19+ */
+input.hide-placeholder-on-focus:focus:-ms-input-placeholder { color: transparent; } /* IE 10+ */
+
+label {
+  cursor: inherit;
+}
+
+.label-inline {
+  font-size: inherit;
+}
 /* Grid */
 /*
 Class names legend: [A][B][C]
@@ -102,6 +121,15 @@ st: stretch
   justify-content: center;
 }
 
+.cstt {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: stretch;
+}
+
 /* Utils */
 
 .has-full-width {
@@ -112,8 +140,24 @@ st: stretch
   height: 100vh;
 }
 
+.has-flex-grow {
+  flex-grow: 1;
+}
+
+.has-relative-position {
+  position: relative;
+}
+
 .has-text-centered {
   text-align: center;
+}
+
+.has-no-select {
+  user-select: none;
+}
+
+.has-cursor-pointer {
+  cursor: pointer;
 }
 
 .has-white-color {
@@ -128,18 +172,220 @@ st: stretch
   color: #666;
 }
 
-.has-relative-position {
-  position: relative;
+.has-white-background {
+  background-color: white;
 }
+
+/*
+*/
+/*
+*/
+
+/* Margin */
 
 .has-no-margin {
   margin: 0;
 }
 
-.has-no-select {
-  user-select: none;
+.has-margin {
+  margin: 1rem;
 }
 
-.has-cursor-pointer {
-  cursor: pointer;
+.has-small-margin {
+  margin: 0.5rem;
+}
+
+.has-large-margin {
+  margin: 2rem;
+}
+
+/* Top margin */
+
+.has-top-margin {
+  margin-top: 1rem;
+}
+
+.has-small-top-margin {
+  margin-top: 0.5rem;
+}
+
+.has-large-top-margin {
+  margin-top: 2rem;
+}
+
+/* Right margin */
+
+.has-right-margin {
+  margin-right: 1rem;
+}
+
+.has-small-right-margin {
+  margin-right: 0.5rem;
+}
+
+.has-large-right-margin {
+  margin-right: 2rem;
+}
+
+/* Bottom margin */
+
+.has-bottom-margin {
+  margin-bottom: 1rem;
+}
+
+.has-small-bottom-margin {
+  margin-bottom: 0.5rem;
+}
+
+.has-large-bottom-margin {
+  margin-bottom: 2rem;
+}
+
+/* Left margin */
+
+.has-left-margin {
+  margin-left: 1rem;
+}
+
+.has-small-left-margin {
+  margin-left: 0.5rem;
+}
+
+.has-large-left-margin {
+  margin-left: 2rem;
+}
+
+/* Vertical margin */
+
+.has-vertical-margin {
+  margin: 1rem 0;
+}
+
+.has-small-vertical-margin {
+  margin: 0.5rem 0;
+}
+
+.has-large-vertical-margin {
+  margin: 2rem 0;
+}
+
+/* Horizontal margin */
+
+.has-horizontal-margin {
+  margin: 0 1rem;
+}
+
+.has-small-horizontal-margin {
+  margin: 0 0.5rem;
+}
+
+.has-large-horizontal-margin {
+  margin: 0 2rem;
+}
+
+/*
+*/
+/*
+*/
+
+/* Padding */
+
+.has-no-padding {
+  padding: 0;
+}
+
+.has-padding {
+  padding: 1rem;
+}
+
+.has-small-padding {
+  padding: 0.5rem;
+}
+
+.has-large-padding {
+  padding: 2rem;
+}
+
+/* Top padding */
+
+.has-top-padding {
+  padding-top: 1rem;
+}
+
+.has-small-top-padding {
+  padding-top: 0.5rem;
+}
+
+.has-large-top-padding {
+  padding-top: 2rem;
+}
+
+/* Right padding */
+
+.has-right-padding {
+  padding-right: 1rem;
+}
+
+.has-small-right-padding {
+  padding-right: 0.5rem;
+}
+
+.has-large-right-padding {
+  padding-right: 2rem;
+}
+
+/* Bottom padding */
+
+.has-bottom-padding {
+  padding-bottom: 1rem;
+}
+
+.has-small-bottom-padding {
+  padding-bottom: 0.5rem;
+}
+
+.has-large-bottom-padding {
+  padding-bottom: 2rem;
+}
+
+/* Left padding */
+
+.has-left-padding {
+  padding-left: 1rem;
+}
+
+.has-small-left-padding {
+  padding-left: 0.5rem;
+}
+
+.has-large-left-padding {
+  padding-left: 2rem;
+}
+
+/* Vertical padding */
+
+.has-vertical-padding {
+  padding: 1rem 0;
+}
+
+.has-small-vertical-padding {
+  padding: 0.5rem 0;
+}
+
+.has-large-vertical-padding {
+  padding: 2rem 0;
+}
+
+/* Horizontal padding */
+
+.has-horizontal-padding {
+  padding: 0 1rem;
+}
+
+.has-small-horizontal-padding {
+  padding: 0 0.5rem;
+}
+
+.has-large-horizontal-padding {
+  padding: 0 2rem;
 }

@@ -16,6 +16,7 @@
     "max-len": "off",
     "arrow-parens": "off",
     "consistent-return": "off",
+    "no-underscore-dangle": "off",
     "no-shadow": "off",
     "no-trailing-spaces": "off",
     "no-unreachable": "warn",

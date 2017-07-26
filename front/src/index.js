@@ -8,8 +8,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Landing from './scenes/Landing';
 import Login from './scenes/Login';
-import UserProfile from './scenes/UserProfile';
 import VocationsMap from './scenes/VocationsMap';
+import UserProfile from './scenes/UserProfile';
+import UserSettings from './scenes/UserSettings';
 import NotFound from './scenes/NotFound';
 
 const routes = (
@@ -17,8 +18,9 @@ const routes = (
     <Switch>
       <Route exact path="/" component={Landing} />
       <Route exact path="/login" component={Login} />
-      <Route exact path="/~:pseudo" component={UserProfile} />
       <Route exact path="/vocations" component={VocationsMap} />
+      <Route exact path="/~:pseudo" component={UserProfile} />
+      <Route exact path="/settings" component={UserSettings} />
       <Route component={NotFound} />
     </Switch>
   </Router>
