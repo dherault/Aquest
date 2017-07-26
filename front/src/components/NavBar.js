@@ -88,7 +88,7 @@ class NavBar extends Component {
               </div>
               {isMenuOpen && (
                 <div className="rxrc has-grey-color">
-                  <Link to={viewerProfileLocation + '/settings'}>
+                  <Link to="/settings">
                     <i
                       className="fa fa-cog has-cursor-pointer"
                       role="button"
