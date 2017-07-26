@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
-// const bcrypt = require('bcrypt');
 
 const jwtSecret = process.env.JWT_SECRET || 'NotSoSecret';
 
+// NOTE: tokens are not stored in cookies (but in localStorage) and not renewed
+// NOTE: auth sucks for now
 function createToken(userId) {
   const payload = {
     userId,
@@ -11,21 +12,5 @@ function createToken(userId) {
 
   return jwt.sign(payload, jwtSecret);
 }
-
-// function verifyToken(token) {
-//   let payload = null;
-//   let verified = true;
-//   let expired = false;
-//
-//   try {
-//     payload = jwt.verify(token, jwtSecret);
-//   }
-//   catch (err) {
-//     if (err.name === 'TokenExpiredError') expired = true;
-//     else verified = false;
-//   }
-//
-//   return { payload, verified, expired };
-// }
 
 module.exports = { jwtSecret, createToken };

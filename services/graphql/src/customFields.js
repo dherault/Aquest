@@ -1,7 +1,7 @@
 const { GraphQLString, GraphQLInt } = require('graphql');
 const { connectionFromPromisedArray } = require('graphql-relay');
-const _ = require('./graph');
 const { query } = require('./db');
+const _ = require('./graph');
 
 _['http://www.w3.org/2000/01/rdf-schema#label'].isGraphqlList = false;
 
@@ -22,8 +22,9 @@ _.addFieldOnObjectType('http://foo.com#User', 'storyCount', {
 
 // Manage connections
 _['http://foo.com#vocationInstances'].isRelayConnection = true;
-
 _['http://foo.com#stories'].isRelayConnection = true;
+
+// Edit stories resolver to sort them newest to oldest
 _['http://foo.com#stories'].graphqlFieldConfigExtension = {
   resolve: (source, args, { viewer }) => connectionFromPromisedArray(
     query(db => db

@@ -2,9 +2,6 @@ import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-// import { QueryRenderer, graphql } from 'react-relay';
-
-// import environment from './relayEnvironment';
 
 import Landing from './scenes/Landing';
 import Login from './scenes/Login';
@@ -26,8 +23,9 @@ const routes = (
   </Router>
 );
 
+// It's render time!
 ReactDOM.render(
   routes,
   document.getElementById('root'),
-  () => console.log('App rendered yo !')
+  () => console.log('App rendered yo!')
 );

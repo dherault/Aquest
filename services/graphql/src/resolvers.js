@@ -3,6 +3,7 @@ const { query, findResource, findResources } = require('./db');
 
 const sortCreatedAt = (a, b) => a.createdAt > b.createdAt ? 1 : -1;
 
+// More info at https://github.com/dherault/semantic-graphql
 module.exports = {
   resolveSourceId(source) {
     return source.id;

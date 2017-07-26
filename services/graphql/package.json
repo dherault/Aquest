@@ -1,7 +1,8 @@
 {
-  "name": "graphql-service",
+  "name": "auqest-graphql-service",
   "version": "0.0.0",
   "description": "",
+  "private": true,
   "main": "handler.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,8 +12,8 @@
     "dev-build": "./node_modules/.bin/nodemon --watch ../../ontology --watch . -e js,ttl scripts/printSchema.js",
     "build": "node scripts/printSchema.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "David Hérault <dherault@gmail.com> (https://github.com/dherault)",
+  "license": "MIT",
   "dependencies": {
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",

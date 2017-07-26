@@ -14,6 +14,7 @@ module.exports = mutationWithClientMutationId({
   mutateAndGetPayload: ensureAuth((args, { viewer }) => {
     const filter = { sourceUser: viewer.id };
 
+    // Game over
     return Promise.all([
       query(db => db.collection('User').deleteOne(filter)),
       query(db => db.collection('VocationInstance').deleteMany(filter)),

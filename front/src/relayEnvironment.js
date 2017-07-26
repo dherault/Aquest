@@ -1,5 +1,10 @@
 import { Environment, Network, RecordSource, Store } from 'relay-runtime';
 
+/*
+Relay setup
+https://facebook.github.io/relay/docs/relay-environment.html
+*/
+
 // Define a function that fetches the results of an operation (query/mutation/etc)
 function fetchQuery(operation, variables/* , cacheConfig, uploadables */) {
   const headers = { 'Content-Type': 'application/json' };

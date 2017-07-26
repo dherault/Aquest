@@ -1,7 +1,9 @@
 {
-  "name": "aquest",
-  "version": "0.1.0",
+  "name": "aquest-front",
+  "version": "0.0.0",
   "private": true,
+  "author": "David Hérault <dherault@gmail.com> (https://github.com/dherault)",
+  "license": "MIT",
   "dependencies": {
     "bulma": "^0.4.3",
     "moment": "^2.18.1",

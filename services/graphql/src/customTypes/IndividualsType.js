@@ -5,6 +5,7 @@ const _ = require('../graph');
 
 const IndividualsType = new GraphQLObjectType({
   name: 'Individuals',
+  description: 'Helper to access shared resources',
   interfaces: [_.nodeInterface],
   fields: {
 
@@ -12,6 +13,7 @@ const IndividualsType = new GraphQLObjectType({
 
     vocations: {
       type: _.getConnectionType('http://foo.com#Vocation'),
+      description: 'All the vocations, sorted by creation date',
       args: connectionArgs,
       resolve: (source, args) => connectionFromPromisedArray(
         query(db => db
@@ -27,6 +29,7 @@ const IndividualsType = new GraphQLObjectType({
 
     user: {
       type: _.getObjectType('http://foo.com#User'),
+      description: 'Find user by pseudo',
       args: {
         pseudo: {
           type: new GraphQLNonNull(GraphQLString),
@@ -40,6 +43,7 @@ const IndividualsType = new GraphQLObjectType({
   },
 });
 
+// DRY field
 IndividualsType.field = {
   type: IndividualsType,
   resolve: () => ({}),

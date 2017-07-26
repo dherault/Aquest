@@ -3,9 +3,12 @@ const express = require('express');
 const jwt = require('express-jwt');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+
 const schema = require('./schema');
-const { findResource } = require('./db');
 const { jwtSecret } = require('./auth');
+const { findResource } = require('./db');
+
+/* Welcome to the back-end! */
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const formatError = error => console.error(error) || error;
@@ -19,7 +22,13 @@ const server = express()
   requestProperty: 'auth',
   credentialsRequired: false,
 }))
-// Swallow errors
+/*
+Swallow JWT errors, typically expired token and invalid token
+Express uses `Function.length` to adapt the passed args (4 args <==> error handler)
+Without a 4 args middleware to swallow errors, Express throws them, game over.
+NOTE: what about upper middleware errors ?
+TODO: log it
+*/
 .use((err, req, res, next) => next())
 .use('/graphql', (req, res) => {
 
@@ -42,12 +51,12 @@ const server = express()
 
   /* Execute query */
 
-  viewerPromise.then(user => {
+  viewerPromise.then(viewer => {
     graphqlHTTP({
       schema,
       pretty: true,
       graphiql: isDevelopment,
-      context: { viewer: user },
+      context: { viewer },
       formatError,
     })(req, res);
   });
