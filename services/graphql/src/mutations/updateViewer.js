@@ -2,6 +2,7 @@ const { GraphQLString, GraphQLBoolean } = require('graphql');
 const { mutationWithClientMutationId } = require('graphql-relay');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
+const ensureAuth = require('../utils/ensureAuth');
 const { query } = require('../db');
 const _ = require('../graph');
 
@@ -30,7 +31,7 @@ module.exports = mutationWithClientMutationId({
       resolve: ({ viewer }) => viewer,
     },
   },
-  mutateAndGetPayload({ email, password, pseudo, description, hasPrivateProfile, wantsToBeShowcased }, { viewer }) {
+  mutateAndGetPayload: ensureAuth(({ email, password, pseudo, description, hasPrivateProfile }, { viewer }) => {
     let emailCheck;
     let pseudoCheck;
     let passwordHashing;
@@ -85,5 +86,5 @@ module.exports = mutationWithClientMutationId({
       )
       .then(() => ({ viewer: Object.assign({}, viewer, $set) }));
     });
-  },
+  }),
 });
