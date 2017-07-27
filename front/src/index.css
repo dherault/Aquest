@@ -176,6 +176,10 @@ st: stretch
   background-color: white;
 }
 
+.has-no-focus-outline:focus {
+  outline: 0;
+}
+
 /*
 */
 /*

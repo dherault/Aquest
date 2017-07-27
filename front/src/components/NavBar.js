@@ -79,7 +79,8 @@ class NavBar extends Component {
 
             <div className="rxrc">
               <div
-                className="has-no-select has-cursor-pointer has-grey-color"
+                title="menu"
+                className="has-no-select has-cursor-pointer has-grey-color has-no-focus-outline"
                 role="button"
                 tabIndex={0}
                 onClick={this.handleMenuToggle}
@@ -90,19 +91,22 @@ class NavBar extends Component {
                 <div className="rxrc has-grey-color">
                   <Link to="/settings">
                     <i
-                      className="fa fa-cog has-cursor-pointer"
+                      title="settings"
+                      className="fa fa-cog has-cursor-pointer has-no-focus-outline"
                       role="button"
                       style={sMenuItem}
                     />
                   </Link>
                   <i
-                    className="fa fa-paint-brush has-cursor-pointer"
+                    title="customize profile"
+                    className="fa fa-paint-brush has-cursor-pointer has-no-focus-outline"
                     role="button"
                     tabIndex={0}
                     style={sMenuItem}
                   />
                   <i
-                    className="fa fa-sign-out has-cursor-pointer"
+                    title="sign out"
+                    className="fa fa-sign-out has-cursor-pointer has-no-focus-outline"
                     role="button"
                     tabIndex={0}
                     style={sMenuItem}
