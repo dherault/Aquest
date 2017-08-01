@@ -25,13 +25,13 @@ const Layout = ({ viewer, backgroundImageUrl, backgroundColor = 'LightGrey', chi
   };
 
   return (
-    <div className="cstt" style={_layout}>
+    <div className="y8s" style={_layout}>
 
       <NavBar viewer={viewer} />
 
-      <div className="cstt has-flex-grow" style={__content}>
+      <div className="y8s has-flex-grow" style={__content}>
 
-        <div className="cstt has-flex-grow">
+        <div className="y8s has-flex-grow">
           {children}
         </div>
 

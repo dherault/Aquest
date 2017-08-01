@@ -30,10 +30,10 @@ class UserShowcase extends Component {
     const { user, setSelectedVocationInstanceId } = this.props;
 
     return (
-      <div className="cct has-white-color has-full-width">
-        <div className="rcc has-full-width">
+      <div className="y8 has-white-color has-full-width">
+        <div className="x5 has-full-width">
 
-          <div className="crc" style={vocationWingStyle}>
+          <div className="y6" style={vocationWingStyle}>
             {this.renderVocationInstance(0)}
             {this.renderVocationInstance(1)}
           </div>
@@ -45,7 +45,7 @@ class UserShowcase extends Component {
             style={{ margin: '0px 4rem' }}
           />
 
-          <div className="clc" style={vocationWingStyle}>
+          <div className="y4" style={vocationWingStyle}>
             {this.renderVocationInstance(2)}
             {this.renderVocationInstance(3)}
           </div>

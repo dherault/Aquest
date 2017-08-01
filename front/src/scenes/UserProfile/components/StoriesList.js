@@ -32,7 +32,7 @@ class StoriesList extends Component {
     }
 
     return (
-      <div className="cct">
+      <div className="y8">
         <strong className="has-white-color" style={{ marginBottom: '1rem' }}>
           {`${user.storyCount} Stor${user.storyCount > 1 ? 'ies' : 'y'}`}
         </strong>

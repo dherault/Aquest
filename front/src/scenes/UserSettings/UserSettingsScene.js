@@ -59,7 +59,7 @@ class UserSettingsScene extends Component {
 
     return (
       <Layout viewer={viewer} backgroundImageUrl={viewer.backgroundImageUrl}>
-        <div className="cct has-flex-grow has-large-margin has-large-padding has-white-background">
+        <div className="y8 has-flex-grow has-large-margin has-large-padding has-white-background">
           <div style={_inner}>
 
             <section className="has-large-bottom-margin">
@@ -67,7 +67,7 @@ class UserSettingsScene extends Component {
 
               <form onSubmit={this.handleEmailFormSubmit} className="has-large-bottom-margin">
                 <label htmlFor="emailField">Change email</label>
-                <div className="rlc">
+                <div className="x4">
                   <input
                     type="text"
                     id="emailField"
@@ -90,7 +90,7 @@ class UserSettingsScene extends Component {
 
               <form onSubmit={this.handlePasswordFormSubmit}>
                 <label htmlFor="passwordField">Change password</label>
-                <div className="rlc">
+                <div className="x4">
                   <PasswordInput
                     id="passwordField"
                     value={password}

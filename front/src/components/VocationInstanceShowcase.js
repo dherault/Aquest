@@ -9,7 +9,7 @@ class VocationInstanceShowcase extends Component {
     const { isLeft, isDimmed, onDiskImageClick, vocationInstance: { level, vocation: { userLabel, label } } } = this.props;
 
     return (
-      <div className={isLeft ? 'rxrc' : 'rlc'} style={{ margin: '1rem 0px' }}>
+      <div className={isLeft ? 'x69' : 'x4'} style={{ margin: '1rem 0px' }}>
         <DiskImage
           size="medium"
           onClick={onDiskImageClick}

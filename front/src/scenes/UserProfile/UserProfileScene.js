@@ -21,7 +21,7 @@ class UserProfileScene extends Component {
 
     return (
       <Layout viewer={viewer} backgroundImageUrl={user.backgroundImageUrl}>
-        <section className="rcc" style={{ margin: '4rem 0 4rem 0' }}>
+        <section className="x5" style={{ margin: '4rem 0 4rem 0' }}>
           <UserShowcase
             user={user}
             setSelectedVocationInstanceId={userIsViewer ? this.setSelectedVocationInstanceId : () => null}

@@ -26,7 +26,7 @@ class LoginScene extends Component {
     const { email, password } = this.state;
 
     return (
-      <div className="cct has-screen-height">
+      <div className="y8 has-screen-height">
 
         <DiskImage style={{ margin: '2rem 0' }} />
 
@@ -40,7 +40,7 @@ class LoginScene extends Component {
           </div>
         )}
 
-        <form onSubmit={this.handleSubmit} className="cct" style={{ flexGrow: 1 }}>
+        <form onSubmit={this.handleSubmit} className="y8" style={{ flexGrow: 1 }}>
           <div className="has-bottom-margin">
             <label htmlFor="emailInput">Email</label>
             <input

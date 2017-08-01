@@ -46,7 +46,7 @@ class StoryCreationForm extends Component {
     if (!vocationInstance) return null;
 
     return (
-      <form onSubmit={this.submitStory} className="cct">
+      <form onSubmit={this.submitStory} className="y8">
         <div>
           <Story.Layout>
 
@@ -85,7 +85,7 @@ class StoryCreationForm extends Component {
             <span className="label-inline has-white-color">I'm worthy of leveling up</span>
           </div>
         </div>
-        <div className="rcc">
+        <div className="x5">
           <input
             type="submit"
             className="button"

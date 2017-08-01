@@ -12,8 +12,8 @@ class LandingScene extends Component {
     const { signupToggled } = this.state;
 
     return (
-      <div className="cct has-screen-height">
-        <div className="cct" style={{ flexGrow: 1 }}>
+      <div className="y8 has-screen-height">
+        <div className="y8" style={{ flexGrow: 1 }}>
           <p>
             <strong>Aquest</strong> is a real life role-playing game for self-learners, students, athletes and passionate people.
           </p>
@@ -23,7 +23,7 @@ class LandingScene extends Component {
               <SignupForm />
             </div>
           ) : (
-            <div className="rcc">
+            <div className="x5">
               <button onClick={() => this.setState({ signupToggled: !signupToggled })}>
                 Start
               </button>

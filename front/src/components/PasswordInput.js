@@ -8,7 +8,7 @@ class PasswordInput extends Component {
     const { visible } = this.state;
 
     return (
-      <div className="rlc has-flex-grow">
+      <div className="x4 has-flex-grow">
         <input
           type={visible ? 'text' : 'password'}
           className="has-flex-grow"

@@ -13,7 +13,7 @@ const sLayout = {
 };
 
 const Layout = ({ children }) => (
-  <article className="rlt" style={sLayout}>
+  <article className="x8" style={sLayout}>
     {children}
   </article>
 );

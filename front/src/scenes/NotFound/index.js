@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import Footer from '../../components/Footer';
 
 const NotFound = () => (
-  <div className="cct has-screen-height">
-    <div className="ccc" style={{ flexGrow: 1 }}>
+  <div className="y8 has-screen-height">
+    <div className="y5" style={{ flexGrow: 1 }}>
       <strong>Page not found</strong>
       <br />
       <Link to="/">Home</Link>

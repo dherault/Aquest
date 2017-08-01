@@ -2,7 +2,7 @@ import React from 'react';
 
 const BackgroundImage = ({ src, children }) => (
   <div
-    className="cct"
+    className="y8"
     style={{
       backgroundColor: 'LightGrey',
       backgroundImage: src ? `url(${src})` : null,

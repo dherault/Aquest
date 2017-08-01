@@ -61,7 +61,7 @@ class NavBar extends Component {
       <div>
         <nav style={sNav}>
 
-          <div className="rcc" style={sSearchInput}>
+          <div className="x5" style={sSearchInput}>
             <input
               type="text"
               placeholder="🔍 Search"
@@ -71,13 +71,13 @@ class NavBar extends Component {
             />
           </div>
 
-          <div className="rsbc" style={sMenu}>
+          <div className="x5bs" style={sMenu}>
 
-            <div className="rlc">
+            <div className="x4">
               <DiskImage style={sl} linkTo="/" />
             </div>
 
-            <div className="rxrc">
+            <div className="x69">
               <div
                 title="menu"
                 className="has-no-select has-cursor-pointer has-grey-color has-no-focus-outline"
@@ -88,7 +88,7 @@ class NavBar extends Component {
                 {isMenuOpen ? '🗙' : '•••'}
               </div>
               {isMenuOpen && (
-                <div className="rxrc has-grey-color">
+                <div className="x69 has-grey-color">
                   <Link to="/settings">
                     <i
                       title="settings"
@@ -130,7 +130,7 @@ class NavBar extends Component {
         </nav>
 
         {!!searchText && (
-          <div className="rcc" style={sSearchResults}>
+          <div className="x5" style={sSearchResults}>
             <h3>Feature not implemeted yet</h3>
           </div>
         )}
