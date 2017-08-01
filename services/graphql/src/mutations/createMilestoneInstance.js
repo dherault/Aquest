@@ -9,7 +9,7 @@ const createResourceObject = require('../utils/createResourceObject');
 module.exports = mutationWithClientMutationId({
   name: 'CreateMilestoneInstance',
   inputFields: {
-    milestoneId: {
+    milestoneName: {
       type: new GraphQLNonNull(GraphQLString),
     },
   },
@@ -34,9 +34,9 @@ module.exports = mutationWithClientMutationId({
       resolve: (payload, args, { viewer }) => viewer,
     },
   },
-  mutateAndGetPayload: ensureAuth(({ milestoneId }, context) => {
+  mutateAndGetPayload: ensureAuth(({ milestoneName }, context) => {
     const milestoneInstance = createResourceObject('MilestoneInstance', context, {
-      milestone: milestoneId,
+      milestone: `http://foo.com/static_individuals#${milestoneName}`,
     });
 
     return createResource(milestoneInstance).then(() => ({ milestoneInstance }));

@@ -21,6 +21,7 @@
     "no-shadow": "off",
     "no-trailing-spaces": "off",
     "no-unreachable": "warn",
+    "no-return-assign": "off",
     "no-confusing-arrow": "off",
     "no-param-reassign": "warn",
     "global-require": "off",

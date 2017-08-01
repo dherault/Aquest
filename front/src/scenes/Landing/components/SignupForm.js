@@ -21,7 +21,7 @@ class SignupForm extends Component {
 
     const { email, password } = this.state;
 
-    createUser(email, password);
+    createUser(email, password).then(() => window.location.href = '/new_game');
   }
 
   validateInputs() {

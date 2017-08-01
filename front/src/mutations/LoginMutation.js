@@ -8,7 +8,9 @@ const mutation = graphql`
     login(input: $input) {
       token
       viewer {
+        id
         pseudo
+        hasCompletedOnboarding: hasReachedMilestone(name: "hasCompletedOnboarding")
       }
     }
   }
@@ -30,6 +32,8 @@ const login = (email, password) => commitMutation({
   const { token, viewer } = response.login;
 
   localStorage.setItem('token', token);
+
+  if (!viewer.hasCompletedOnboarding) return window.location.href = '/new_game';
 
   const parsed = queryString.parse(window.location.search);
 

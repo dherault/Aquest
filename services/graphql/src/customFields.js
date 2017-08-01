@@ -24,13 +24,14 @@ _.addFieldOnObjectType('http://foo.com#User', 'storyCount', {
 _.addFieldOnObjectType('http://foo.com#User', 'hasReachedMilestone', {
   type: GraphQLBoolean,
   args: {
-    milestoneId: {
+    name: {
       type: new GraphQLNonNull(GraphQLString),
+      description: 'The Milestone\'s local name',
     },
   },
-  resolve: ({ id }, { milestoneId }) => query(db => db
+  resolve: ({ id }, { name }) => query(db => db
     .collection('MilestoneInstance')
-    .findOne({ sourceUser: id, milestone: milestoneId })
+    .findOne({ sourceUser: id, milestone: `http://foo.com/static_individuals#${name}` })
     .then(milestoneInstance => !!milestoneInstance)
   ),
 });

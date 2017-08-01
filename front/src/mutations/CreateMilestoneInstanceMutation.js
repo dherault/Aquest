@@ -3,7 +3,7 @@ import { ConnectionHandler } from 'relay-runtime';
 import commitMutation from '../utils/commitMutation';
 
 const mutation = graphql`
-  mutation CreateMilestoneInstanceMutation($input: CreateMilestoneInstanceInput!, $milestoneId: String!) {
+  mutation CreateMilestoneInstanceMutation($input: CreateMilestoneInstanceInput!, $milestoneName: String!) {
     createMilestoneInstance(input: $input) {
       milestoneInstanceEdge {
         __typename
@@ -17,20 +17,20 @@ const mutation = graphql`
       }
       viewer {
         id
-        hasReachedMilestone(milestoneId: $milestoneId)
+        hasReachedMilestone(name: $milestoneName)
       }
     }
   }
 `;
 
-const createMilestoneInstance = (milestoneId, viewer) => commitMutation({
+const createMilestoneInstance = (milestoneName, viewer) => commitMutation({
   mutation,
   variables: {
     input: {
-      milestoneId,
+      milestoneName,
       clientMutationId: Math.random().toString().slice(2),
     },
-    milestoneId,
+    milestoneName,
   },
   updater(store) {
     const newEdge = store.getRootField('createMilestoneInstance').getLinkedRecord('milestoneInstanceEdge');

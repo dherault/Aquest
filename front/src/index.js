@@ -20,7 +20,7 @@ const routes = (
       <Route exact path="/vocations" component={VocationsMap} />
       <Route exact path="/~:pseudo" component={UserProfile} />
       <Route exact path="/settings" component={UserSettings} />
-      <Route exact path="/welcome" component={Onboarding} />
+      <Route exact path="/new_game" component={Onboarding} />
       <Route component={NotFound} />
     </Switch>
   </Router>
