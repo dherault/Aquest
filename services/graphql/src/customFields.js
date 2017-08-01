@@ -14,13 +14,13 @@ _.addFieldOnObjectType('http://foo.com#Thing', 'iri', {
 // Add user's stories count
 _.addFieldOnObjectType('http://foo.com#User', 'storyCount', {
   type: GraphQLInt,
-  resolve: (source, args, { viewer }) => query(db => db
+  resolve: ({ id }) => query(db => db
     .collection('Story')
-    .count({ sourceUser: viewer.id })
+    .count({ sourceUser: id })
   ),
 });
 
-// Add user's milestone quick access
+// Add user's milestone instance quick access
 _.addFieldOnObjectType('http://foo.com#User', 'hasReachedMilestone', {
   type: GraphQLBoolean,
   args: {
