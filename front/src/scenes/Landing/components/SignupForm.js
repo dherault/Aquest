@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import createUser from '../../../mutations/CreateUserMutation';
 
 const sSignupForm = {
@@ -21,7 +22,11 @@ class SignupForm extends Component {
 
     const { email, password } = this.state;
 
-    createUser(email, password).then(() => window.location.href = '/new_game');
+    createUser(email, password).then(user => {
+      if (user) {
+        this.context.router.history.push('/new_game');
+      }
+    });
   }
 
   validateInputs() {
@@ -56,5 +61,9 @@ class SignupForm extends Component {
     );
   }
 }
+
+SignupForm.contextTypes = {
+  router: PropTypes.object.isRequired,
+};
 
 export default SignupForm;

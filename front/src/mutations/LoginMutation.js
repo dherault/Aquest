@@ -1,7 +1,5 @@
 import { graphql } from 'react-relay';
-import queryString from 'query-string';
 import commitMutation from '../utils/commitMutation';
-import profileLocationFor from '../utils/profileLocationFor';
 
 const mutation = graphql`
   mutation LoginMutation($input: LoginInput!) {
@@ -33,11 +31,13 @@ const login = (email, password) => commitMutation({
 
   localStorage.setItem('token', token);
 
-  if (!viewer.hasCompletedOnboarding) return window.location.href = '/new_game';
+  return viewer;
 
-  const parsed = queryString.parse(window.location.search);
-
-  window.location.href = parsed.r ? decodeURIComponent(parsed.r) : profileLocationFor(viewer); // LOOOOOOL NOOOOOOOB
+  // if (!viewer.hasCompletedOnboarding) return window.location.href = '/new_game';
+  //
+  // const parsed = queryString.parse(window.location.search);
+  //
+  // window.location.href = parsed.r ? decodeURIComponent(parsed.r) : profileLocationFor(viewer); // LOOOOOOL NOOOOOOOB
 });
 
 export default login;

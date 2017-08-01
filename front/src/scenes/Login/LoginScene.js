@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { createFragmentContainer, graphql } from 'react-relay';
+import PropTypes from 'prop-types';
 import isEmail from 'validator/lib/isEmail';
+import queryString from 'query-string';
 
 import loginUser from '../../mutations/LoginMutation';
 
@@ -20,7 +22,18 @@ class LoginScene extends Component {
 
     const { email, password } = this.state;
 
-    if (isEmail(email) && password.length >= 6) loginUser(email, password);
+    if (isEmail(email) && password.length >= 6) {
+      loginUser(email, password)
+      .then(viewer => {
+        const { router } = this.context;
+
+        if (!viewer.hasCompletedOnboarding) return router.history.push('/new_game');
+
+        const parsed = queryString.parse(router.route.location.search);
+
+        router.history.push(parsed.r ? decodeURIComponent(parsed.r) : profileLocationFor(viewer));
+      });
+    }
   }
 
   render() {
@@ -73,6 +86,10 @@ class LoginScene extends Component {
     );
   }
 }
+
+LoginScene.contextTypes = {
+  router: PropTypes.object.isRequired,
+};
 
 export default createFragmentContainer(LoginScene, graphql`
   fragment LoginScene_viewer on User {

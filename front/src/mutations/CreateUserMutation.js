@@ -1,14 +1,10 @@
 import { graphql } from 'react-relay';
 import commitMutation from '../utils/commitMutation';
-import profileLocationFor from '../utils/profileLocationFor';
 
 const mutation = graphql`
   mutation CreateUserMutation($input: CreateUserInput!) {
     createUser(input: $input) {
       token
-      user {
-        pseudo
-      }
     }
   }
 `;
@@ -30,7 +26,7 @@ const createUser = (email, password) => commitMutation({
 
   localStorage.setItem('token', token);
 
-  window.location.href = profileLocationFor(user);
+  return user;
 });
 
 export default createUser;
