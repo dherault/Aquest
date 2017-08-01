@@ -36,7 +36,7 @@ class LoginScene extends Component {
           <div style={{ marginBottom: '2rem', textAlign: 'center' }}>
             You are already logged in as {viewer.pseudo}.
             <br />
-            <Link to="/user">Go to profile</Link>
+            <Link to={`~${window.encodeURIComponent(viewer.pseudo)}`}>Go to profile</Link>
           </div>
         )}
 
