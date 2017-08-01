@@ -5,6 +5,9 @@ const mutation = graphql`
   mutation CreateUserMutation($input: CreateUserInput!) {
     createUser(input: $input) {
       token
+      user {
+        id
+      }
     }
   }
 `;

@@ -9,9 +9,19 @@ const sSignupForm = {
   boxShadow: '0px 3px 10px 0px rgba(0,0,0,0.50)',
 };
 
+const sDone = {
+  position: 'fixed',
+  top: 0,
+  bottom: 0,
+  right: 0,
+  left: 0,
+  backgroundColor: 'black',
+  transition: 'opacity 2s',
+};
+
 class SignupForm extends Component {
 
-  state = { email: '', password: '', hasAgreed: false }
+  state = { email: '', password: '', hasAgreed: false, done: false }
 
   createInputHandler = key => e => this.setState({ [key]: e.target.value })
 
@@ -24,7 +34,14 @@ class SignupForm extends Component {
 
     createUser(email, password).then(user => {
       if (user) {
-        this.context.router.history.push('/new_game');
+        this.setState({ done: true });
+
+        setTimeout(() => {
+          // Prevent white flash on route change
+          document.body.style.backgroundColor = 'black';
+          // Move to onboarding
+          this.context.router.history.push('/new_game');
+        }, 2000);
       }
     });
   }
@@ -36,10 +53,11 @@ class SignupForm extends Component {
   }
 
   render() {
-    const { email, password, hasAgreed } = this.state;
+    const { email, password, hasAgreed, done } = this.state;
 
     return (
       <form onSubmit={this.handleSubmit} style={sSignupForm}>
+        <div style={{ ...sDone, zIndex: done ? 999 : -1, opacity: done ? 1 : 0 }} />
         <div>
           <label>Email</label>
           <input type="text" value={email} onChange={this.createInputHandler('email')} />

@@ -82,6 +82,10 @@ label {
   background-color: white;
 }
 
+.has-black-background {
+  background-color: black;
+}
+
 .has-no-focus-outline:focus {
   outline: 0;
 }
