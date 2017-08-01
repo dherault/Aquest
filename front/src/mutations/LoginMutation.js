@@ -4,17 +4,17 @@ import commitMutation from '../utils/commitMutation';
 import profileLocationFor from '../utils/profileLocationFor';
 
 const mutation = graphql`
-  mutation LoginUserMutation($input: LoginUserInput!) {
-    loginUser(input: $input) {
+  mutation LoginMutation($input: LoginInput!) {
+    login(input: $input) {
       token
-      user {
+      viewer {
         pseudo
       }
     }
   }
 `;
 
-const loginUser = (email, password) => commitMutation({
+const login = (email, password) => commitMutation({
   mutation,
   variables: {
     input: {
@@ -25,15 +25,15 @@ const loginUser = (email, password) => commitMutation({
   },
 })
 .then(({ response }) => {
-  if (!response.loginUser) return console.log('loginUser: no response');
+  if (!response.login) return console.log('login: no response');
 
-  const { token, user } = response.loginUser;
+  const { token, viewer } = response.login;
 
   localStorage.setItem('token', token);
 
   const parsed = queryString.parse(window.location.search);
 
-  window.location.href = parsed.r ? decodeURIComponent(parsed.r) : profileLocationFor(user); // LOOOOOOL NOOOOOOOB
+  window.location.href = parsed.r ? decodeURIComponent(parsed.r) : profileLocationFor(viewer); // LOOOOOOL NOOOOOOOB
 });
 
-export default loginUser;
+export default login;

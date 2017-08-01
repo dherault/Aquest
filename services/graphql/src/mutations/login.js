@@ -3,11 +3,11 @@ const { mutationWithClientMutationId } = require('graphql-relay');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
 const { query } = require('../db');
-const _ = require('../graph');
 const { createToken } = require('../auth');
+const _ = require('../graph');
 
 module.exports = mutationWithClientMutationId({
-  name: 'LoginUser',
+  name: 'Login',
   inputFields: {
     email: {
       type: new GraphQLNonNull(GraphQLString),
@@ -17,7 +17,7 @@ module.exports = mutationWithClientMutationId({
     },
   },
   outputFields: {
-    user: {
+    viewer: {
       type: _.getObjectType('http://foo.com#User'),
       resolve: ({ user }) => user,
     },

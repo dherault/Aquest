@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { createFragmentContainer, graphql } from 'react-relay';
 import isEmail from 'validator/lib/isEmail';
 
-import loginUser from '../../mutations/LoginUserMutation';
+import loginUser from '../../mutations/LoginMutation';
 
 import DiskImage from '../../components/DiskImage';
 import Footer from '../../components/Footer';
