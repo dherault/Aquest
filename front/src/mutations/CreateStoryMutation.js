@@ -1,7 +1,7 @@
-import { commitMutation, graphql } from 'react-relay';
+import { graphql } from 'react-relay';
 import { ConnectionHandler } from 'relay-runtime';
-import environment from '../relayEnvironment';
 import toClearId from '../utils/toClearId';
+import commitMutation from '../utils/commitMutation';
 
 const mutation = graphql`
   mutation CreateStoryMutation($input: CreateStoryInput!) {
@@ -26,7 +26,7 @@ const mutation = graphql`
   }
 `;
 
-const createStory = (label, shouldLevelUp, vocationInstance, viewer) => commitMutation(environment, {
+const createStory = (label, shouldLevelUp, vocationInstance, viewer) => commitMutation({
   mutation,
   variables: {
     input: {
@@ -42,13 +42,6 @@ const createStory = (label, shouldLevelUp, vocationInstance, viewer) => commitMu
     const conn = ConnectionHandler.getConnection(viewerProxy, 'user_stories');
 
     ConnectionHandler.insertEdgeBefore(conn, newEdge);
-  },
-  onCompleted(response, errors) {
-    console.log('response:', response);
-    console.log('errors:', errors);
-  },
-  onError(error) {
-    console.error('onError:', error);
   },
 });
 

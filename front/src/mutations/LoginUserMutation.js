@@ -1,7 +1,7 @@
-import { commitMutation, graphql } from 'react-relay';
-import environment from '../relayEnvironment';
+import { graphql } from 'react-relay';
 import queryString from 'query-string';
-// import store from '../relayStore';
+import commitMutation from '../utils/commitMutation';
+import profileLocationFor from '../utils/profileLocationFor';
 
 const mutation = graphql`
   mutation LoginUserMutation($input: LoginUserInput!) {
@@ -14,7 +14,7 @@ const mutation = graphql`
   }
 `;
 
-const loginUser = (email, password) => commitMutation(environment, {
+const loginUser = (email, password) => commitMutation({
   mutation,
   variables: {
     input: {
@@ -23,51 +23,17 @@ const loginUser = (email, password) => commitMutation(environment, {
       clientMutationId: Math.random().toString().slice(2),
     },
   },
-  // updater(mutationStore) {
-  //   const user = mutationStore.getRootField('loginUser').getLinkedRecord('user');
-  //   console.log('user:', user);
-  //   console.log('store:', store);
-  //
-  //   window.x = store;
-  //   window.a = mutationStore;
-  //   window.user = user;
-  //
-  // },
-  onCompleted(response, errors) {
-    console.log('errors:', errors);
+})
+.then(({ response }) => {
+  if (!response.loginUser) return console.log('loginUser: no response');
 
-    if (!response.loginUser) return console.log('loginUser: no response');
+  const { token, user } = response.loginUser;
 
-    const { token, user: { pseudo } } = response.loginUser;
+  localStorage.setItem('token', token);
 
-    console.log('Got auth token!', token);
+  const parsed = queryString.parse(window.location.search);
 
-    localStorage.setItem('token', token);
-
-    const parsed = queryString.parse(window.location.search);
-
-    window.location.href = parsed.r ?
-      decodeURIComponent(parsed.r)
-      : '/~' + window.encodeURIComponent(pseudo); // LOOOOOOL NOOOOOOOB
-  },
-  onError(error) {
-    console.error('error:', error);
-  },
-  // optimisticUpdater(store) {
-  //   const id = 'client:newStory:' + tempId++;
-  //   const node = store.create(id, 'Story');
-  //   node.setValue(input.label, 'label');
-  //   node.setValue(id, 'id');
-  //
-  //   console.log('node', node);
-  //   // node.setValue(input.vocationId, 'vocation');
-  //
-  //   const newEdge = store.create('client:newEdge:' + tempId++, 'StoryEdge');
-  //
-  //   newEdge.setLinkedRecord(node, 'node');
-  //
-  //   sharedUpdater(store, user, newEdge);
-  // },
+  window.location.href = parsed.r ? decodeURIComponent(parsed.r) : profileLocationFor(user); // LOOOOOOL NOOOOOOOB
 });
 
 export default loginUser;

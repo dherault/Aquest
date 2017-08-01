@@ -1,7 +1,7 @@
-import { commitMutation, graphql } from 'react-relay';
+import { graphql } from 'react-relay';
 import { ConnectionHandler } from 'relay-runtime';
-import environment from '../relayEnvironment';
 import toClearId from '../utils/toClearId';
+import commitMutation from '../utils/commitMutation';
 
 const mutation = graphql`
   mutation CreateVocationInstanceMutation($input: CreateVocationInstanceInput!) {
@@ -33,7 +33,7 @@ function sharedUpdater(store, viewer, newEdge) {
 
 // let tempId = 0;
 
-const createVocationInstance = (vocationId, viewer) => commitMutation(environment, {
+const createVocationInstance = (vocationId, viewer) => commitMutation({
   mutation,
   variables: {
     input: {
@@ -62,13 +62,6 @@ const createVocationInstance = (vocationId, viewer) => commitMutation(environmen
   //
   //   sharedUpdater(store, viewer, newEdge);
   // },
-  onCompleted(response, errors) {
-    console.log('response:', response);
-    console.log('errors:', errors);
-  },
-  onError(error) {
-    console.error('error:', error);
-  },
 });
 
 export default createVocationInstance;

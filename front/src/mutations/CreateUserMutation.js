@@ -1,5 +1,6 @@
-import { commitMutation, graphql } from 'react-relay';
-import environment from '../relayEnvironment';
+import { graphql } from 'react-relay';
+import commitMutation from '../utils/commitMutation';
+import profileLocationFor from '../utils/profileLocationFor';
 
 const mutation = graphql`
   mutation CreateUserMutation($input: CreateUserInput!) {
@@ -12,7 +13,7 @@ const mutation = graphql`
   }
 `;
 
-const createUser = (email, password) => commitMutation(environment, {
+const createUser = (email, password) => commitMutation({
   mutation,
   variables: {
     input: {
@@ -21,22 +22,15 @@ const createUser = (email, password) => commitMutation(environment, {
       clientMutationId: Math.random().toString().slice(2),
     },
   },
-  onCompleted(response, errors) {
-    console.log('errors:', errors);
+})
+.then(({ response }) => {
+  if (!response.createUser) return console.log('createUser: no response');
 
-    if (!response.createUser) return console.log('createUser: no response');
+  const { token, user } = response.createUser;
 
-    const { token, user: { pseudo } } = response.createUser;
+  localStorage.setItem('token', token);
 
-    console.log('Got auth token!', token);
-
-    localStorage.setItem('token', token);
-
-    window.location.href = '/~' + window.encodeURIComponent(pseudo);
-  },
-  onError(error) {
-    console.error('error:', error);
-  },
+  window.location.href = profileLocationFor(user);
 });
 
 export default createUser;

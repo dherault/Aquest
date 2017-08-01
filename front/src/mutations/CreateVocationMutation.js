@@ -1,6 +1,6 @@
-import { commitMutation, graphql } from 'react-relay';
+import { graphql } from 'react-relay';
 import { ConnectionHandler } from 'relay-runtime';
-import environment from '../relayEnvironment';
+import commitMutation from '../utils/commitMutation';
 
 const mutation = graphql`
   mutation CreateVocationMutation($input: CreateVocationInput!) {
@@ -29,7 +29,7 @@ function sharedUpdater(store, individuals, newEdge) {
 
 let tempId = 0;
 
-const createVocation = (label, individuals) => commitMutation(environment, {
+const createVocation = (label, individuals) => commitMutation({
   mutation,
   variables: {
     input: {
@@ -57,13 +57,6 @@ const createVocation = (label, individuals) => commitMutation(environment, {
     newEdge.setLinkedRecord(node, 'node');
 
     sharedUpdater(store, individuals, newEdge);
-  },
-  onCompleted(response, errors) {
-    console.log('response:', response);
-    console.log('errors:', errors);
-  },
-  onError(error) {
-    console.error('error:', error);
   },
 });
 

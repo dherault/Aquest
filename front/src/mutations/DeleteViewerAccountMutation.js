@@ -1,5 +1,5 @@
-import { commitMutation, graphql } from 'react-relay';
-import environment from '../relayEnvironment';
+import { graphql } from 'react-relay';
+import commitMutation from '../utils/commitMutation';
 
 const mutation = graphql`
   mutation DeleteViewerAccountMutation($input: DeleteViewerAccountInput!) {
@@ -9,23 +9,17 @@ const mutation = graphql`
   }
 `;
 
-const deleteViewerAccount = () => commitMutation(environment, {
+const deleteViewerAccount = () => commitMutation({
   mutation,
   variables: {
     input: {
       clientMutationId: Math.random().toString().slice(2),
     },
   },
-  onCompleted(response, errors) {
-    console.log('response:', response);
-    console.log('errors:', errors);
-
-    localStorage.removeItem('token');
-    window.location.href = '/';
-  },
-  onError(error) {
-    console.error('onError:', error);
-  },
+})
+.then(() => {
+  localStorage.removeItem('token');
+  window.location.href = '/';
 });
 
 export default deleteViewerAccount;
