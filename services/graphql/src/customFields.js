@@ -28,9 +28,9 @@ _.addFieldOnObjectType('http://foo.com#User', 'hasReachedMilestone', {
       type: new GraphQLNonNull(GraphQLString),
     },
   },
-  resolve: (source, { milestoneId }, { viewer }) => query(db => db
+  resolve: ({ id }, { milestoneId }) => query(db => db
     .collection('MilestoneInstance')
-    .findOne({ sourceUser: viewer.id, milestone: milestoneId })
+    .findOne({ sourceUser: id, milestone: milestoneId })
     .then(milestoneInstance => !!milestoneInstance)
   ),
 });
