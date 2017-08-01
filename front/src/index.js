@@ -1,5 +1,5 @@
-import './index.css';
 import 'flexpad/flexpad.css';
+import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -9,6 +9,7 @@ import Login from './scenes/Login';
 import VocationsMap from './scenes/VocationsMap';
 import UserProfile from './scenes/UserProfile';
 import UserSettings from './scenes/UserSettings';
+import Onboarding from './scenes/Onboarding';
 import NotFound from './scenes/NotFound';
 
 const routes = (
@@ -19,6 +20,7 @@ const routes = (
       <Route exact path="/vocations" component={VocationsMap} />
       <Route exact path="/~:pseudo" component={UserProfile} />
       <Route exact path="/settings" component={UserSettings} />
+      <Route exact path="/welcome" component={Onboarding} />
       <Route component={NotFound} />
     </Switch>
   </Router>
