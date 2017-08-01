@@ -22,6 +22,7 @@
     "no-trailing-spaces": "off",
     "no-unreachable": "warn",
     "no-confusing-arrow": "off",
+    "no-param-reassign": "warn",
     "global-require": "off",
     "import/no-dynamic-require": "off",
     "import/first": "off",

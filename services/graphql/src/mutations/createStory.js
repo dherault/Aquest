@@ -1,10 +1,12 @@
 const { GraphQLNonNull, GraphQLString, GraphQLBoolean, GraphQLID } = require('graphql');
 const { mutationWithClientMutationId } = require('graphql-relay');
-const createResourceObject = require('../utils/createResourceObject');
-const ensureAuth = require('../utils/ensureAuth');
-const base64 = require('../utils/base64');
-const { createResource, query } = require('../db');
+
 const _ = require('../graph');
+const { createResource, query } = require('../db');
+const base64 = require('../utils/base64');
+const ensureAuth = require('../utils/ensureAuth');
+const ValidationError = require('../utils/ValidationError');
+const createResourceObject = require('../utils/createResourceObject');
 
 module.exports = mutationWithClientMutationId({
   name: 'CreateStory',
@@ -42,7 +44,7 @@ module.exports = mutationWithClientMutationId({
       .findOne({ id: vocationInstanceId })
     )
     .then(vocationInstance => {
-      if (!vocationInstance || vocationInstance.sourceUser !== context.viewer.id) throw new Error('!');
+      if (!vocationInstance || vocationInstance.sourceUser !== context.viewer.id) throw new ValidationError('!');
 
       const story = createResourceObject('Story', context, {
         label,

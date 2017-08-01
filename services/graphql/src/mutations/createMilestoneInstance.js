@@ -1,9 +1,10 @@
 const { GraphQLNonNull, GraphQLString } = require('graphql');
 const { mutationWithClientMutationId, cursorForObjectInConnection } = require('graphql-relay');
-const createResourceObject = require('../utils/createResourceObject');
-const ensureAuth = require('../utils/ensureAuth');
-const { query, createResource } = require('../db');
+
 const _ = require('../graph');
+const { query, createResource } = require('../db');
+const ensureAuth = require('../utils/ensureAuth');
+const createResourceObject = require('../utils/createResourceObject');
 
 module.exports = mutationWithClientMutationId({
   name: 'CreateMilestoneInstance',

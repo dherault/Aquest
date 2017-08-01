@@ -1,10 +1,11 @@
 const { GraphQLNonNull, GraphQLString } = require('graphql');
 const { mutationWithClientMutationId, cursorForObjectInConnection } = require('graphql-relay');
-const IndividualsType = require('../customTypes/IndividualsType');
-const createResourceObject = require('../utils/createResourceObject');
-const ensureAuth = require('../utils/ensureAuth');
-const { query, createResource } = require('../db');
+
 const _ = require('../graph');
+const { query, createResource } = require('../db');
+const IndividualsType = require('../customTypes/IndividualsType');
+const ensureAuth = require('../utils/ensureAuth');
+const createResourceObject = require('../utils/createResourceObject');
 
 module.exports = mutationWithClientMutationId({
   name: 'CreateVocation',

@@ -2,10 +2,12 @@ const { GraphQLNonNull, GraphQLString } = require('graphql');
 const { mutationWithClientMutationId } = require('graphql-relay');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
-const createResourceObject = require('../utils/createResourceObject');
-const { query, createResource } = require('../db');
+
 const _ = require('../graph');
 const { createToken } = require('../auth');
+const { query, createResource } = require('../db');
+const ValidationError = require('../utils/ValidationError');
+const createResourceObject = require('../utils/createResourceObject');
 
 module.exports = mutationWithClientMutationId({
   name: 'CreateUser',
@@ -34,9 +36,9 @@ module.exports = mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload({ email, password, pseudo, description }, context) {
-    if (password.length < 6) throw new Error('Invalid password');
-    if (!validator.isEmail(email)) throw new Error('Invalid email');
-    if (typeof pseudo === 'string' && pseudo.length < 3) throw new Error('Pseudo too short');
+    if (password.length < 6) throw new ValidationError('Invalid password');
+    if (!validator.isEmail(email)) throw new ValidationError('Invalid email');
+    if (typeof pseudo === 'string' && pseudo.length < 3) throw new ValidationError('Pseudo too short');
 
     const normalizedEmail = validator.normalizeEmail(email);
 
@@ -45,7 +47,7 @@ module.exports = mutationWithClientMutationId({
       .findOne({ email: normalizedEmail })
     )
     .then(result => {
-      if (result) throw new Error('Email already in use');
+      if (result) throw new ValidationError('Email already in use');
 
       return bcrypt.hash(password, 10).then(passwordHash => {
         const user = createResourceObject('User', context, {

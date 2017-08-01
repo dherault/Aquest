@@ -2,9 +2,11 @@ const { GraphQLNonNull, GraphQLString } = require('graphql');
 const { mutationWithClientMutationId } = require('graphql-relay');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
+
+const _ = require('../graph');
 const { query } = require('../db');
 const { createToken } = require('../auth');
-const _ = require('../graph');
+const ValidationError = require('../utils/ValidationError');
 
 module.exports = mutationWithClientMutationId({
   name: 'Login',
@@ -27,17 +29,17 @@ module.exports = mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload({ email, password }, context) {
-    if (!validator.isEmail(email)) throw new Error('Invalid email');
+    if (!validator.isEmail(email)) throw new ValidationError('Invalid email');
 
     return query(db => db
       .collection('User')
       .findOne({ email: validator.normalizeEmail(email) })
     )
     .then(user => {
-      if (!user) throw new Error('Email not found');
+      if (!user) throw new ValidationError('Email not found');
 
       return bcrypt.compare(password, user.passwordHash).then(isPasswordCorrect => {
-        if (!isPasswordCorrect) throw new Error('Incorrect password');
+        if (!isPasswordCorrect) throw new ValidationError('Incorrect password');
 
         context.viewer = user; // eslint-disable-line no-param-reassign
 

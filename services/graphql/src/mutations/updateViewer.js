@@ -2,9 +2,11 @@ const { GraphQLString, GraphQLBoolean } = require('graphql');
 const { mutationWithClientMutationId } = require('graphql-relay');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
-const ensureAuth = require('../utils/ensureAuth');
-const { query } = require('../db');
+
 const _ = require('../graph');
+const { query } = require('../db');
+const ensureAuth = require('../utils/ensureAuth');
+const ValidationError = require('../utils/ValidationError');
 
 module.exports = mutationWithClientMutationId({
   name: 'UpdateViewer',
@@ -39,7 +41,7 @@ module.exports = mutationWithClientMutationId({
     let normalizedEmail;
 
     if (typeof email === 'string') {
-      if (!validator.isEmail(email)) throw new Error('Invalid email');
+      if (!validator.isEmail(email)) throw new ValidationError('Invalid email');
 
       normalizedEmail = validator.normalizeEmail(email);
 
@@ -49,13 +51,13 @@ module.exports = mutationWithClientMutationId({
     }
 
     if (typeof pseudo === 'string' && pseudo !== viewer.pseudo) {
-      if (pseudo.length < 3) throw new Error('Pseudo too short');
+      if (pseudo.length < 3) throw new ValidationError('Pseudo too short');
 
       pseudoCheck = query(db => db.collection('User').findOne({ pseudo }));
     }
 
     if (typeof password === 'string') {
-      if (password.length < 6) throw new Error('Invalid password');
+      if (password.length < 6) throw new ValidationError('Invalid password');
 
       passwordHashing = bcrypt.hash(password, 10);
     }
@@ -67,8 +69,8 @@ module.exports = mutationWithClientMutationId({
     ])
     .then(([userWithEmail, userWithPseudo, passwordHash]) => {
 
-      if (userWithEmail) throw new Error('Email already exists');
-      if (userWithPseudo) throw new Error('Pseudo already exists');
+      if (userWithEmail) throw new ValidationError('Email already exists');
+      if (userWithPseudo) throw new ValidationError('Pseudo already exists');
 
       const $set = {};
 

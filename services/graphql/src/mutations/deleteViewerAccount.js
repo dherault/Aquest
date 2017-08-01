@@ -1,7 +1,8 @@
 const { GraphQLString } = require('graphql');
 const { mutationWithClientMutationId } = require('graphql-relay');
-const ensureAuth = require('../utils/ensureAuth');
+
 const { query } = require('../db');
+const ensureAuth = require('../utils/ensureAuth');
 
 module.exports = mutationWithClientMutationId({
   name: 'DeleteViewerAccount',
