@@ -1,4 +1,4 @@
-const { GraphQLString, GraphQLInt } = require('graphql');
+const { GraphQLNonNull, GraphQLString, GraphQLInt, GraphQLBoolean } = require('graphql');
 const { connectionFromPromisedArray } = require('graphql-relay');
 const { query } = require('./db');
 const _ = require('./graph');
@@ -17,6 +17,21 @@ _.addFieldOnObjectType('http://foo.com#User', 'storyCount', {
   resolve: (source, args, { viewer }) => query(db => db
     .collection('Story')
     .count({ sourceUser: viewer.id })
+  ),
+});
+
+// Add user's milestone quick access
+_.addFieldOnObjectType('http://foo.com#User', 'hasReachedMilestone', {
+  type: GraphQLBoolean,
+  args: {
+    milestoneId: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+  },
+  resolve: (source, { milestoneId }, { viewer }) => query(db => db
+    .collection('MilestoneInstance')
+    .findOne({ sourceUser: viewer.id, milestone: milestoneId })
+    .then(milestoneInstance => !!milestoneInstance)
   ),
 });
 
