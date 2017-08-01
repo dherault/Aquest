@@ -13,8 +13,6 @@ class AuthBouncer extends Component {
 
   bounce() {
     if (!this.props.viewer) {
-      console.log('Not auth, redirecting...');
-
       const redirection = encodeURIComponent(this.context.router.route.location.pathname);
 
       this.context.router.history.replace(`/login?r=${redirection}`);

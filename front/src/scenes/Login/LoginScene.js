@@ -8,6 +8,8 @@ import loginUser from '../../mutations/LoginUserMutation';
 import DiskImage from '../../components/DiskImage';
 import Footer from '../../components/Footer';
 
+import profileLocationFor from '../../utils/profileLocationFor';
+
 class LoginScene extends Component {
   state = { email: 'yolo@gmail.com', password: 'yodoyodo' }
 
@@ -36,7 +38,7 @@ class LoginScene extends Component {
           <div style={{ marginBottom: '2rem', textAlign: 'center' }}>
             You are already logged in as {viewer.pseudo}.
             <br />
-            <Link to={`~${window.encodeURIComponent(viewer.pseudo)}`}>Go to profile</Link>
+            <Link to={profileLocationFor(viewer)}>Go to profile</Link>
           </div>
         )}
 

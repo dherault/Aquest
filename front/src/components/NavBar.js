@@ -4,6 +4,8 @@ import { createFragmentContainer, graphql } from 'react-relay';
 
 import DiskImage from './DiskImage';
 
+import profileLocationFor from '../utils/profileLocationFor';
+
 const sNav = {
   position: 'relative',
   height: '5rem',
@@ -55,7 +57,7 @@ class NavBar extends Component {
     const { viewer } = this.props;
     const { searchText, isMenuOpen } = this.state;
 
-    const viewerProfileLocation = `/~${window.encodeURIComponent(viewer.pseudo)}`;
+    const viewerProfileLocation = profileLocationFor(viewer);
 
     return (
       <div>
