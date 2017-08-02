@@ -7,7 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js",
-    "dev": "npm run dev-build & npm run dev-server",
+    "dev": "npm run dev-db & npm run dev-build & npm run dev-server",
+    "dev-db": "sudo service mongod start",
     "dev-server": "./node_modules/.bin/nodemon --watch . --watch ../../ontology -e js,json,ttl src/index.js",
     "dev-build": "./node_modules/.bin/nodemon --watch ../../ontology --watch . -e js,ttl scripts/printSchema.js",
     "build": "node scripts/printSchema.js"
