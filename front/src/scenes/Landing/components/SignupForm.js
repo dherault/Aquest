@@ -6,6 +6,8 @@ import createUser from '../../../mutations/CreateUserMutation';
 const sSignupForm = {
   minWidth: '40vw',
   padding: '1rem',
+  backgroundColor: 'white',
+  color: 'black',
   boxShadow: '0px 3px 10px 0px rgba(0,0,0,0.50)',
 };
 
