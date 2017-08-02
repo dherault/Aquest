@@ -19,9 +19,21 @@ const sDone = {
   transition: 'opacity 2s',
 };
 
+const initialState = process.env.NODE_ENV === 'production' ? {
+  email: '',
+  password: '',
+  hasAgreed: false,
+  done: false,
+} : {
+  email: `x${Math.random().toString().slice(2)}@dev.com`,
+  password: 'yodoyodo',
+  hasAgreed: true,
+  done: false,
+};
+
 class SignupForm extends Component {
 
-  state = { email: '', password: '', hasAgreed: false, done: false }
+  state = initialState
 
   createInputHandler = key => e => this.setState({ [key]: e.target.value })
 

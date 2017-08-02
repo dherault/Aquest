@@ -12,8 +12,10 @@ import Footer from '../../components/Footer';
 
 import profileLocationFor from '../../utils/profileLocationFor';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 class LoginScene extends Component {
-  state = { email: 'yolo@gmail.com', password: 'yodoyodo' }
+  state = isProduction ? { email: '', password: '' } : { email: 'yolo@gmail.com', password: 'yodoyodo' }
 
   createInputHandler = key => e => this.setState({ [key]: e.target.value })
 
