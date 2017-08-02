@@ -6,7 +6,7 @@
   "license": "MIT",
   "dependencies": {
     "bulma": "^0.4.3",
-    "flexpad": "0.0.1",
+    "flexpad": "^0.0.2",
     "moment": "^2.18.1",
     "prop-types": "^15.5.10",
     "query-string": "^4.3.4",
