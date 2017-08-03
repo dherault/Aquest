@@ -4,9 +4,18 @@
   "private": true,
   "author": "David Hérault <dherault@gmail.com> (https://github.com/dherault)",
   "license": "MIT",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "dev": "npm start & npm run dev-relay",
+    "dev-relay": "npm run relay -- --watch",
+    "relay": "node_modules/.bin/relay-compiler --src ./src --schema ../dist/schema.graphql"
+  },
   "dependencies": {
     "bulma": "^0.4.3",
-    "flexpad": "^0.0.2",
+    "flexpad": "^0.1.0",
     "moment": "^2.18.1",
     "prop-types": "^15.5.10",
     "query-string": "^4.3.4",
@@ -17,15 +26,6 @@
     "react-router-dom": "^4.1.1",
     "react-scripts": "1.0.10",
     "validator": "^8.0.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "dev": "npm start & npm run dev-relay",
-    "dev-relay": "npm run relay -- --watch",
-    "relay": "node_modules/.bin/relay-compiler --src ./src --schema ../dist/schema.graphql"
   },
   "devDependencies": {
     "babel-plugin-relay": "^1.1.0",

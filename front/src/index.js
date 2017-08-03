@@ -1,4 +1,4 @@
-import 'flexpad/flexpad.css';
+import 'flexpad/dist/flexpad.min.css';
 import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
