@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import createUser from '../../../mutations/CreateUserMutation';
+
+import Button from '../../../components/Button';
 
 const sSignupForm = {
   minWidth: '40vw',
@@ -72,21 +75,44 @@ class SignupForm extends Component {
     return (
       <form onSubmit={this.handleSubmit} style={sSignupForm}>
         <div style={{ ...sDone, zIndex: done ? 999 : -1, opacity: done ? 1 : 0 }} />
+
         <div>
-          <label>Email</label>
-          <input type="text" value={email} onChange={this.createInputHandler('email')} />
+          <label htmlFor="emailInput">
+            Email
+          </label>
+          <input
+            id="emailInput"
+            type="text"
+            value={email}
+            onChange={this.createInputHandler('email')}
+          />
         </div>
         <div>
-          <label>Password</label>
-          <input type="password" value={password} onChange={this.createInputHandler('password')} />
+          <label htmlFor="passwordInput">
+            Password
+          </label>
+          <input
+            id="passwordInput"
+            type="password"
+            value={password}
+            onChange={this.createInputHandler('password')}
+          />
         </div>
         <div>
-          <input type="checkbox" checked={hasAgreed} onChange={() => this.setState({ hasAgreed: !hasAgreed })} />
-          <label className="label-inline">I agree to the Aquest <Link to="/terms_of_services">Terms of services</Link> and <Link to="/privacy_policy">Privacy policy</Link>.</label>
+          <input
+            id="termsCheckbox"
+            type="checkbox"
+            checked={hasAgreed}
+            onChange={() => this.setState({ hasAgreed: !hasAgreed })}
+          />
+          <label htmlFor="termsCheckbox" className="label-inline">
+            I agree to the Aquest <Link to="/terms_of_services">Terms of services</Link> and <Link to="/privacy_policy">Privacy policy</Link>.
+          </label>
         </div>
-        <input
-          type="submit"
-          value="start adventure!"
+
+        <Button
+          onClick={this.handleSubmit}
+          label="Start adventure"
           disabled={!this.validateInputs()}
         />
       </form>
