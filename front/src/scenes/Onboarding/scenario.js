@@ -1,30 +1,24 @@
-import React from 'react';
+// import React from 'react';
 
-export default [
-  {
-    fin: 1000,
-    fout: 1000,
-    duration: 5000,
-    className: 'y8',
-    children: [
-      {
-        always: true,
-        node: () => <h1>Aquest Technologies presents</h1>,
-      },
-      {
-        fin: 1000,
-        delay: 2000,
-        node: () => <div>(We do not have any sound yes so please sing epic intro music out loud)</div>,
-      },
-    ],
+const wait = duration => () => new Promise(_ => setTimeout(_, duration));
+
+const sequence = promisers => {
+  if (!promisers.length) return Promise.resolve();
+
+  const firstPromiser = promisers.shift();
+
+  return firstPromiser().then(() => sequence(promisers));
+};
+
+const scenario = {
+  start(actors, state, next) {
+
+    sequence([
+      actors.aquestPresents.mount,
+      wait(100),
+      () => actors.aquestPresents.setStyle({ opacity: 1 }),
+    ]);
   },
-  {
-    delay: 500,
-    fin: 1000,
-    fout: 1000,
-    duration: 4000,
-    // always: true,
-    className: 'y8',
-    node: () => <h1>Aquest</h1>,
-  },
-];
+};
+
+export default scenario;
