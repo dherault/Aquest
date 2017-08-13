@@ -30,6 +30,7 @@
     "import/no-extraneous-dependencies": "off",
     "react/jsx-filename-extension": "off",
     "react/prop-types": "off",
+    "react/sort-comp": "off",
   },
   "env": {
     "browser": true,
