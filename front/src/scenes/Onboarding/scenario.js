@@ -1,24 +1,10 @@
-// import React from 'react';
+import { P1 } from './casting';
 
-const wait = duration => () => new Promise(_ => setTimeout(_, duration));
-
-const sequence = promisers => {
-  if (!promisers.length) return Promise.resolve();
-
-  const firstPromiser = promisers.shift();
-
-  return firstPromiser().then(() => sequence(promisers));
-};
-
-const scenario = {
-  start(actors, state, next) {
-
-    sequence([
-      actors.aquestPresents.mount,
-      wait(100),
-      () => actors.aquestPresents.setStyle({ opacity: 1 }),
-    ]);
+export default {
+  start(_) {
+    _.wait(0);
+    _.show(P1);
+    _.wait(2000);
+    _.hide(P1);
   },
 };
-
-export default scenario;
