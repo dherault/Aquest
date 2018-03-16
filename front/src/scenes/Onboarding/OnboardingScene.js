@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
-import { Shooting } from 'menestrel';
-import scenario from './scenario';
-import { casting } from './casting';
+// import { Shooting } from 'menestrel';
+// import scenario from './scenario';
+// import { casting } from './casting';
 
 class OnboardingScene extends Component {
 
   render() {
     return (
-      <Shooting
-        casting={casting}
-        scenario={scenario}
-        className="y5 has-black-background has-white-color has-screen-height"
-      />
+      <div />
+      // <Shooting
+      //   casting={casting}
+      //   scenario={scenario}
+      //   className="y5 has-black-background has-white-color has-screen-height"
+      // />
     );
   }
 }
