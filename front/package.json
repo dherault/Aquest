@@ -14,21 +14,22 @@
     "relay": "node_modules/.bin/relay-compiler --src ./src --schema ../dist/schema.graphql"
   },
   "dependencies": {
-    "bulma": "^0.4.3",
-    "menestrel": "^1.0.0",
-    "moment": "^2.18.1",
-    "prop-types": "^15.5.10",
-    "query-string": "^4.3.4",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-relay": "^1.1.0",
-    "react-router": "^4.1.1",
-    "react-router-dom": "^4.1.1",
-    "react-scripts": "1.0.10",
-    "validator": "^8.0.0"
+    "bulma": "^0.7.1",
+    "flexpad": "^0.1.1",
+    "moment": "^2.22.1",
+    "prop-types": "^15.6.1",
+    "query-string": "^6.1.0",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-relay": "^1.6.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.4",
+    "validator": "^10.2.0"
   },
   "devDependencies": {
-    "babel-plugin-relay": "^1.1.0",
-    "relay-compiler": "^1.1.0"
+    "babel-plugin-relay": "^1.6.0",
+    "graphql": "^0.13.2",
+    "relay-compiler": "^1.6.0"
   }
 }

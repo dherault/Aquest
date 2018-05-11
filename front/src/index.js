@@ -1,5 +1,5 @@
-import 'flexpad/dist/flexpad.min.css';
 import './index.css';
+import 'flexpad/dist/flexpad.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';

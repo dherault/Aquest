@@ -16,22 +16,22 @@
   "author": "David Hérault <dherault@gmail.com> (https://github.com/dherault)",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^1.0.2",
-    "body-parser": "^1.17.2",
-    "cors": "^2.8.3",
-    "express": "^4.15.3",
-    "express-graphql": "^0.6.6",
-    "express-jwt": "^5.3.0",
-    "graphql": "^0.10.3",
-    "graphql-relay": "^0.5.2",
-    "jsonwebtoken": "^7.4.1",
-    "mongodb": "^2.2.30",
+    "bcrypt": "^2.0.1",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "express-graphql": "^0.6.12",
+    "express-jwt": "^5.3.1",
+    "graphql": "^0.13.2",
+    "graphql-relay": "^0.5.5",
+    "jsonwebtoken": "^8.2.1",
+    "mongodb": "^3.0.8",
     "semantic-graphql": "^0.6.2",
     "semantic-toolkit": "^0.2.1",
-    "uuid": "^3.1.0",
-    "validator": "^8.0.0"
+    "uuid": "^3.2.1",
+    "validator": "^10.2.0"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.17.4"
   }
 }
