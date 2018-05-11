@@ -25,6 +25,7 @@
     "no-confusing-arrow": "off",
     "no-param-reassign": "warn",
     "global-require": "off",
+    "indent": ["error", 2, { "MemberExpression": "off" }],
     "import/no-dynamic-require": "off",
     "import/first": "off",
     "import/no-extraneous-dependencies": "off",

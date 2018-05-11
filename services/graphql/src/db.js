@@ -1,13 +1,14 @@
 const { MongoClient } = require('mongodb');
 const { getLocalName } = require('semantic-toolkit');
 
-const url = 'mongodb://localhost:27017/aquest';
+const url = 'mongodb://localhost:27017';
+const dbName = 'aquest';
 
-let client;
+let db;
 
-const getDatabaseClient = () => client ? Promise.resolve(client) : (client = MongoClient.connect(url));
+const getDatabaseInstance = () => db ? Promise.resolve(db) : MongoClient.connect(url).then(dbClient => db = dbClient.db(dbName));
 
-const query = fn => getDatabaseClient().then(fn);
+const query = fn => getDatabaseInstance().then(fn);
 
 const getTypeOfIndividual = id => getLocalName(id).split('_')[0];
 
@@ -18,7 +19,7 @@ const findResources = ids => Promise.all(ids.map(findResource));
 const createResource = obj => query(db => db.collection(getTypeOfIndividual(obj.id)).insertOne(obj));
 
 module.exports = {
-  getDatabaseClient,
+  // getDatabaseInstance,
   query,
   findResource,
   findResources,
